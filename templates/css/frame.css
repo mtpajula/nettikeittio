@@ -1,0 +1,109 @@
+body {
+	margin: 0px;
+	padding: 0px;
+
+}
+
+a:link {color:DarkRed }      /* unvisited link */
+a:visited {color:FireBrick }  /* visited link */
+a:hover {color:black }  /* mouse over link */
+a:active {color:grey }  /* selected link */
+
+ul.categories li {  
+	list-style:none;  
+	display:inline;
+}
+
+ul.categories li a {
+	text-decoration:none;
+	padding:5px;
+	margin:5px;
+	outline: none;
+}
+
+ul.categories li a:link {color:white }      /* unvisited link */
+ul.categories li a:visited {color:white }  /* visited link */
+ul.categories li a:hover {color:black }  /* mouse over link */
+ul.categories li a:active {color:grey }  /* selected link */
+
+ul.categories li.active a {
+	color:black;
+}
+
+#header {
+	position: relative; 
+	top:0px;
+	padding:1em;
+	margin:0em; 
+	background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0.03, rgb(42,24,51)),
+		color-stop(0.95, rgb(158,49,158))
+	);
+	background-image: -moz-linear-gradient(
+		center bottom,
+		rgb(42,24,51) 3%,
+		rgb(158,49,158) 95%
+	);
+	color:red;
+}
+
+.menu {
+	color:white;
+	width:80%;
+	margin:auto;
+}
+
+.content {
+	padding:1em;
+	max-width:900px;
+	margin:auto;
+	border: 1px solid black;
+	overflow: auto;
+}
+
+.block {
+	float: left;
+	margin: 0.5em;
+	background:white;
+	color:black;
+	border: 1px solid black;
+}
+
+.contentblock {
+	width: 29%;
+	padding:0.5em;
+	background-color:Gainsboro;
+}
+
+.contentFrameLeft {
+	width: 30%;
+	overflow:hidden;
+}
+
+.contentFrameRight {
+	width: 65%;
+}
+
+.options {
+	float:right;
+}
+
+.center {
+	margin:0 auto;
+	text-align:center;
+}
+
+img {
+	float:left;
+}
+
+* html #main { /*IE6 hack*/
+	width: 100%; 
+}
+
+* html #header { /*IE6 hack*/
+	width: 100%;
+}

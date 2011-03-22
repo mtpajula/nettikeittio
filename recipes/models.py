@@ -7,7 +7,7 @@ class UserProfile(models.Model):
     name = models.CharField('User name', max_length=50)
     description = models.TextField('User description', max_length=1000)
     image = models.ImageField(upload_to='user_images')
-    favorites = models.ManyToManyField("Recipe")
+    favorites = models.ManyToManyField("Recipe", blank=True, null=True)
     
     def __unicode__(self):
         return 'UserProfile: ' + self.name
@@ -21,12 +21,12 @@ class Recipe(models.Model):
     owner = models.ForeignKey(UserProfile)
     name = models.CharField('Recipe full name', max_length=200)
     description = models.TextField('Recipe description', max_length=1000)
-    image = models.ImageField(upload_to='recipe_images/%Y/%m/%d')
+    image = models.ImageField(upload_to='recipe_images/%Y/%m/%d', blank=True, null=True)
     editable = models.IntegerField('Editing allowed')
     eddits = models.IntegerField('Number of times edited')
     lastedit = models.DateTimeField('Last edit date')
 
-    tags = models.ManyToManyField('Tag')
+    tags = models.ManyToManyField('Tag', blank=True, null=True)
     
     def __unicode__(self):
         return 'Recipe: ' + self.name + ' by ' + self.owner.name    
@@ -41,7 +41,7 @@ class Phase(models.Model):
     recipe = models.ForeignKey(Recipe)
 
     def __unicode__(self):
-        return 'Phase: ' + self.name + ' of ' + recipe.name 
+        return 'Phase: ' + self.name + ' of ' + self.recipe.name 
 
 class Unit(models.Model):
     name = models.CharField('Unit name', max_length=50)
@@ -63,7 +63,7 @@ class PhaseIngredient(models.Model):
     amount = models.DecimalField(max_digits=5, decimal_places=2)
 
     def __unicode__(self):
-        return 'PhaseIngredient: ' + self.ingredient.name + ' ' + self.amount + self.unit.name
+        return 'PhaseIngredient: ' + self.ingredient.name + ' in ' + self.phase.name
 
 
 # Tags

@@ -12,6 +12,9 @@ urlpatterns = patterns('',
     (r'^css/(?P<path>.*)$', 'django.views.static.serve', {
         'document_root': settings.CSS_ROOT
     }),
+    (r'^js/(?P<path>.*)$', 'django.views.static.serve', {
+        'document_root': settings.JS_ROOT
+    }),
 
 
     # Example:

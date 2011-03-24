@@ -1,36 +1,15 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
-<head>
-    <title>{% block title %}Nettikeittiö{% endblock %}</title>
-    <link rel="stylesheet" type="text/css" href="/css/main.css"></link>
-    
-</head>
-
-<body>
-
-    <div id="header">
-    Nettikeittiö
-    {% block header %}
-    {% endblock %}
-    </div>
-
-    <div id="mainnavi">
-    <ul>
-        <li><a href="/">Etusivu</a></li>
-        <li><a href="/recipes/">Reseptit</a></li>
-    </ul>
-    </div>
-
-    <div id="content">
-    {% block content %}
-    <p>No content defined from child. Zomg ;G</p>
-    {% endblock %}
-    </div>
-
-    <div id="footer">
-    Nettikeittiö 2011
-    {% block footer %}{% endblock %}
-    </div>
-
-</body>
+    <head>
+        <title>{% block title %}Nettikeittiö{% endblock %}</title>
+        <link rel="stylesheet" type="text/css" href="/css/main.css"></link>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js" type="text/javascript"></script>
+        <script src="/js/utils.js" type="text/javascript"></script>
+        
+        
+    </head>
+    <body>
+        {% block body %}
+        {% endblock %}
+    </body>
 </html>

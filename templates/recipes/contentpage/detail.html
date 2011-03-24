@@ -1,0 +1,20 @@
+{% extends "recipes/contentpage.html" %}
+
+
+{% block content %}
+  {% if recipe %}
+
+  <p class="date">Last edit: {{recipe.lastedit}}</p>
+  <h2>{{recipe.name}}</h2>
+
+  <img class="recipe_image" src="{{recipe.image}}" />
+
+  <p class="recipe_creator">Owner: {{recipe.owner.name}}</p>
+
+  <p>
+  {{recipe.description}}
+  </p>
+  {% else %}
+      <strong>No recipe found</strong>
+  {% endif %}
+{% endblock %}

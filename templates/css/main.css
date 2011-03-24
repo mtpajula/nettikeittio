@@ -15,6 +15,11 @@ div#header {
 }
 
 div#mainnavi {
+
+    width: 15%;
+    float: left;
+    clear: none;
+    
     border: solid #000000 1px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -23,14 +28,12 @@ div#mainnavi {
     margin: 0.5em 0;
 }
 
-div#mainnavi ul {
+div#mainnavi div.navibar {
     margin: 0;
     padding: 0.3em 1em;
 }
-div#mainnavi li {
-    display: inline;
-    margin: 0 2em 0 0;
-    padding: 0;
+div#mainnavi div.navibar ul {
+    
 }
 
 div#footer {
@@ -48,15 +51,15 @@ div#content {
 }
 
 .listresult {
-	float: left;
+    float: left;
     width: 29%;
-	margin: 0.5em;
+    margin: 0.5em;
     padding: 0.5em;
 
-	background: #bbb;
-	color:black;
+    background: #bbb;
+    color:black;
 
-	border: 1px solid black;
+    border: 1px solid black;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
 }

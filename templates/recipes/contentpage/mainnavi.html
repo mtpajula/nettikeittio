@@ -1,0 +1,49 @@
+<script type="text/javascript">
+$(document).ready(function() {
+    $("div.navibar ul").hide()
+    // Subnavi links load content
+    .each(function() {
+        $(this).find("a").each(function() {
+            nk_ajaxify_link(this, "#content");
+        });
+    });
+
+    // Navibar main links toggle subnavi visibility
+    $("div.navibar > a:first-child").click(function() {
+        var $this = $(this);
+        var ul = $this.siblings("ul");
+
+        if(ul.is(":visible")) {
+            ul.slideUp('fast');
+        } else {
+            ul.slideDown('fast');
+        }
+
+        return false;
+    });
+});
+</script>
+
+<div class="navibar">
+    <a href="#">Reseptit</a>
+    <ul>
+        <li><a href="/recipes/">Reseptilistaus</a></li>
+        <li><a href="/">Joku muu</a></li>
+    </ul>
+</div>
+
+<div class="navibar">
+    <a href="#">Oma</a>
+    <ul>
+    <li><a href="/">Etusivu</a></li>
+    <li><a href="/">Reseptit</a></li>
+    </ul>        
+</div>
+
+<div class="navibar">
+    <a href="#">Hae</a>
+    <ul>
+    <li><a href="/">Käyttäjiä</a></li>
+    <li><a href="/">Reseptejä</a></li>
+    </ul>        
+</div>

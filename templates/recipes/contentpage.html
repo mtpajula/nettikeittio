@@ -1,0 +1,29 @@
+{% extends "recipes/base.html" %}
+
+{% block body %}
+
+
+<div id="header">
+Nettikeittiö
+{% block header %}
+{% endblock %}
+</div>
+
+<div id="mainnavi">
+{% block mainnavi %}
+{% include "recipes/contentpage/mainnavi.html" %}
+{% endblock %}
+</div>
+
+<div id="content">
+{% block content %}
+<p>No content defined from child. Zomg ;G</p>
+{% endblock %}
+</div>
+
+<div id="footer">
+Nettikeittiö 2011
+{% block footer %}{% endblock %}
+</div>
+
+{% endblock %}

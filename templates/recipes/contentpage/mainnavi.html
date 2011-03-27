@@ -1,12 +1,33 @@
 <script type="text/javascript">
 $(document).ready(function() {
     $("div.navibar ul").hide()
+    $("div.linkbar ul").show()
+    $("div.linkbar").hide()
     // Subnavi links load content
     .each(function() {
         $(this).find("a").each(function() {
             nk_ajaxify_link(this, "#content");
         });
     });
+    
+    $( "div.mainlink a" ).toggle(
+        function() {
+            //$("div.linkbar").hide("drop", { direction: "left" }, 1000);
+            $( "div.linkbar" ).animate({
+                backgroundColor: "#fff",
+                color: "#fff",
+                width: "hide"
+            }, 1000 );
+        },
+        function() {
+            //$("div.linkbar").show("slide", { direction: "left" }, 1000);
+            $( "div.linkbar" ).animate({
+                backgroundColor: "#aa0000",
+                color: "#000",
+                width: "show"
+            }, 1000 );
+        }
+    );
 
     // Navibar main links toggle subnavi visibility
     $("div.navibar > a:first-child").click(function() {
@@ -26,7 +47,7 @@ $(document).ready(function() {
 
 <div class="navibar">
     <a href="#">Reseptit</a>
-    <ul>
+    <ul class="link">
         <li><a href="/recipes/">Reseptilistaus</a></li>
         <li><a href="/">Joku muu</a></li>
     </ul>
@@ -34,16 +55,20 @@ $(document).ready(function() {
 
 <div class="navibar">
     <a href="#">Oma</a>
-    <ul>
-    <li><a href="/">Etusivu</a></li>
-    <li><a href="/">Reseptit</a></li>
+    <ul class="link">
+        <li><a href="/">Etusivu</a></li>
+        <li><a href="/">Reseptit</a></li>
     </ul>        
 </div>
 
-<div class="navibar">
-    <a href="#">Hae</a>
-    <ul>
-    <li><a href="/">Käyttäjiä</a></li>
-    <li><a href="/">Reseptejä</a></li>
-    </ul>        
+<div id="test" class="navibar">
+    <div class="mainlink dark">
+        <a href="#">Hae</a>
+    </div>
+    <div class="linkbar dark">
+        <ul class="link">
+            <li><a href="/">Käyttäjiä</a></li>
+            <li><a href="/">Reseptejä</a></li>
+        </ul>
+    </div>
 </div>

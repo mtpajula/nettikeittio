@@ -1,65 +1,94 @@
 body {
-    background: #ffffff;
+    margin: 0;
+    padding: 0;
     font-family: Georgia;
+}
 
-    margin: 0;
+.top {
+    z-index:1;
+}
+
+a:link {color:Navy }      /* unvisited link */
+a:visited {color:blue }  /* visited link */
+a:hover {color:black }  /* mouse over link */
+a:active {color:CornflowerBlue }  /* selected link */
+
+.dark a:link {color:white }      /* unvisited link */
+.dark a:visited {color:white }  /* visited link */
+.dark a:hover {color:black }  /* mouse over link */
+.dark a:active {color:grey }  /* selected link */
+
+div.navibar {
+    border: solid black 1px;
     padding: 1em;
+    margin: 1em;
+    overflow: auto;
+    display:block;
 }
 
-div#header {
-    border: solid #000000 1px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    padding: 0.5em;
-    font-size: 110%;
+div.navibar > div {
+    margin-left: auto;
+    margin-right: auto;
+    float:left;
+    padding: 1em;
+    text-align:center;
+    vertical-align: middle;
+    height: 3em;
 }
 
-div#mainnavi {
+div.navibar > div.mainlink {
+    width: 100px;
+}
 
-    width: 15%;
+div.navibar > div.linkbar {
+    width: 80%;
+}
+
+div.navibar > div.linkbar > a {
     float: left;
-    clear: none;
-    
-    border: solid #000000 1px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-
-    overflow: auto;
-    margin: 0.5em 0;
 }
 
-div#mainnavi div.navibar {
-    margin: 0;
-    padding: 0.3em 1em;
-}
-div#mainnavi div.navibar ul {
-    
+div.navibar#test > div {
+    background:#aa0000;
+    z-index:2;
 }
 
-div#footer {
-    border: solid #999 1px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-
-    font-size: 80%;
-    color: #666;
-    padding: 0.3em;
+ul.link li {  
+    list-style:none;  
+    display:inline;
 }
 
-div#content {
-    overflow: auto;
+.dark {
+    background:grey;
+    color: white;
 }
 
 .listresult {
     float: left;
-    width: 29%;
+    width: 30%;
     margin: 0.5em;
     padding: 0.5em;
-
     background: #bbb;
     color:black;
-
     border: 1px solid black;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
+}
+
+div#content {
+    position:absolute;
+    left:20em;
+    right:1em;
+    top:3em;
+    /*padding: 1em;
+    margin: 1em;
+    overflow: auto;*/
+}
+
+div#footer {
+    font-size: 80%;
+    color: #666;
+    padding: 0.3em;
+    margin: 1em;
+    text-align:center;
 }

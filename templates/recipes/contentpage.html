@@ -1,7 +1,10 @@
 {% extends "recipes/base.html" %}
 
-{% block body %}
+{% block headMore %}
+<link rel="stylesheet" type="text/css" href="/css/contentpage.css"></link>
+{% endblock %}
 
+{% block body %}
 
 <div id="header">
 Nettikeittiö
@@ -15,11 +18,17 @@ Nettikeittiö
 {% endblock %}
 </div>
 
+<div id="navibar">
+{% include "recipes/contentpage/navibar.html" %}
+</div>
+
 <div id="content" class="dark">
 {% block content %}
-<p>No content defined from child. Zomg ;G</p>
+<p>Demoreseptit!</p>
 {% endblock %}
 </div>
+
+
 
 <div id="footer">
 Nettikeittiö 2011

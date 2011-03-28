@@ -12,19 +12,20 @@ $(document).ready(function() {
     
     $( "div.mainlink a" ).toggle(
         function() {
-            //$("div.linkbar").hide("drop", { direction: "left" }, 1000);
-            $( "div.linkbar" ).animate({
-                backgroundColor: "#fff",
-                color: "#fff",
-                width: "hide"
+            var naviId = $(this).parent().parent().attr('id');;
+            //$("div.linkbar").show("slide", { direction: "left" }, 1000);
+            $( "div.navibar#"+naviId+" > div.linkbar" ).animate({
+                width: "show",
+                opacity:1
             }, 1000 );
         },
         function() {
-            //$("div.linkbar").show("slide", { direction: "left" }, 1000);
-            $( "div.linkbar" ).animate({
-                backgroundColor: "#aa0000",
-                color: "#000",
-                width: "show"
+            
+            var naviId = $(this).parent().parent().attr('id');
+            //$("div.linkbar").hide("drop", { direction: "left" }, 1000);
+            $( "div.navibar#"+naviId+" > div.linkbar" ).animate({
+                width: "hide",
+                opacity:0
             }, 1000 );
         }
     );
@@ -44,7 +45,7 @@ $(document).ready(function() {
     });
 });
 </script>
-
+<!--
 <div class="navibar">
     <a href="#">Reseptit</a>
     <ul class="link">
@@ -60,15 +61,22 @@ $(document).ready(function() {
         <li><a href="/">Reseptit</a></li>
     </ul>        
 </div>
+-->
 
-<div id="test" class="navibar">
+<div id="navi1" class="navibar">
+    <div class="mainlink dark">
+        <a href="#">Reseptit</a>
+    </div>
+</div>
+
+<div id="navi2" class="navibar">
+    <div class="mainlink dark">
+        <a href="#">Oma</a>
+    </div>
+</div>
+
+<div id="navi3" class="navibar">
     <div class="mainlink dark">
         <a href="#">Hae</a>
-    </div>
-    <div class="linkbar dark">
-        <ul class="link">
-            <li><a href="/">Käyttäjiä</a></li>
-            <li><a href="/">Reseptejä</a></li>
-        </ul>
     </div>
 </div>

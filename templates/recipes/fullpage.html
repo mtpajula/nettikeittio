@@ -1,5 +1,84 @@
 {% extends "recipes/base.html" %}
 
+{% block headMore %}
+<link rel="stylesheet" type="text/css" href="/css/fullpage.css"></link>
+{% endblock %}
+
 {% block body %}
-full page
+
+<script type="text/javascript">
+$(document).ready(function() {
+    
+    });
+</script>
+
+<div id="header">
+{% block header %}
+{% include "recipes/fullpage/header.html" %}
+{% endblock %}
+</div>
+
+
+{% block fullcontent %}
+<div id="fullcontent">
+
+        <div id="frameLeft">
+            <div class="margin">
+                <p><a href="/">Takaisin</a></p>
+            </div>
+            <div class="step">
+                <p>Vaihe 1</p>
+            </div>
+            <div class="step active">
+                <p>Vaihe 2</p>
+            </div>
+            <div class="step">
+                <p>Vaihe 3</p>
+            </div>
+            <div class="step">
+                <p>Vaihe 4</p>
+            </div>
+        </div>
+
+        <div id="frameRight">
+            <div class="step">   
+                2 dl keitettyjä sarvimakarooneja (hörnli)
+            </div>
+            <div class="step active">
+                <div class="activepart">
+                    1 rkl<br /><span class="red">voita</span>
+                </div>
+                <div class="activepart">
+                1 dl<br /><span class="red">palvikinkkukuutioita</span>
+                </div>
+                <div class="activepart">
+                1 dl<br /><span class="red">karkeita sipulikuutioita</span>
+                </div>
+            </div>
+            <div class="step">
+                15 g raastettua appenzeller - juustoa
+                <br />
+                15 g raastettua tilsister - juustoa
+            </div>
+            <div class="step">
+                15 g raastettua parmigianoa
+                <br />
+                ½ rkl hakattua persiljaa
+            </div>
+        </div>
+
+        <div id="main">
+            <div class="margin active">
+                <p>
+                Kuumenna valurautapannu keskilämmöllä ja sulata voi.
+                Lisää pannulle palvikinkkukuutiot ja anna niiden hiukan ruskistua pannulla liikutellen.
+                Laita pannulle sipulikuutiot ja anna niiden myöskin hiukan ruskistua. Sipuli saa jäädä napakaksi, antaen näin makua mausteena.
+                Nyt sitten makaroonit joukkoon ja kääntele aineksia pannulla n. 2 - 3 minuuttia, kunnes makaroonit ovat kuumia.
+                </p>
+            </div>
+        </div>
+        
+</div>
+{% endblock %}
+
 {% endblock %}

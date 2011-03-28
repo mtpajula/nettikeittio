@@ -18,3 +18,6 @@ def list(request):
 def detail(request, recipe_id):
     recipe = get_object_or_404(Recipe, pk=recipe_id)
     return render_to_response('recipes/contentpage/detail.html', { 'recipe': recipe })
+
+def fullpage(request):
+    return render_to_response('recipes/fullpage.html', { })

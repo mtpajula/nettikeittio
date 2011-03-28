@@ -4,10 +4,6 @@ body {
     font-family: Georgia;
 }
 
-.top {
-    z-index:1;
-}
-
 a:link {color:Navy }      /* unvisited link */
 a:visited {color:blue }  /* visited link */
 a:hover {color:black }  /* mouse over link */
@@ -19,21 +15,22 @@ a:active {color:CornflowerBlue }  /* selected link */
 .dark a:active {color:grey }  /* selected link */
 
 div.navibar {
-    border: solid black 1px;
-    padding: 1em;
-    margin: 1em;
+    /*padding: 1em;
+    margin: 1em;*/
+    margin-top:2em;
     overflow: auto;
     display:block;
+    /*border: 1px solid red;*/
+    height:5em;
 }
 
 div.navibar > div {
-    margin-left: auto;
-    margin-right: auto;
     float:left;
     padding: 1em;
     text-align:center;
     vertical-align: middle;
-    height: 3em;
+    height: 50%;
+    /*border: 1px solid black;*/
 }
 
 div.navibar > div.mainlink {
@@ -41,20 +38,28 @@ div.navibar > div.mainlink {
 }
 
 div.navibar > div.linkbar {
+    /*margin-top:1em;*/
     width: 80%;
+    position:relative;
+    z-index:100;
 }
 
 div.navibar > div.linkbar > a {
     float: left;
 }
 
-div.navibar#test > div {
+div#navi1 > div {
+    background:SlateGray;
+}
+div#navi2 > div {
+    background:black;
+}
+div#navi3 > div {
     background:#aa0000;
-    z-index:2;
 }
 
 ul.link li {  
-    list-style:none;  
+    list-style:none;
     display:inline;
 }
 
@@ -75,14 +80,24 @@ ul.link li {
     -moz-border-radius: 10px;
 }
 
+div#header {
+    overflow: auto;
+    border: 1px solid black;
+    padding: 1em;
+}
+
+div#mainnavi {
+    float:left;
+}
+
 div#content {
-    position:absolute;
-    left:20em;
-    right:1em;
-    top:3em;
-    /*padding: 1em;
+    position: absolute;
+    top:3.5em;
+    left:12em;
+    right:2em;
+    padding: 1em;
     margin: 1em;
-    overflow: auto;*/
+    overflow: auto;
 }
 
 div#footer {

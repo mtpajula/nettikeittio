@@ -8,6 +8,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     (r'^/*$', 'recipes.views.base'),
     (r'^recipes/$', 'recipes.views.list'),
+    (r'^fullpage/$', 'recipes.views.fullpage'),
     (r'^recipes/(?P<recipe_id>\d+)/$', 'recipes.views.detail'),
     (r'^css/(?P<path>.*)$', 'django.views.static.serve', {
         'document_root': settings.CSS_ROOT

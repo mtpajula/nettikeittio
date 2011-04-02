@@ -65,7 +65,7 @@ div#header {
     margin: 1em; /*Margins for inner DIV inside each DIV (to provide padding)*/
 }
 
-.phase {
+.phase, .phase_name, .phase_dscr, .phase_ingredients {
     background-color: gainsboro;
     color:black;
     padding:5px;

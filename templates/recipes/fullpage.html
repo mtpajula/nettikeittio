@@ -9,7 +9,7 @@
 <script type="text/javascript">
 $(document).ready(function() {
     
-    });
+});
 </script>
 
 <div id="header">
@@ -23,52 +23,76 @@ $(document).ready(function() {
 <div id="fullcontent">
 
         <div id="frameLeft">
-            <div class="margin">
-                <p><a href="/">Takaisin</a></p>
+            <div class="phase">
+                <a href="#">Vaihe 1</a>
             </div>
-            <div class="step">
-                <p>Vaihe 1</p>
+            <div class="phase active">
+                <a href="#">Vaihe 2</a>
             </div>
-            <div class="step active">
-                <p>Vaihe 2</p>
+            <div class="phase">
+                <a href="#">Vaihe 3</a>
             </div>
-            <div class="step">
-                <p>Vaihe 3</p>
-            </div>
-            <div class="step">
-                <p>Vaihe 4</p>
+            <div class="phase">
+                <a href="#">Vaihe 4</a>
             </div>
         </div>
 
         <div id="frameRight">
-            <div class="step">   
-                2 dl keitettyjä sarvimakarooneja (hörnli)
-            </div>
-            <div class="step active">
-                <div class="activepart">
-                    1 rkl<br /><span class="red">voita</span>
-                </div>
-                <div class="activepart">
-                1 dl<br /><span class="red">palvikinkkukuutioita</span>
-                </div>
-                <div class="activepart">
-                1 dl<br /><span class="red">karkeita sipulikuutioita</span>
+            <div class="phase">
+                <div class="ingredient">
+                    <span class="amount">2</span>
+                    <span class="unit">dl</span>
+                    <span class="name">keitettyjä sarvimakarooneja (hörnli)</span>
                 </div>
             </div>
-            <div class="step">
-                15 g raastettua appenzeller - juustoa
-                <br />
-                15 g raastettua tilsister - juustoa
+            <div class="phase active">
+                <div class="ingredient">
+                    <span class="amount">1</span>
+                    <span class="unit">rkl</span>
+                    <span class="name">voita</span>
+                </div>
+                <div class="ingredient">
+                    <span class="amount">1</span>
+                    <span class="unit">dl</span>
+                    <span class="name">palvikinkkukuutioita</span>
+                </div>
+                <div class="ingredient">
+                    <span class="amount">1</span>
+                    <span class="unit">dl</span>
+                    <span class="name">karkeita sipulikuutioita</span>
+                </div>
             </div>
-            <div class="step">
-                15 g raastettua parmigianoa
-                <br />
-                ½ rkl hakattua persiljaa
+            <div class="phase">
+                <div class="ingredient">
+                    <span class="amount">15</span>
+                    <span class="unit">g</span>
+                    <span class="name">raastettua appenzeller -juustoa</span>
+                </div>
+                <div class="ingredient">
+                    <span class="amount">15</span>
+                    <span class="unit">g</span>
+                    <span class="name">raastettua tilsister -juustoa</span>
+                </div>
+            </div>
+            <div class="phase">
+                <div class="ingredient">
+                    <span class="amount">15</span>
+                    <span class="unit">g</span>
+                    <span class="name">raastettua parmigianoa</span>
+                </div>
+                <div class="ingredient">
+                    <span class="amount">0.5</span>
+                    <span class="unit">rkl</span>
+                    <span class="name">hakattua persiljaa</span>
+                </div>
             </div>
         </div>
 
         <div id="main">
-            <div class="margin active">
+            <div class="phase margin">
+                <p>vaihe 1 teksti</p>
+            </div>
+            <div class="phase active margin">
                 <p>
                 Kuumenna valurautapannu keskilämmöllä ja sulata voi.
                 Lisää pannulle palvikinkkukuutiot ja anna niiden hiukan ruskistua pannulla liikutellen.
@@ -76,8 +100,33 @@ $(document).ready(function() {
                 Nyt sitten makaroonit joukkoon ja kääntele aineksia pannulla n. 2 - 3 minuuttia, kunnes makaroonit ovat kuumia.
                 </p>
             </div>
+            <div class="phase margin">
+                <p>vaihe 3 teksti</p>
+            </div>
+            <div class="phase margin">
+                <p>vaihe 4 teksti</p>
+            </div>
         </div>
         
+</div>
+
+
+<div class="recipe">
+    <div class="recipe_name">
+    </div>
+    
+    <div class="recipe_description">
+    </div>
+    
+    <div class="recipe_phases">
+        
+        <div class="recipe_phase_0">
+            <div class="phase_dscr_0">
+            </div>
+        </div>
+        <div class="recipe_phase_1">
+        </div>
+    </div>
 </div>
 {% endblock %}
 

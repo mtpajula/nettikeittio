@@ -52,11 +52,12 @@ div#header {
 }
 
 #main {
-    position: fixed; 
+    position: fixed;
     left: 200px; /*Set left value to WidthOfLeftFrameDiv*/
     right: 400px; /*Set right value to WidthOfRightFrameDiv*/
-    bottom: 0;
-    overflow: auto; 
+    /*bottom: 0;*/
+    /*overflow: scroll;
+    max-height: 400px;*/
     background: #fff;
 }
 
@@ -64,19 +65,28 @@ div#header {
     margin: 1em; /*Margins for inner DIV inside each DIV (to provide padding)*/
 }
 
-.step {
+.phase {
     background-color: gainsboro;
     color:black;
     padding:5px;
     margin-bottom:1em;
 }
+/*
+div#main > div.phase {
+    display:none;
+}
 
+div#main > div.phase.active {
+    display:block;
+}
+*/
 .active {
     background-color: white;
     color:black;
     /*font-weight:bold;*/
     font-size:xx-large;
 }
+
 
 .red {
     color:red;

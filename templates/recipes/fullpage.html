@@ -9,8 +9,10 @@
 <script type="text/javascript">
 $(document).ready(function() {
     
+    // Hide recipe div
     $(".recipe").hide()
     
+    // Each phase decentant a and div gets it's id as a class
     $('.recipe .recipe_phase').each(function(index) {
         var id = $(this).attr('id');
         $(this).find("div, a").each(function(index) {
@@ -18,23 +20,84 @@ $(document).ready(function() {
         });
     });
     
+    // Recipe info if copied to header
+    $('.recipe').children('.recipe_name').appendTo('#showHide');
+    $('.recipe').children('.recipe_image').appendTo('#showHide');
+    $('.recipe').children('.recipe_description').appendTo('#showHide');
+    
+    // Each phase part is copied in view
     $('.recipe .recipe_phase').each(function(index) {
         $(this).children('.phase_name').appendTo('#frameLeft');
+        $(this).children('.phase_duration').appendTo('#main');
+        $(this).children('.phase_atype').appendTo('#main');
         $(this).children('.phase_dscr').appendTo('#main');
         $(this).children('.phase_ingredients').appendTo('#frameRight');
     });
     
+    // First phase is set as active
+    var id = $('div#frameLeft div:first-child a');
+    active_new(id);
+    
+    // If phase name is clicked, that phase is set as active
     $(".phase_name > a").click(function() {
-        $('div, a').removeClass('active')
-        var id = $(this).attr('class');
-        var active = '.'+id;
-        $(active).addClass('active');
+        active_new(this);
     });
     
 });
+
+// Changing active phase with keyboard arrows
+$(document).keydown(function (e) {
+    var keyCode = e.keyCode || e.which,
+        arrow = {left: 37, up: 38, right: 39, down: 40 };
+    
+    // Get Last phase number
+    var id = $('div#frameLeft div:last-child a').attr('class');
+    var splitArray = id.split('_');
+    var last_id = parseInt(splitArray[2]);
+    
+    // Get first phase number
+    var id = $('div#frameLeft div:first-child a').attr('class');
+    var splitArray = id.split('_');
+    var first_id = parseInt(splitArray[2]);
+    
+    // Get current active phase number
+    id = $('div#frameLeft div.active a').attr('class');
+    splitArray = id.split('_');
+    var current_id = parseInt(splitArray[2]);
+
+    // Change phases
+    var go, a;
+    switch (keyCode) {
+        case arrow.up:
+        case arrow.left:
+            if (current_id > first_id){
+                go = current_id - 1;
+                a = $('div#frameLeft div.recipe_phase_'+ go +' a');
+                active_new(a);
+            }
+        break;
+        case arrow.down:
+        case arrow.right:
+            if (current_id < last_id){
+                go = current_id + 1;
+                a = $('div#frameLeft div.recipe_phase_'+ go +' a');
+                active_new(a);
+            }
+        break;
+    }
+});
+
+function active_new(link) {
+    var a = $(link);
+    $('div').removeClass('active')
+    var id = $(a).attr('class');
+    var active = 'div.'+id;
+    $(active).addClass('active');
+}
+
 </script>
 
-<div id="header">
+<div id="header" class="mainColor">
 {% block header %}
 {% include "recipes/fullpage/header.html" %}
 {% endblock %}
@@ -44,16 +107,13 @@ $(document).ready(function() {
 {% block fullcontent %}
 <div id="fullcontent">
 
-        <div id="frameLeft">
-
+        <div id="frameLeft" class="ownColor">
         </div>
 
-        <div id="frameRight">
-
+        <div id="frameRight" class="searchColor">
         </div>
 
-        <div id="main">
-
+        <div id="main" class="mainColor">
         </div>
         
 </div>

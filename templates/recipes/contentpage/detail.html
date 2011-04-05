@@ -2,6 +2,7 @@
 
 
 {% block content %}
+<div id="content" class="recipeColor dark">
   {% if recipe %}
 
   <p class="date">Last edit: {{recipe.lastedit}}</p>
@@ -17,4 +18,5 @@
   {% else %}
       <strong>No recipe found</strong>
   {% endif %}
+</div>
 {% endblock %}

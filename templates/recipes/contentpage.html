@@ -6,8 +6,13 @@
 
 {% block body %}
 
-<div id="header">
-Nettikeittiö
+<div id="header" class="mainColor">
+<a href="{% url main_page %}">Nettikeittiö</a>
+{% if recipe %}
+    <a href="{% url active_view recipe_id=recipe.pk %}">Täysi näkymä</a>
+{% endif %}
+    <a href="{% url nk_help %}">Help</a>
+    <a href="/admin/">Admin</a>
 {% block header %}
 {% endblock %}
 </div>
@@ -22,11 +27,13 @@ Nettikeittiö
 {% include "recipes/contentpage/navibar.html" %}
 </div>
 
-<div id="content" class="dark">
+
 {% block content %}
+<div id="content" class="mainColor">
 <p>Demoreseptit!</p>
-{% endblock %}
 </div>
+{% endblock %}
+
 
 
 

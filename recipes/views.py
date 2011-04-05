@@ -16,7 +16,7 @@ def list_recipes(request):
     return render_to_response('recipes/contentpage/list.html', {'recipe_list': recipe_list, })
 
 def search(request):
-    return render_to_response('recipes/contentpage.html', { })
+    return render_to_response('recipes/contentpage/search.html', { })
 
 def recipe_detail(request, recipe_id):
     recipe = get_object_or_404(Recipe, pk=recipe_id)
@@ -54,5 +54,5 @@ def register(request):
     return render_to_response('recipes/contentpage.html', { })
 
 def nk_help(request):
-    return render_to_response('recipes/contentpage.html', { })
+    return render_to_response('recipes/contentpage/help.html', { })
 

@@ -7,29 +7,28 @@ body {
     max-height: 100%; 
 }
 
+div#header {
+    padding: 0.5em;
+}
+
 #topbar, #lowbar {
-    border: 1px solid black;
     overflow: auto;
 }
 
-div#topbar {
-    height:2em;
-}
-
-div#lowbar {
-    height:3em;;
+#lowbar {
+    margin: 1em;
 }
 
 div#mainAction {
     float:right;
 }
 
-div#showHide {
+div#showHideLink {
     float:left;
 }
 
 div#header {
-    height:6em;
+    overflow: auto;
 }
 
 #frameLeft, #frameRight {
@@ -38,8 +37,6 @@ div#header {
     width: 200px; /*Width of left frame div*/
     height: 100%;
     overflow: hidden; /*Disable scrollbars. Set to "scroll" to enable. To disable: hidden*/
-    background-color:rgb(42,24,51);
-    color: white;
 }
 
 #frameRight {
@@ -47,8 +44,6 @@ div#header {
     right: 0; 
     width: 400px; /*Width of right frame div*/
     /*overflow: hidden; /*Disable scrollbars. Set to "scroll" to enable*/
-    background-color:rgb(42,24,51);
-    color: white;
 }
 
 #main {
@@ -58,7 +53,6 @@ div#header {
     /*bottom: 0;*/
     /*overflow: scroll;
     max-height: 400px;*/
-    background: #fff;
 }
 
 .margin {
@@ -71,15 +65,7 @@ div#header {
     padding:5px;
     margin-bottom:1em;
 }
-/*
-div#main > div.phase {
-    display:none;
-}
 
-div#main > div.phase.active {
-    display:block;
-}
-*/
 .active {
     background-color: white;
     color:black;
@@ -87,18 +73,35 @@ div#main > div.phase.active {
     font-size:xx-large;
 }
 
-
-.red {
-    color:red;
-    margin-left:2em;
-    
+div.phase_duration, div.phase_atype {
+    visibility:hidden;
+    height:0;
 }
-.activepart {
+
+div.phase_duration {
+    float:right;
+}
+
+div.phase_atype {
+    float:left;
+}
+
+div.phase_duration.active, div.phase_atype.active {
+    visibility:visible;
+    font-size:large;
+    height:show;
+}
+
+.ingredient .name {
+    color:red;    
+}
+
+.active.ingredient {
     border-top-style:dotted;
     margin-bottom:0em;
 }
 
-.activepart:first-child {
+.active.ingredient:first-child {
     border-top: 0;
 }
 

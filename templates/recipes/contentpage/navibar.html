@@ -1,27 +1,39 @@
 
-<div id="navi1" class="navibar">
-    <div class="linkbar dark">
+<div class="navibar navi1">
+    <div class="linkbar dark recipeColor">
         <ul class="link">
-            <li><a href="/recipes/">Reseptilistaus</a></li>
-            <li><a href="/fullpage/">Aktiivinäkymä</a></li>
+            <a href="{% url new_recipe %}">Uusi</a>
+            {% if recipe %}
+                <a href="{% url edit_recipe recipe_id=recipe.pk %}">Muokkaa</a>
+                <a href="{% url edit_recipe recipe_id=recipe.pk %}">Tee uusi tämän pohjalta</a>
+            {% endif %}
         </ul>
     </div>
 </div>
 
-<div id="navi2" class="navibar">
-    <div class="linkbar dark">
+<div class="navibar navi2">
+    <div class="linkbar dark ownColor">
         <ul class="link">
-            <li><a href="/">Käyttäjiä</a></li>
-            <li><a href="/">Reseptejä</a></li>
+            {% if user.is_authenticated %}
+                <li><a href="{% url user_page user_id=user.pk %}">Sinä</a></li>
+                <li><a href="{% url edit_user user_id=user.pk %}">Sinä</a></li>
+                <li><a href="{% url nk_logout %}">logout</a></li>
+                <li><a href="{% url search %}">Omat reseptit</a></li>
+                <li><a href="{% url search %}">Omat suosikit</a></li>
+            {% endif %}
+            <li><a href="{% url new_user %}">Uusi käyttäjä</a></li>
+            <li><a href="{% url register %}">Kirjaudu sisään</a></li>
+            
         </ul>
     </div>
 </div>
 
-<div id="navi3" class="navibar">
-    <div class="linkbar dark">
+<div class="navibar navi3">
+    <div class="linkbar dark searchColor">
         <ul class="link">
-            <li><a href="/">Käyttäjiä</a></li>
-            <li><a href="/">Reseptejä</a></li>
+            <li><a href="{% url list_recipes %}">Reseptilistaus</a></li>
+            <li><a href="{% url search %}">Käyttäjiä</a></li>
+            <li><a href="{% url search %}">Reseptejä</a></li>
         </ul>
     </div>
 </div>

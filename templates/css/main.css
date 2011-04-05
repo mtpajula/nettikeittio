@@ -6,13 +6,13 @@ body {
 
 a:link {color:Navy }      /* unvisited link */
 a:visited {color:blue }  /* visited link */
-a:hover {color:black }  /* mouse over link */
-a:active {color:CornflowerBlue }  /* selected link */
+a:hover {color:CornflowerBlue }  /* mouse over link */
+a:active {color:black }  /* selected link */
 
 .dark a:link {color:white }      /* unvisited link */
 .dark a:visited {color:white }  /* visited link */
-.dark a:hover {color:black }  /* mouse over link */
-.dark a:active {color:grey }  /* selected link */
+.dark a:hover {color:grey }  /* mouse over link */
+.dark a:active {color:black }  /* selected link */
 
 div.navibar {
     /*padding: 1em;
@@ -48,14 +48,17 @@ div.navibar > div.linkbar > a {
     float: left;
 }
 
-div#navi1 > div {
-    background:SlateGray;
+div.recipeColor {
+    background:Gray;
 }
-div#navi2 > div {
+div.ownColor {
     background:black;
 }
-div#navi3 > div {
+div.searchColor {
     background:#aa0000;
+}
+div.mainColor {
+    background:White;
 }
 
 ul.link li {  
@@ -64,7 +67,6 @@ ul.link li {
 }
 
 .dark {
-    background:grey;
     color: white;
 }
 

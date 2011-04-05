@@ -1,14 +1,27 @@
+<script type="text/javascript">
+$(document).ready(function() {
+    $( "div#showHideLink a" ).toggle(
+        function() {
+            $(this).html('Piilota');
+            $("div#showHide").slideDown();
+        },
+        function() {
+            $(this).html('Suurenna');
+            $("div#showHide").slideUp();
+        }
+    );
+});
+</script>
 <div id="topbar">
-    <div id="showHide">
-        Suurenna
+    <div id="showHideLink">
+        <a href="#">Suurenna</a>
     </div>
     <div id="mainAction">
-        Alkuun
+        <a href="{% url main_page %}">Alkuun</a>
     </div>
 </div>
 
 <div id="lowbar">
-    <div id="showHide">
-        Jotain...
+    <div class="recipe" id="showHide">
     </div>
 </div>

@@ -9,6 +9,7 @@ body {
 
 div#header {
     padding: 0.5em;
+    border-bottom:1px solid black;
 }
 
 #topbar, #lowbar {

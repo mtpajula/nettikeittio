@@ -7,12 +7,16 @@
 {% block body %}
 
 <div id="header" class="mainColor">
-<a href="{% url main_page %}">Nettikeittiö</a>
-{% if recipe %}
-    <a href="{% url active_view recipe_id=recipe.pk %}">Täysi näkymä</a>
-{% endif %}
-    <a href="{% url nk_help %}">Help</a>
-    <a href="/admin/">Admin</a>
+    <div class="navibar">
+        <div class="mainColor">
+            <a href="{% url main_page %}">Nettikeittiö</a>
+            {% if recipe %}
+                <a href="{% url active_view recipe_id=recipe.pk %}">Täysi näkymä</a>
+            {% endif %}
+            <a href="{% url nk_help %}">Help</a>
+            <a href="/admin/">Admin</a>
+        </div>
+    </div>
 {% block header %}
 {% endblock %}
 </div>

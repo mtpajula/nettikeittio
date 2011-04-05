@@ -1,8 +1,3 @@
-body {
-    margin: 0;
-    padding: 0;
-    font-family: Georgia;
-}
 
 a:link {color:Navy }      /* unvisited link */
 a:visited {color:blue }  /* visited link */
@@ -14,39 +9,6 @@ a:active {color:black }  /* selected link */
 .dark a:hover {color:grey }  /* mouse over link */
 .dark a:active {color:black }  /* selected link */
 
-div.navibar {
-    /*padding: 1em;
-    margin: 1em;*/
-    margin-top:2em;
-    overflow: auto;
-    display:block;
-    /*border: 1px solid red;*/
-    height:5em;
-}
-
-div.navibar > div {
-    float:left;
-    padding: 1em;
-    text-align:center;
-    vertical-align: middle;
-    height: 50%;
-    /*border: 1px solid black;*/
-}
-
-div.navibar > div.mainlink {
-    width: 100px;
-}
-
-div.navibar > div.linkbar {
-    /*margin-top:1em;*/
-    width: 80%;
-    position:relative;
-    z-index:100;
-}
-
-div.navibar > div.linkbar > a {
-    float: left;
-}
 
 div.recipeColor {
     background:Gray;
@@ -70,42 +32,3 @@ ul.link li {
     color: white;
 }
 
-.listresult {
-    float: left;
-    width: 30%;
-    margin: 0.5em;
-    padding: 0.5em;
-    background: #bbb;
-    color:black;
-    border: 1px solid black;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-}
-
-div#header {
-    overflow: auto;
-    border: 1px solid black;
-    padding: 1em;
-}
-
-div#mainnavi {
-    float:left;
-}
-
-div#content {
-    position: absolute;
-    top:3.5em;
-    left:12em;
-    right:2em;
-    padding: 1em;
-    margin: 1em;
-    overflow: auto;
-}
-
-div#footer {
-    font-size: 80%;
-    color: #666;
-    padding: 0.3em;
-    margin: 1em;
-    text-align:center;
-}

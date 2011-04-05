@@ -19,10 +19,21 @@ def search(request):
     return render_to_response('recipes/contentpage/search.html', { })
 
 def recipe_detail(request, recipe_id):
+    
     recipe = get_object_or_404(Recipe, pk=recipe_id)
-    return render_to_response('recipes/contentpage/detail.html', { 'recipe': recipe })
+    phase_list = Phase.objects.filter(recipe = recipe)
+    #phase_list = Phase.objects.all()
+    ingredient_list = PhaseIngredient.objects.filter(phase = phase_list)
+    #ingredient_list = PhaseIngredient.objects.all()
+    
+    print phase_list
+    return render_to_response('recipes/contentpage/detail.html', {
+                                'recipe': recipe,
+                                'phase_list': phase_list,
+                                'ingredient_list': ingredient_list })
 
 def active(request, recipe_id):
+    recipe = get_object_or_404(Recipe, pk=recipe_id)
     recipe = get_object_or_404(Recipe, pk=recipe_id)
     return render_to_response('recipes/fullpage.html', { 'recipe': recipe })
 

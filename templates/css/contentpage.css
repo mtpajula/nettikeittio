@@ -50,6 +50,11 @@ div.navibar > div.linkbar > a {
     -moz-border-radius: 10px;
 }
 
+.recipe_phase {
+    border: 1px solid white;
+    margin: 0.5em;
+}
+
 div#mainnavi {
     float:left;
 }

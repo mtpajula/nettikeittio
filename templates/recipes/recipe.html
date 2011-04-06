@@ -20,7 +20,7 @@
     <div class="recipe_phases">
         <div class="recipe_phase" id="recipe_phase_{{ phase.ordering }}">
             <div class="phase_name">
-                {{ phase.name }}
+                <a href="#">{{ phase.name }}</a>
             </div>
             <div class="phase_atype">
                 <span class="atype">{{ phase.activity_type }}</span>
@@ -35,11 +35,13 @@
             <div class="phase_ingredients">
                 {% if ingredient_list %}
                 {% for ingredient in ingredient_list %}
+                {% if phase == ingredient.phase %}
                 <div class="ingredient">
                     <span class="amount">{{ ingredient.amount }}</span>
                     <span class="unit">{{ ingredient.unit.name }}</span>
                     <span class="name">{{ ingredient.ingredient.name }}</span>
                 </div>
+                {% endif %}
                 {% endfor %}
                 {% endif %}
             </div>

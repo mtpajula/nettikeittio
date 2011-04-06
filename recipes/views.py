@@ -5,6 +5,18 @@ from recipes.models import *
 # Simulate slow response from server with time.sleep(2)
 # import time
 
+def render_detail_recipe(request, recipe_id, recipe_template):
+    
+    recipe = get_object_or_404(Recipe, pk=recipe_id)
+    phase_list = Phase.objects.filter(recipe = recipe).order_by('ordering')
+    ingredient_list = PhaseIngredient.objects.filter(phase__recipe = recipe)
+    
+    print phase_list
+    return render_to_response(recipe_template, {
+                                'recipe': recipe,
+                                'phase_list': phase_list,
+                                'ingredient_list': ingredient_list })
+
 def main_page(request):
     return render_to_response('recipes/contentpage.html', { })
 
@@ -18,24 +30,13 @@ def list_recipes(request):
 def search(request):
     return render_to_response('recipes/contentpage/search.html', { })
 
-def recipe_detail(request, recipe_id):
-    
-    recipe = get_object_or_404(Recipe, pk=recipe_id)
-    phase_list = Phase.objects.filter(recipe = recipe)
-    #phase_list = Phase.objects.all()
-    ingredient_list = PhaseIngredient.objects.filter(phase = phase_list)
-    #ingredient_list = PhaseIngredient.objects.all()
-    
-    print phase_list
-    return render_to_response('recipes/contentpage/detail.html', {
-                                'recipe': recipe,
-                                'phase_list': phase_list,
-                                'ingredient_list': ingredient_list })
+def recipe_detail(request, recipe_id):    
+    return render_detail_recipe(request, recipe_id, 'recipes/contentpage/detail.html')
 
 def active(request, recipe_id):
-    recipe = get_object_or_404(Recipe, pk=recipe_id)
-    recipe = get_object_or_404(Recipe, pk=recipe_id)
-    return render_to_response('recipes/fullpage.html', { 'recipe': recipe })
+    #recipe = get_object_or_404(Recipe, pk=recipe_id)
+    #return render_to_response('recipes/fullpage.html', { 'recipe': recipe })
+    return render_detail_recipe(request, recipe_id, 'recipes/fullpage.html')
 
 def edit_recipe(request, recipe_id):
     recipe = get_object_or_404(Recipe, pk=recipe_id)

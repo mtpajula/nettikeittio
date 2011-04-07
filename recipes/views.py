@@ -1,6 +1,11 @@
 from django.shortcuts import render_to_response, get_object_or_404
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponseRedirect
 from recipes.models import *
+from recipes.forms import UserDataForm
+from django.contrib.auth.models import User
+from django.contrib import auth
+from django.template import RequestContext
+from django.contrib.auth import authenticate
 
 # Simulate slow response from server with time.sleep(2)
 # import time
@@ -55,6 +60,7 @@ def edit_user(request, user_id):
     user = get_object_or_404(UserProfile, pk=user_id)
     return render_to_response('recipes/contentpage/user.html', { 'user': user })
 
+# This is currently not in use
 def nk_login(request):
     return render_to_response('recipes/contentpage.html', { })
 
@@ -62,7 +68,24 @@ def nk_logout(request):
     return render_to_response('recipes/contentpage.html', { })
 
 def register(request):
-    return render_to_response('recipes/contentpage.html', { })
+    if request.method == 'POST':
+        user = User()
+        form = UserDataForm(request.POST, instance=user)
+        
+        if form.is_valid():
+            form.save()
+            authenticate(username=form.cleaned_data.username, password=form.cleaned_data.password)
+            auth.login(request, user)
+            return HttpResponseRedirect('/') # Redirect after POST
+        else:
+            # Show error page
+            pass
+    else:
+        form = UserDataForm() # An unbound form
+
+    return render_to_response('recipes/contentpage/register.html', {
+        'form': form,
+    }, context_instance=RequestContext(request)) 
 
 def nk_help(request):
     return render_to_response('recipes/contentpage/help.html', { })

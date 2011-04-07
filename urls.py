@@ -1,4 +1,5 @@
 from django.conf.urls.defaults import *
+import django.contrib.auth.views
 import settings
 from recipes.views import *
 
@@ -17,8 +18,10 @@ urlpatterns = patterns('',
     url(r'^user/(?P<user_id>\d+)/$'        , user_detail, name='user_page'),
     url(r'^newuser/$'                      , new_user, name='new_user'),
     url(r'^edituser/(?P<user_id>\d+)/$'    , edit_user, name='edit_user'),
-    url(r'^login/$'                        , nk_login, name='nk_login'),
-    url(r'^logout/$'                       , nk_logout, name='nk_logout'),
+    url(r'^login/$'                        , 'django.contrib.auth.views.login', 
+                                            {'template_name': 'recipes/contentpage/login.html'}, name='nk_login'),
+    url(r'^logout/$'                       , 'django.contrib.auth.views.logout', 
+                                            {'next_page': '/'}, name='nk_logout'),
     url(r'^register/$'                     , register, name='register'),
     url(r'^help/$'                         , nk_help, name='nk_help'),
     (r'^css/(?P<path>.*)$', 'django.views.static.serve', 

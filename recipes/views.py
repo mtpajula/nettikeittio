@@ -5,6 +5,9 @@ from recipes.models import *
 # Simulate slow response from server with time.sleep(2)
 # import time
 
+def menu(request):
+    return render_to_response('recipes/contentpage/menu.html', { })
+
 def render_detail_recipe(request, recipe_id, recipe_template):
     
     recipe = get_object_or_404(Recipe, pk=recipe_id)

@@ -6,8 +6,25 @@
 
 {% block body %}
 
-<div id="header" class="mainColor">
-    <div class="navibar">
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.pageslide').mouseover(function() {
+            $(this).pageSlide({
+                width: "300px",
+                direction: "right"
+            });
+        });
+    });
+</script>
+
+<div id="menulink" class="dark searchColor pageslide">
+    <!--<a href="/menu/" class="pageslide" title="Menu">Menu</a>-->
+    <p>Menu</p>
+</div>
+
+
+<div id="header" class="mainColor contentpage">
+
         <div class="mainColor">
             <a href="{% url main_page %}">Nettikeittiö</a>
             {% if recipe %}
@@ -16,12 +33,13 @@
             <a href="{% url nk_help %}">Help</a>
             <a href="/admin/">Admin</a>
         </div>
-    </div>
 {% block header %}
 {% endblock %}
 </div>
 
+<!--
 <div id="mainnavi">
+
 {% block mainnavi %}
 {% include "recipes/contentpage/mainnavi.html" %}
 {% endblock %}
@@ -30,18 +48,19 @@
 <div id="navibar">
 {% include "recipes/contentpage/navibar.html" %}
 </div>
+-->
 
-
+<div class="contentpage">
 {% block content %}
 <div id="content" class="mainColor">
 <p>Demoreseptit!</p>
 </div>
 {% endblock %}
+</div>
 
 
 
-
-<div id="footer">
+<div id="footer" class="contentpage">
 Nettikeittiö 2011
 {% block footer %}{% endblock %}
 </div>

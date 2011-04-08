@@ -8,6 +8,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^/*$'                            , main_page, name='main_page'),
+    url(r'^menu/$'                         , menu, name='menu'),
     url(r'^recipes/$'                      , list_recipes, name='list_recipes'),
     url(r'^search/$'                       , search, name='search'),
     url(r'^recipes/(?P<recipe_id>\d+)/$'   , recipe_detail, name='detail'),

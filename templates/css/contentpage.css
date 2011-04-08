@@ -4,13 +4,12 @@ body {
     font-family: Georgia;
 }
 
+/*
 div.navibar {
-    /*padding: 1em;
-    margin: 1em;*/
     margin-top:2em;
     overflow: auto;
     display:block;
-    /*border: 1px solid red;*/
+    border: 1px solid red;
     height:5em;
 }
 
@@ -20,7 +19,6 @@ div.navibar > div {
     text-align:center;
     vertical-align: middle;
     height: 50%;
-    /*border: 1px solid black;*/
 }
 
 div.navibar > div.mainlink {
@@ -28,7 +26,6 @@ div.navibar > div.mainlink {
 }
 
 div.navibar > div.linkbar {
-    /*margin-top:1em;*/
     width: 80%;
     position:relative;
     z-index:100;
@@ -36,6 +33,12 @@ div.navibar > div.linkbar {
 
 div.navibar > div.linkbar > a {
     float: left;
+}
+*/
+
+div#header {
+    overflow: auto;
+    padding: 1em;
 }
 
 .listresult {
@@ -55,15 +58,32 @@ div.navibar > div.linkbar > a {
     margin: 0.5em;
 }
 
+.contentpage {
+    margin-left:4em
+}
+
+div#menu {
+    background:black;
+    padding: 1em;
+}
+
+div#menulink {
+    height: 100%;
+    position: fixed;
+    padding: 0.5em;
+}
+
 div#mainnavi {
     float:left;
 }
 
 div#content {
+    /*
     position: absolute;
     top:8em;
     left:12em;
     right:2em;
+    */
     padding: 1em;
     margin: 1em;
     overflow: auto;
@@ -75,4 +95,22 @@ div#footer {
     padding: 0.3em;
     margin: 1em;
     text-align:center;
+}
+
+/* menu pageslide animation */
+#pageslide-body-wrap {
+    position: relative;
+}
+
+#pageslide-slide-wrap {
+    position: fixed;
+    width: 0;
+    top: 0;
+    right: 0;
+    height: 100%;
+    background-color: #000;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-image: none;
+    z-index: 999;
 }

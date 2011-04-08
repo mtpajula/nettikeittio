@@ -7,19 +7,36 @@
 {% block body %}
 
 <script type="text/javascript">
-    $(document).ready(function() {
-        $('.pageslide').mouseover(function() {
-            $(this).pageSlide({
-                width: "300px",
-                direction: "right"
-            });
+$(document).ready(function() {
+    /*
+    $('#menu').hide()
+    
+    $('.pageslide').hover(function () {
+            $('#menu').show("slide", { direction: "left" }, 500);
+        },function () {
+            $('#menu').hide("slide", { direction: "left" }, 500);
+        }
+    );
+    */
+    
+    
+    $('.pageslide').mouseover(function() {
+        $(this).pageSlide({
+            width: "300px",
+            direction: "right"
         });
     });
+    
+});
 </script>
 
-<div id="menulink" class="dark searchColor pageslide">
-    <!--<a href="/menu/" class="pageslide" title="Menu">Menu</a>-->
-    <p>Menu</p>
+<div id="menulink" class="pageslide">
+    <div class="menulinkIn">
+
+    <!--
+    {% include "recipes/contentpage/menu.html" %}
+    -->
+    </div>
 </div>
 
 

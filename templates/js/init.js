@@ -1,5 +1,6 @@
 
 $(document).ready(function () {
-	// Kulmien pyöristys
-	$('.contentblock').corner();
+    // Kulmien pyöristys
+    $('#content').corner();
+    $('.listresult').corner();
 });

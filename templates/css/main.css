@@ -1,3 +1,8 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Georgia;
+}
 
 a:link {color:Navy }      /* unvisited link */
 a:visited {color:blue }  /* visited link */
@@ -20,7 +25,7 @@ div.searchColor {
     background:#aa0000;
 }
 div.mainColor {
-    background:White;
+    background:LightGray;
 }
 
 ul.link li {  

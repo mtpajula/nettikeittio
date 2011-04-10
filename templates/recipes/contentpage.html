@@ -71,6 +71,20 @@ $(document).ready(function() {
 {% block content %}
 <div id="content" class="mainColor">
 <p>Demoreseptit!</p>
+<p>
+	{% if user.is_authenticated %}
+		USER IS AUTHENTICATED!
+	{% else %}
+		USER IS _NOT_ AUTHENTICATED!
+	{% endif %}
+	
+	{% if user %}
+	The user is: {{ user }}.
+	{% else %}
+	There was no user object in the template!
+	{% endif %}
+	
+</p>
 </div>
 {% endblock %}
 </div>

@@ -114,3 +114,8 @@ JS_ROOT = LOCAL_PATH_PREFIX + 'nettikeittio/templates/js'
 # Define UserProfile as auth profile module
 # http://www.turnkeylinux.org/blog/django-profile
 AUTH_PROFILE_MODULE = "recipes.UserProfile"
+
+# Needed for django.contrib.auth
+LOGIN_URL = '/login/'
+LOGOUT_URL = '/logout/'
+LOGIN_REDIRECT_URL = '/'

@@ -1,17 +1,16 @@
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpRequest, HttpResponseRedirect
 from recipes.models import *
-from recipes.forms import UserDataForm
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django.contrib import auth
+from django.contrib.auth import login, authenticate
 from django.template import RequestContext
-from django.contrib.auth import authenticate
 
 # Simulate slow response from server with time.sleep(2)
 # import time
 
 def main_page(request):
-    return render_to_response('recipes/contentpage.html', { })
+    return render_to_response('recipes/contentpage.html', { }, context_instance=RequestContext(request))
 
 def list_recipes(request):
     recipe_list = Recipe.objects.all().order_by('name')
@@ -69,23 +68,21 @@ def nk_logout(request):
 
 def register(request):
     if request.method == 'POST':
-        user = User()
-        form = UserDataForm(request.POST, instance=user)
-        
+        form = UserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
-            authenticate(username=form.cleaned_data.username, password=form.cleaned_data.password)
-            auth.login(request, user)
-            return HttpResponseRedirect('/') # Redirect after POST
+            new_user = form.save()
+            new_user = authenticate(username=request.POST['username'],
+                                    password=request.POST['password1']) # POST has password data for both fields!
+            login(request, new_user)
+            return HttpResponseRedirect("/")
         else:
             # Show error page
             pass
     else:
-        form = UserDataForm() # An unbound form
-
-    return render_to_response('recipes/contentpage/register.html', {
-        'form': form,
-    }, context_instance=RequestContext(request)) 
+        form = UserCreationForm()
+    return render_to_response("recipes/contentpage/register.html", {
+                            'form': form,
+                            }, context_instance=RequestContext(request))
 
 def nk_help(request):
     return render_to_response('recipes/contentpage/help.html', { })

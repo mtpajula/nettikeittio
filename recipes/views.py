@@ -1,17 +1,14 @@
 from django.shortcuts import render_to_response, get_object_or_404
-<<<<<<< HEAD
 from django.core.context_processors import csrf
 from django.http import *
 from recipes.models import *
 import re
-=======
 from django.http import HttpRequest, HttpResponseRedirect
 from recipes.models import *
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 from django.template import RequestContext
->>>>>>> 29c161c26f3b9ca0adfc37fe7c7ba9a1767d8885
 
 # Simulate slow response from server with time.sleep(2)
 # import time

@@ -1,0 +1,16 @@
+{% extends "recipes/contentpage.html" %}
+
+{% block content %}
+	<div id="content" class="mainColor">
+		<h1>Rekisteröidy</h1>
+
+		{% if form.errors %}
+			<p>Jotain formissa oli pielessä.</p>
+		{% endif %}
+		
+		<form action="/register/" method="post">{% csrf_token %}
+			{{ form.as_p }}
+			<input type="submit" value="Rekisteröidy" />
+		</form>
+	</div>
+{% endblock %}

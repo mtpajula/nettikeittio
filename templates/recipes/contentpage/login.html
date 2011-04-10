@@ -1,0 +1,27 @@
+{% extends "recipes/contentpage.html" %}
+
+{% block content %}
+	<div id="content" class="mainColor">
+		<h1>Kirjaudu</h1>
+
+		{% if form.errors %}
+			<p>Antamasi käyttäjätunnus ja salasana eivät täsmänneet. UUDESTAAN >:O</p>
+		{% endif %}
+		
+		<form method="post" action="/login/">
+			{% csrf_token %}
+			<table>
+				<tr>
+				    <td>Käyttäjätunnus</td>
+				    <td>{{ form.username }}</td>
+				</tr>
+				<tr>
+				    <td>Salasana</td>
+				    <td>{{ form.password }}</td>
+				</tr>
+			</table>
+			<input type="submit" value="Kirjaudu sisään" />
+			<input type="hidden" name="next" value="{{ next }}" />
+		</form>
+	</div>
+{% endblock %}

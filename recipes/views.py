@@ -83,14 +83,14 @@ def search(request, page):
                    'pages' : pages,
                    'page_previous' : page_previous,
                    'page_next' : page_next,
-                   'pagelist' : pagelist}, context_instance=RequestContext(request)
+                   'pagelist' : pagelist}, context_instance=RequestContext(request))
         #####  ---  Above code is for dividing search between pages
         
         return render_to_response('recipes/contentpage/search.html',
             { 'results': results,
-               'search_string': s }, context_instance=RequestContext(request)
+               'search_string': s }, context_instance=RequestContext(request))
     
-    return render_to_response('recipes/contentpage/search.html', { }, context_instance=RequestContext(request)
+    return render_to_response('recipes/contentpage/search.html', { }, context_instance=RequestContext(request))
 
 def recipe_detail(request, recipe_id):    
     return render_detail_recipe(request, recipe_id, 'recipes/contentpage/detail.html', context_instance=RequestContext(request))

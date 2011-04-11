@@ -14,6 +14,8 @@ from django.template import RequestContext
 # import time
 
 def menu(request):
+    if request.user.is_authenticated():
+        print "user"
     return render_to_response('recipes/contentpage/menu.html', { }, context_instance=RequestContext(request))
 
 def render_detail_recipe(request, recipe_id, recipe_template):
@@ -93,12 +95,12 @@ def search(request, page):
     return render_to_response('recipes/contentpage/search.html', { }, context_instance=RequestContext(request))
 
 def recipe_detail(request, recipe_id):    
-    return render_detail_recipe(request, recipe_id, 'recipes/contentpage/detail.html', context_instance=RequestContext(request))
+    return render_detail_recipe(request, recipe_id, 'recipes/contentpage/detail.html')
 
 def active(request, recipe_id):
     #recipe = get_object_or_404(Recipe, pk=recipe_id)
     #return render_to_response('recipes/fullpage.html', { 'recipe': recipe })
-    return render_detail_recipe(request, recipe_id, 'recipes/fullpage.html', context_instance=RequestContext(request))
+    return render_detail_recipe(request, recipe_id, 'recipes/fullpage.html')
 
 
 

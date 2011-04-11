@@ -1,0 +1,38 @@
+
+<div id="content" class="mainColor">
+    <div class="listDiv" id="dev">
+        <p>
+            {% if user.is_authenticated %}
+                USER IS AUTHENTICATED!
+            {% else %}
+                USER IS _NOT_ AUTHENTICATED!
+            {% endif %}
+            
+            {% if user %}
+            The user is: {{ user }}.
+            {% else %}
+            There was no user object in the template!
+            {% endif %}
+            
+        </p>
+    </div>
+
+    <div class="listDiv" id="nkWelcome">
+        <div id="nkName">
+            <img src="/media/" alt="logo" />
+            <strong>Nettikeittiö Dev</strong>
+        </div>
+        <div id="nkdescription">
+            Laitetaan tietotekniikka palvelemaan ruoanlaittoa, eikä suinkaan päinvastoin!
+        </div>
+    </div>
+    
+    <div class="listDiv recipeColor dark" id="demorecipes">
+        Demoreseptit
+    </div>
+    
+    <div class="listDiv ownColor dark" id="demousers">
+        Demokäyttäjät
+    </div>
+
+</div>

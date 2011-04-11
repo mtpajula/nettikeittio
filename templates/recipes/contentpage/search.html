@@ -3,7 +3,53 @@
 {% block content %}
 
 <div id="content" class="searchColor dark">
-<p>Search</p>
+
+    {% if results %}
+        <p>Results for your search "<strong>{{ search_string }}</strong>":</p>
+        
+        <div>
+        
+        {% for r in results %}
+
+            <div>
+                <a href="/recipes/{{ r.pk }}">{{ r.name }}</a>
+                <p>{{ r.description }}</p>
+            </div>
+            
+            
+        {% endfor %}
+        </div>
+    {% else %}
+        {% if search_string %}
+            <p>Your search "<strong>{{ search_string }}</strong>" got no results</p>
+        {% else %}
+            <p>Empty search gives no results</p>
+        {% endif %}
+    {% endif %}
+    <div class="shopping_cart">
+        {% if results %}
+            <p>
+            {% if pages %}
+                {% if page_previous == 0 %}
+                    &lt;- Previous page
+                {% else %}
+                    <a href="/search/{{ page_previous }}?q={{ search_string }}">&lt;- Previous page</a>
+                {% endif %}
+                {% for p in pagelist %}
+                    <a href="/search/{{ p }}?q={{ search_string }}">{{ p }}</a>
+                {% endfor %}
+                {% if page_next == 0 %}
+                    Next page -&gt;
+                {% else %}
+                    <a href="/search/{{ page_next }}?q={{ search_string }}">Next page -&gt;</a>
+                {% endif %}
+            {% endif %}
+            </p>
+        {% endif %}
+    </div>
+
+
+
 </div>
 
 {%endblock%}

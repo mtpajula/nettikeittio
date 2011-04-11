@@ -30,7 +30,58 @@ def list_recipes(request):
         return render_to_response('recipes/contentpage/recipe_list.html', {'recipe_list': recipe_list, })
     return render_to_response('recipes/contentpage/list.html', {'recipe_list': recipe_list, })
 
-def search(request):
+def search(request, page):
+    
+    if 'q' in request.GET and request.GET['q']:
+        s = request.GET['q']
+        
+        # Gathering results in results -table
+        results = []
+        
+        r1 = Recipe.objects.all()
+        # Filter from recipes only names and descriptions matching search string
+        r1 = r1.filter(name__icontains = s) | r1.filter(description__icontains = s)
+        results.extend(r1)
+        
+        #####  ---  This code is for dividing search between pages
+        # Give here tha amount of results shown in one page
+        results_in_one_page = 10
+        
+        pages = 1
+        pagelist = []
+        result_len = len(results)
+        
+        if result_len >= results_in_one_page and page != "":
+            pages = int(result_len / results_in_one_page) + 1
+            for i in range(pages):
+                pagelist += [i+1]
+                
+            result_first = (int(page)-1)*results_in_one_page
+            result_last = result_first+results_in_one_page
+            results = results[result_first:result_last]
+            
+            page_previous = int(page)-1
+            page_next = int(page)+1
+            
+            if page == '1':
+                page_previous = 0
+            elif str(page) == str(pages):
+                page_next = 0
+                
+                
+            return render_to_response('recipes/contentpage/search.html', 
+                { 'results': results,
+                   'search_string': s,
+                   'pages' : pages,
+                   'page_previous' : page_previous,
+                   'page_next' : page_next,
+                   'pagelist' : pagelist})
+        #####  ---  Above code is for dividing search between pages
+        
+        return render_to_response('recipes/contentpage/search.html',
+            { 'results': results,
+               'search_string': s })
+    
     return render_to_response('recipes/contentpage/search.html', { })
 
 def recipe_detail(request, recipe_id):    

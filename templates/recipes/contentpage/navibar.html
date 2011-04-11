@@ -18,8 +18,8 @@
                 <li><a href="{% url user_page user_id=user.pk %}">Sinä</a></li>
                 <li><a href="{% url edit_user user_id=user.pk %}">Sinä</a></li>
                 <li><a href="{% url nk_logout %}">logout</a></li>
-                <li><a href="{% url search %}">Omat reseptit</a></li>
-                <li><a href="{% url search %}">Omat suosikit</a></li>
+                <li><a href="{% url search page=1 %}">Omat reseptit</a></li>
+                <li><a href="{% url search page=1 %}">Omat suosikit</a></li>
             {% endif %}
             <li><a href="{% url new_user %}">Uusi käyttäjä</a></li>
             <li><a href="{% url register %}">Kirjaudu sisään</a></li>
@@ -31,8 +31,8 @@
     <div class="linkbar dark searchColor">
         <ul class="link">
             <li><a href="{% url list_recipes %}">Reseptilistaus</a></li>
-            <li><a href="{% url search %}">Käyttäjiä</a></li>
-            <li><a href="{% url search %}">Reseptejä</a></li>
+            <li><a href="{% url search page=1 %}">Käyttäjiä</a></li>
+            <li><a href="{% url search page=1 %}">Reseptejä</a></li>
         </ul>
     </div>
 </div>

@@ -29,8 +29,8 @@ urlpatterns = patterns('',
         {'document_root': settings.CSS_ROOT}),
     (r'^js/(?P<path>.*)$', 'django.views.static.serve', 
         {'document_root': settings.JS_ROOT}),
-    (r'^media/(?P<path>.*)$', 'django.views.static.serve', 
-        {'document_root': settings.MEDIA_ROOT}),
+    (r'^img/(?P<path>.*)$', 'django.views.static.serve', 
+        {'document_root': '/home/mikko/nettikeittio/media', 'show_indexes': True}),
 
     # Example:
     # (r'^nettikeittio/', include('nettikeittio.foo.urls')),

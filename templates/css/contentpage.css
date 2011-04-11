@@ -135,3 +135,12 @@ div#dev {
     color: grey;
 }
 
+div#nkName {
+    font-size: 200%;
+    vertical-align: middle;
+}
+
+div#nkName img {
+    width:10em;
+    float:left;
+}

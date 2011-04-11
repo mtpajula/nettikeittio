@@ -1,0 +1,220 @@
+{% extends "recipes/contentpage.html" %}
+
+
+{% block content %}
+<div id="content" class="mainColor">
+<script type="text/javascript">
+$(document).ready(function() {
+
+// Add event handler for Add phase -button
+$("#add_phase_button").click(function(event) {
+	event.preventDefault();
+
+	var phase_container = $("#recipe_phases");
+	//var phase_index = phase_container.children().length + 1;
+	var phase_index = -1;
+
+	var new_phase = phase_container.children("div.recipe_phase:last-child").clone();
+
+	// Increment phase indexes
+	var attrs_to_update = ["for", "name", "id"];
+	new_phase.find("*").each(function() {
+		var $this = $(this);
+
+		// Empty text input values
+		if( $this.is("input:text") ) $this.attr("value", "");
+
+		// Empty text areas
+		if( $this.is("textarea") ) $this.text("");
+
+		for(ind in attrs_to_update) {
+
+			var regex = /(phase_)(\d)([a-z_]*)/;
+			var old_val = $this.attr(attrs_to_update[ind]);
+			var matched = regex.exec(old_val);
+			if(!matched) continue;
+
+			phase_index = parseInt(matched[2]) + 1;
+
+			var new_val = matched[1] + phase_index + matched[3];
+			$this.attr(attrs_to_update[ind], new_val);
+		}
+	});
+
+	new_phase.find("h4").text("Phase " + phase_index);
+
+	phase_container.append(
+		new_phase
+	);
+
+});
+
+// Add event handler for add ingredient button
+$(".add_ingredient_button").click(function(event){
+	event.preventDefault();
+
+	var ing_container = $(this).siblings("div.phase_ingredients");
+	var ing_index = -1;
+	var new_ing = ing_container.children("div.phase_ingredient:last-child").clone();
+
+	// Increment ingredient index for each element
+	var attrs_to_update = ["for", "name", "id"];
+	new_ing.find("*").each(function() {
+		var $this = $(this);
+		$this.attr("value", "");
+		for(ind in attrs_to_update) {
+
+			var regex = /(phase_\d_ingredient_)(\d)([a-z_]*)/;
+			var old_val = $this.attr(attrs_to_update[ind]);
+			var matched = regex.exec(old_val);
+			if(!matched) continue;
+
+			ing_index = parseInt(matched[2]) + 1;
+
+			var new_val = matched[1] + ing_index + matched[3];
+			$this.attr(attrs_to_update[ind], new_val);
+		}
+	});
+
+	ing_container.append(
+	new_ing
+	);
+
+});
+
+// Remove phase button
+$(".remove_phase_button, .remove_ingredient_button").click(function(event){
+  event.preventDefault();
+
+  var parent = $(this).parent();
+  if(parent.parent().children().length < 2) return false;
+
+  parent.remove();
+});
+
+});
+</script>
+
+<form id="update_recipe" action="{% url edit_recipe recipe_id=recipe.pk %}" method="POST">
+{% csrf_token %}
+<input type="hidden" name="recipe_id" value="{{recipe.id}}"></input>
+
+<input type="submit" value="Save"></input>
+
+<div class="inputblock">
+	<label  for="recipe_name">Recipe name</label>
+	<input type="text" name="recipe_name" id="recipe_name" value="{{recipe.name}}"></input>
+</div>
+
+
+<div class="inputblock">
+	<label  for="recipe_description">Recipe description</label>
+	<textarea type="text" name="recipe_description" id="recipe_description">{{recipe.description}}</textarea>
+</div>
+
+<div class="inputblock">
+  <label for="recipe_editable">Editable</label>
+  <select name="recipe_editable" id="recipe_editable">
+    <option {% if recipe.editable = 0 %} selected="selected" {% endif %} value="0">Not editable</option>
+    <option {% if recipe.editable = 1 %} selected="selected" {% endif %} value="1">Editable</option>
+  </select>
+
+</div>
+
+<div class="inputblock">
+  Tags would go here.
+</div>
+
+<h3>Phases</h3>
+
+<a id="add_phase_button" title="Add new phase" href="#">Add phase</a>
+<!-- Contains all recipe phases -->
+<div id="recipe_phases" style="border: solid black 1px;">
+
+{% if phases %}
+
+{% for phase in recipe.phase_set.all %}
+<div id="recipe_phase_{{phase.id}}" class="recipe_phase">
+	<h4>Phase {{phase.id}}</h4>
+
+  <a href="#" title="Remove phase" class="remove_phase_button">x</a>
+
+	<div class="inputblock">
+	<label for="phase_{{phase.id}}_ordering">Ordering</label>
+	<input type="text" name="phase_{{phase.id}}_ordering" id="phase_{{phase.id}}_ordering" value="{{phase.ordering}}"></input>
+	</div>
+
+	<div class="inputblock">
+	<label for="phase_{{phase.id}}_act_type">Activity type</label>
+	<select id="phase_{{phase.id}}_act_type" name="phase_{{phase.id}}_act_type">
+		<option {% if phase.activity_type = 0 %} selected="selected" {% endif %} value="0">Passive</option>
+		<option value="1" {% if phase.activity_type = 1 %} selected="selected" {% endif %}>Active</option>
+	</select>
+	</div>
+
+	<div class="inputblock">
+	<label for="phase_{{phase.id}}_duration">Duration</label>
+	<input type="text" id="phase_{{phase.id}}_duration" name="phase_{{phase.id}}_duration" value="{{phase.duration_min}}"></input>
+	</div>
+
+	<div class="inputblock">
+	<label for="phase_{{phase.id}}_name">Name</label>
+	<input type="text" id="phase_{{phase.id}}_name" name="phase_{{phase.id}}_name" value="{{phase.name}}"></input>
+	</div>
+
+	<div class="inputblock">
+	<label for="phase_{{phase.id}}_descr">Description</label>
+	<textarea id="phase_{{phase.id}}_descr" name="phase_{{phase.id}}_descr">{{phase.description}}</textarea>
+	</div>
+
+	
+	<h5>Ingredients</h5>
+	<a class="add_ingredient_button" title="Add new ingredient" href="#">Add ingredient</a>
+	<div class="phase_ingredients" id="phase_{{phase.id}}_ingredients">
+		{% for phasei in phase.phaseingredient_set.all %}
+		<div class="phase_ingredient">
+			
+      <label
+      for="phase_{{phase.id}}_ingredient_{{forloop.counter0}}_name">
+      Ingredient</label>
+			<input type="text"
+      id="phase_{{phase.id}}_ingredient_{{forloop.counter0}}_name" 
+      class="phase_ingredient_name"
+      name="phase_{{phase.id}}_ingredient_{{forloop.counter0}}_name" 
+      value="{{phasei.ingredient.name}}"></input>
+
+			<label
+      for="phase_{{phase.id}}_ingredient_{{forloop.counter0}}_amount">
+      Amount</label>
+			<input type="text"
+      id="phase_{{phase.id}}_ingredient_{{forloop.counter0}}_amount"
+      class="phase_ingredient_amount"
+      name="phase_{{phase.id}}_ingredient_{{forloop.counter0}}_amount" 
+      value="{{phasei.amount}}"></input>
+
+			<label for="phase_{{phase.id}}_ingredient_{{forloop.counter0}}_unit">
+      Unit</label>
+			<input type="text"
+      id="phase_{{phase.id}}_ingredient_{{forloop.counter0}}_unit"      
+      class="phase_ingredient_unit"
+      name="phase_{{phase.id}}_ingredient_{{forloop.counter0}}_unit" 
+      value="{{phasei.unit.name}}"></input>
+
+      <a href="#" title="Remove ingredient" class="remove_ingredient_button">x</a>
+
+		</div>
+		{% endfor %}
+	</div>
+
+</div>
+{% endfor %}
+
+</div>
+
+<input type="submit" value="Save"></input>
+
+</form>
+
+{% endif %}
+
+{% endblock %}

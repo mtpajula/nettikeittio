@@ -17,12 +17,13 @@
             {% if user.is_authenticated %}
                 <li><a href="{% url user_page user_id=user.pk %}">Sinä</a></li>
                 <li><a href="{% url edit_user user_id=user.pk %}">Sinä</a></li>
-                <li><a href="{% url nk_logout %}">logout</a></li>
+                <li><a href="{% url nk_logout %}">Kirjaudu ulos</a></li>
                 <li><a href="{% url search page=1 %}">Omat reseptit</a></li>
                 <li><a href="{% url search page=1 %}">Omat suosikit</a></li>
+
             {% endif %}
-            <li><a href="{% url new_user %}">Uusi käyttäjä</a></li>
-            <li><a href="{% url register %}">Kirjaudu sisään</a></li>
+            <li><a href="{% url register %}">Uusi käyttäjä</a></li>
+            <li><a href="{% url nk_login %}">Kirjaudu sisään</a></li>
         </ul>
     </div>
 

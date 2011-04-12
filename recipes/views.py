@@ -24,7 +24,6 @@ def render_detail_recipe(request, recipe_id, recipe_template):
     phase_list = Phase.objects.filter(recipe = recipe).order_by('ordering')
     ingredient_list = PhaseIngredient.objects.filter(phase__recipe = recipe)
     
-    print phase_list
     return render_to_response(recipe_template, {
                                 'recipe': recipe,
                                 'phase_list': phase_list,

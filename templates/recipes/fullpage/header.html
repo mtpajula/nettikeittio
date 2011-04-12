@@ -13,11 +13,15 @@ $(document).ready(function() {
 });
 </script>
 <div id="topbar">
-    <div id="showHideLink" class="right">
+    <div id="showHideLink" class="left">
         <a href="#">Suurenna</a>
     </div>
-    <div id="mainAction" class="left">
+    <div id="mainAction" class="right">
+    {% if recipe %}
+        <a href="{% url detail recipe_id=recipe.pk %}">Alkuun</a>
+    {% else %}
         <a href="{% url main_page %}">Alkuun</a>
+    {% endif %}
     </div>
 </div>
 

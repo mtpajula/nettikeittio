@@ -2,7 +2,67 @@
 
 
 {% block content %}
+<script type="text/javascript">
+$(document).ready(function() {
+    
+    // Hide recipe div
+    $(".recipe").hide()
+    
+    // Each phase decentant a and div gets it's id as a class
+    $('.recipe .recipe_phase').each(function(index) {
+        var id = $(this).attr('id');
+        $(this).find("div, a").each(function(index) {
+            $(this).addClass(id);
+        });
+    });
+    
+    // Create phase list divs
+    $('.recipe .recipe_phase').each(function(index) {
+        var id = $(this).attr('id');
+        $('#detailMain .right').append('<div class="'+id+' detailPhase mainColor"></div>')
+    });
+    
+    // Recipe info is copied to view
+    $('.recipe').children('.recipe_name').appendTo('#detailHeader .left');
+    $('.recipe').children('.recipe_image').appendTo('#detailMain .detailImage');
+    $('.recipe').children('.recipe_description').appendTo('#detailHeader .left');
+    
+    // Each phase part is copied in view
+    $('.recipe .recipe_phase').each(function(index) {
+        var id = $(this).attr('id');
+        $(this).children('.phase_name').appendTo('#detailMain .detailPhase.'+id);
+        $(this).children('.phase_duration').appendTo('#detailMain .detailPhase.'+id);
+        $(this).children('.phase_atype').appendTo('#detailMain .detailPhase.'+id);
+        $(this).children('.phase_dscr').appendTo('#detailMain .detailPhase.'+id);
+        $(this).children('.phase_ingredients').appendTo('#detailMain .detailIngredients');
+    });
+});
+</script>
+
+
 <div id="content" class="recipeColor dark">
+
+    <div id="detailHeader" class="listDiv">
+        <div class="left">
+        </div>
+        <div class="right">
+        </div>
+    </div>
+    
+    <div id="detailMain" class="listDiv">
+        <div class="left">
+            <div class="detailImage">
+            </div>
+            <div class="detailIngredients mainColor">
+            </div>
+        </div>
+        <div class="right">
+        </div>
+    </div>
+    
+    <div id="detailComment" class="listDiv">
+        <p>comments</p>
+    </div>
 
 {% include "recipes/recipe.html" %}
 

@@ -42,7 +42,6 @@ $(document).ready(function() {
     $(".phase_name > a").click(function() {
         active_new(this);
     });
-    
 });
 
 // Changing active phase with keyboard arrows
@@ -89,15 +88,17 @@ $(document).keydown(function (e) {
 
 function active_new(link) {
     var a = $(link);
-    $('div').removeClass('active')
     var id = $(a).attr('class');
     var active = 'div.'+id;
+
+    $('div').removeClass('active')
+    
     $(active).addClass('active');
 }
 
 </script>
 
-<div id="header" class="mainColor">
+<div id="header" class="mainColor fullpage">
 {% block header %}
 {% include "recipes/fullpage/header.html" %}
 {% endblock %}
@@ -105,7 +106,7 @@ function active_new(link) {
 
 
 {% block fullcontent %}
-<div id="fullcontent">
+<div id="fullcontent fullpage">
 
         <div id="frameLeft" class="ownColor">
         </div>
@@ -113,7 +114,7 @@ function active_new(link) {
         <div id="frameRight" class="recipeColor">
         </div>
 
-        <div id="main" class="mainColor">
+        <div id="main">
         </div>
         
 </div>

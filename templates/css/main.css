@@ -15,18 +15,21 @@ a:active {color:black }  /* selected link */
 .dark a:hover {color:grey }  /* mouse over link */
 .dark a:active {color:black }  /* selected link */
 
-
 div.recipeColor {
     background:#619100;
+    color: white;
 }
 div.ownColor {
     background:#5E1709;
+    color: white;
 }
 div.searchColor {
     background:#aa0000;
+    color: white;
 }
 div.mainColor {
     background:white;
+    color: black;
 }
 /*
 ul.link li {  
@@ -45,4 +48,14 @@ div.right {
 
 div.left {
     float:left;
+}
+
+div.menu, #header {
+    -webkit-box-shadow: 0px 10px 20px #212121;
+    -moz-box-shadow: 0px 10px 20px #212121;
+    box-shadow: 0px 10px 20px #212121;
+}
+
+.ingredient .name {
+    color:red;    
 }

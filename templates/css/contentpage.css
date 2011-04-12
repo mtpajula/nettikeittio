@@ -15,11 +15,6 @@ div#header {
     border: 3px solid white;
 }
 
-.recipe_phase {
-    border: 1px solid white;
-    margin: 0.5em;
-}
-
 .menulist {
     padding: 1em;
     width: 15em;
@@ -41,9 +36,6 @@ div.menuwrapper {
 div.menu {
     overflow: auto;
     padding: 0em;
-    -webkit-box-shadow: 0px 10px 20px #212121;
-    -moz-box-shadow: 0px 10px 20px #212121;
-    box-shadow: 0px 10px 20px #212121;
     margin: 0em;
 }
 
@@ -99,3 +91,21 @@ div#nkName img {
     height:4em;
     float:left;
 }
+
+/* detail recipe */
+.detailPhase {
+    border: 1px solid white;
+    margin: 0.5em;
+}
+
+#detailMain .left {
+    width: 30%;
+    border: 3px solid grey;
+}
+
+#detailMain .right {
+    width: 60%;
+    border: 3px solid grey;
+}
+
+

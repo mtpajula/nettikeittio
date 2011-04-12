@@ -1,37 +1,4 @@
 
-
-/*
-div.navibar {
-    margin-top:2em;
-    overflow: auto;
-    display:block;
-    border: 1px solid red;
-    height:5em;
-}
-
-div.navibar > div {
-    float:left;
-    padding: 1em;
-    text-align:center;
-    vertical-align: middle;
-    height: 50%;
-}
-
-div.navibar > div.mainlink {
-    width: 8em;
-}
-
-div.navibar > div.linkbar {
-    width: 80%;
-    position:relative;
-    z-index:100;
-}
-
-div.navibar > div.linkbar > a {
-    float: left;
-}
-*/
-
 div#header {
     overflow: auto;
     padding-top: 2em;
@@ -53,47 +20,53 @@ div#header {
     margin: 0.5em;
 }
 
-
-
 .menulist {
     padding: 1em;
+    width: 15em;
+    float:left;
+    height:100%;
+    overflow: auto;
 }
 
-div#menulink {
-    height: 100%;
-    position: fixed;
-    width:4em;
-}
-/*
-div.menulinkIn {
-    padding:1em;
+div#menu .menulist {
+    margin-bottom: 2em;
 }
 
+div.menuwrapper {
+    overflow: auto;
+    margin-left: 15%;
+    /*margin-right: 5em;*/
+}
+
+div.menu {
+    overflow: auto;
+    padding: 0em;
+    -webkit-box-shadow: 0px 10px 20px #212121;
+    -moz-box-shadow: 0px 10px 20px #212121;
+    box-shadow: 0px 10px 20px #212121;
+    margin: 0em;
+}
 
 div#menu {
-    height: 100%;
-    position: fixed;
-    padding: 0.5em;
-    -webkit-box-shadow: 10px 10px 20px #212121;
-    -moz-box-shadow: 10px 10px 20px #212121;
-    box-shadow: 10px 10px 20px #212121;
+    position:absolute;
+    left:0em;
+    right:0em;
 }
-*/
 
 div#mainnavi {
     float:left;
 }
 
 div#content {
-    /*
-    position: absolute;
-    top:8em;
-    left:12em;
-    right:2em;
-    */
     padding: 2em;
-    margin: 5em;
+    margin-top: 3em;
+    margin-bottom: 3em;
+    margin-left: 5em;
+    margin-right: 5em;
     overflow: auto;
+    -webkit-box-shadow: 0px 0px 5px #212121;
+    -moz-box-shadow: 0px 0px 5px #212121;
+    box-shadow: 0px 0px 5px #212121;
 }
 
 div#footer {
@@ -102,24 +75,6 @@ div#footer {
     padding: 0.3em;
     margin: 1em;
     text-align:center;
-}
-
-/* menu pageslide animation */
-#pageslide-body-wrap {
-    position: relative;
-}
-
-#pageslide-slide-wrap {
-    position: fixed;
-    width: 0;
-    top: 0;
-    right: 0;
-    height: 100%;
-    background-color: #000;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-image: none;
-    z-index: 999;
 }
 
 /* Front page */
@@ -141,6 +96,6 @@ div#nkName {
 }
 
 div#nkName img {
-    width:10em;
+    height:4em;
     float:left;
 }

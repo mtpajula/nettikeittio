@@ -18,14 +18,6 @@ div#header {
     margin: 1em;
 }
 
-div#mainAction {
-    float:right;
-}
-
-div#showHideLink {
-    float:left;
-}
-
 div#header {
     overflow: auto;
 }

@@ -2,7 +2,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: Tahoma, Geneva, sans-serif;
-    background:#acbbbd
+    background:#acbbbd;
 }
 
 a:link {color:Navy }      /* unvisited link */
@@ -20,7 +20,7 @@ div.recipeColor {
     background:#619100;
 }
 div.ownColor {
-    background:black;
+    background:#5E1709;
 }
 div.searchColor {
     background:#aa0000;
@@ -28,13 +28,21 @@ div.searchColor {
 div.mainColor {
     background:white;
 }
-
+/*
 ul.link li {  
     list-style:none;
     display:inline;
 }
-
+*/
 .dark {
     color: white;
 }
 
+/* Header */
+div.right {
+    float:right;
+}
+
+div.left {
+    float:left;
+}

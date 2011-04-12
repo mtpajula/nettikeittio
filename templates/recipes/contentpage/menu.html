@@ -1,46 +1,54 @@
-<div id="menu" class="dark ownColor"> 
 
-    <div class="menulist dark recipeColor">
-        <ul class="link">
-            <a href="{% url new_recipe %}">Uusi</a>
-            {% if recipe %}
-                <a href="{% url edit_recipe recipe_id=recipe.pk %}">Muokkaa</a>
-                <a href="{% url edit_recipe recipe_id=recipe.pk %}">Tee uusi tämän pohjalta</a>
-            {% endif %}
-        </ul>
-    </div>
-
-
-
-    <div class="menulist dark ownColor">
-        <ul class="link">
-            {% if user.is_authenticated %}
-                <li><a href="{% url user_page user_id=user.pk %}">Sinä</a></li>
-                <li><a href="{% url edit_user user_id=user.pk %}">Sinä</a></li>
-                <li><a href="{% url nk_logout %}">Kirjaudu ulos</a></li>
-                <li><a href="{% url search page=1 %}">Omat reseptit</a></li>
-                <li><a href="{% url search page=1 %}">Omat suosikit</a></li>
-
-            {% endif %}
-            <li><a href="{% url register %}">Uusi käyttäjä</a></li>
-            <li><a href="{% url nk_login %}">Kirjaudu sisään</a></li>
-        </ul>
-    </div>
-
-
-
-    <div class="menulist dark searchColor">
-        <ul class="link">
-            <li><a href="{% url list_recipes %}">Reseptilistaus</a></li>
-            <li><a href="{% url search page=1 %}">Käyttäjiä</a></li>
-            <li><a href="{% url search page=1 %}">Reseptejä</a></li>
-        </ul>
-        <div class="search">
-            <form method="get" action="{% url search  page=1 %}">
-                <input name="q"  type="search" placeholder="Reseptejä">
-                <input type="submit" value="Hae">
-            </form>
+<div id="menuHeader" class="menu mainColor"> 
+    <div class="menuwrapper"> 
+        <div class="menulist dark recipeColor">
+            Resepti
+        </div>
+        <div class="menulist dark ownColor">
+            Omat
+        </div>
+        <div class="menulist dark searchColor">
+            Etsi
         </div>
     </div>
+</div> 
 
+<div id="menu" class="menu mainColor"> 
+    <div class="menuwrapper">
+    
+        <div class="menulist dark recipeColor">
+            <ul class="link">
+                <li><a href="{% url new_recipe %}">Uusi</a></li>
+                {% if recipe %}
+                    <li><a href="{% url edit_recipe recipe_id=recipe.pk %}">Muokkaa</a></li>
+                    <li><a href="{% url edit_recipe recipe_id=recipe.pk %}">Tee uusi tämän pohjalta</a></li>
+                    <li><a href="{% url active_view recipe_id=recipe.pk %}">Täysi näkymä</a></li>
+                {% endif %}
+            </ul>
+        </div>
+
+        <div class="menulist dark ownColor">
+            <ul class="link">
+                {% if user.is_authenticated %}
+                    <li><a href="{% url user_page user_id=user.pk %}">Sinä</a></li>
+                    <li><a href="{% url edit_user user_id=user.pk %}">Sinä</a></li>
+                    <li><a href="{% url nk_logout %}">Kirjaudu ulos</a></li>
+                    <li><a href="{% url search page=1 %}">Omat reseptit</a></li>
+                    <li><a href="{% url search page=1 %}">Omat suosikit</a></li>
+
+                {% endif %}
+                <li><a href="{% url register %}">Uusi käyttäjä</a></li>
+                <li><a href="{% url nk_login %}">Kirjaudu sisään</a></li>
+            </ul>
+        </div>
+
+        <div class="menulist dark searchColor">
+            <ul class="link">
+                <li><a href="{% url list_recipes %}">Reseptilistaus</a></li>
+                <li><a href="{% url search page=1 %}">Käyttäjiä</a></li>
+                <li><a href="{% url search page=1 %}">Reseptejä</a></li>
+            </ul>
+        </div>
+        
+   </div>
 </div>

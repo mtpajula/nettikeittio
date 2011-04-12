@@ -11,11 +11,11 @@
         
         {% for r in results %}
 
-            <div>
-                <a href="/recipes/{{ r.pk }}">{{ r.name }}</a>
+            <div class="listresult recipeColor">
+                <img src="{{r.image}}"></img>
+                <p><a href="/recipes/{{ r.pk }}">{{r.name}}</a></p>
                 <p>{{ r.description }}</p>
             </div>
-            
             
         {% endfor %}
         </div>

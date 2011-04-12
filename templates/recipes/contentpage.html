@@ -8,64 +8,29 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-    /*
-    $('#menu').hide()
+
+    $('#menu').hide();
     
-    $('.pageslide').hover(function () {
-            $('#menu').show("slide", { direction: "left" }, 500);
+    $('.initMenu').hover(function () {
+            $('#menu').slideDown();
         },function () {
-            $('#menu').hide("slide", { direction: "left" }, 500);
+            $('#menu').slideUp();
         }
     );
-    */
-    
-    
-    $('.pageslide').mouseover(function() {
-        $(this).pageSlide({
-            width: "300px",
-            direction: "right"
-        });
-    });
-    
 });
+
 </script>
-
-<div id="menulink" class="pageslide">
-    <div class="menulinkIn">
-
-    <!--
-    {% include "recipes/contentpage/menu.html" %}
-    -->
-    </div>
-</div>
 
 
 <div id="header" class="mainColor contentpage">
-
-        <div class="mainColor">
-            <a href="{% url main_page %}">Nettikeittiö</a>
-            {% if recipe %}
-                <a href="{% url active_view recipe_id=recipe.pk %}">Täysi näkymä</a>
-            {% endif %}
-            <a href="{% url nk_help %}">Help</a>
-            <a href="/admin/">Admin</a>
-        </div>
 {% block header %}
+{% include "recipes/contentpage/header.html" %}
 {% endblock %}
 </div>
 
-<!--
-<div id="mainnavi">
-
-{% block mainnavi %}
-{% include "recipes/contentpage/mainnavi.html" %}
-{% endblock %}
+<div class="contentpage initMenu">
+{% include "recipes/contentpage/menu.html" %}
 </div>
-
-<div id="navibar">
-{% include "recipes/contentpage/navibar.html" %}
-</div>
--->
 
 <div class="contentpage">
 {% block content %}

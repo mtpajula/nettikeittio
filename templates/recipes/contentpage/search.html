@@ -3,45 +3,46 @@
 {% block content %}
 
 <div id="content" class="searchColor dark">
-
-    {% if results %}
-        <p>Results for your search "<strong>{{ search_string }}</strong>":</p>
-        
-        <div>
-        
-        {% for r in results %}
-
-            <div class="listresult recipeColor">
-                <img src="{{r.image}}"></img>
-                <p><a href="/recipes/{{ r.pk }}">{{r.name}}</a></p>
-                <p>{{ r.description }}</p>
-            </div>
+    <div class="listDiv">
+        {% if results %}
+            <p>Results for your search "<strong>{{ search_string }}</strong>":</p>
             
-        {% endfor %}
-        </div>
-    {% else %}
-        {% if search_string %}
-            <p>Your search "<strong>{{ search_string }}</strong>" got no results</p>
+            <div>
+            
+            {% for r in results %}
+
+                <div class="listresult recipeColor">
+                    <img src="{{r.image}}"></img>
+                    <p><a href="{% url detail recipe_id=r.pk %}">{{r.name}}</a></p>
+                    <p>{{ r.description }}</p>
+                </div>
+                
+            {% endfor %}
+            </div>
         {% else %}
-            <p>Empty search gives no results</p>
+            {% if search_string %}
+                <p>Your search "<strong>{{ search_string }}</strong>" got no results</p>
+            {% else %}
+                <p>Empty search gives no results</p>
+            {% endif %}
         {% endif %}
-    {% endif %}
-    <div class="shopping_cart">
+    </div>
+    <div class="listDiv">
         {% if results %}
             <p>
             {% if pages %}
                 {% if page_previous == 0 %}
                     &lt;- Previous page
                 {% else %}
-                    <a href="/search/{{ page_previous }}?q={{ search_string }}">&lt;- Previous page</a>
+                    <a href="{% url search  page=page_previous %}?q={{ search_string }}">&lt;- Previous page</a>
                 {% endif %}
                 {% for p in pagelist %}
-                    <a href="/search/{{ p }}?q={{ search_string }}">{{ p }}</a>
+                    <a href="{% url search  page=p %}?q={{ search_string }}">{{ p }}</a>
                 {% endfor %}
                 {% if page_next == 0 %}
                     Next page -&gt;
                 {% else %}
-                    <a href="/search/{{ page_next }}?q={{ search_string }}">Next page -&gt;</a>
+                    <a href="{% url search  page=page_next %}?q={{ search_string }}">Next page -&gt;</a>
                 {% endif %}
             {% endif %}
             </p>

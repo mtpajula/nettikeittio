@@ -39,9 +39,27 @@ def list_recipes(request):
         return render_to_response('recipes/contentpage/recipe_list.html', {'recipe_list': recipe_list, }, context_instance=RequestContext(request))
     return render_to_response('recipes/contentpage/list.html', {'recipe_list': recipe_list, }, context_instance=RequestContext(request))
 
-def search(request, page):
+def search(request, page=None):
+    # Gathering results in results -table
+    results = []
     
-    if 'q' in request.GET and request.GET['q']:
+    if 'type' in request.GET and request.GET['type']:
+        type = request.GET['type']
+        
+        if "u" in type:
+            print "u in s"
+            if 'q' in request.GET and request.GET['q']:
+                pass
+            
+        if "r" in type:
+            if 'q' in request.GET and request.GET['q']:
+                s = request.GET['q']
+                r1 = Recipe.objects.all()
+                # Filter from recipes only names and descriptions matching search string
+                r1 = r1.filter(name__icontains = s) | r1.filter(description__icontains = s)
+                results.extend(r1)
+    
+    if len(results) >= 1:
         s = request.GET['q']
         
         # Gathering results in results -table
@@ -54,17 +72,28 @@ def search(request, page):
         
         #####  ---  This code is for dividing search between pages
         # Give here tha amount of results shown in one page
-        results_in_one_page = 10
+        results_in_one_page = 1
         
         pages = 1
         pagelist = []
         result_len = len(results)
-        
-        if result_len >= results_in_one_page and page != "":
-            pages = int(result_len / results_in_one_page) + 1
+
+        if result_len >= results_in_one_page:
+            
+            if page == "":
+                page = 1
+            
+            pages = result_len / results_in_one_page
+            pages_remainder = result_len % results_in_one_page
+            
+            if pages_remainder == 0:
+                pass
+            else:
+                pages = int(pages) + 1
+            
             for i in range(pages):
                 pagelist += [i+1]
-                
+            
             result_first = (int(page)-1)*results_in_one_page
             result_last = result_first+results_in_one_page
             results = results[result_first:result_last]
@@ -80,6 +109,7 @@ def search(request, page):
                 
             return render_to_response('recipes/contentpage/search.html', 
                 { 'results': results,
+                   'type': type,
                    'search_string': s,
                    'pages' : pages,
                    'page_previous' : page_previous,
@@ -89,6 +119,7 @@ def search(request, page):
         
         return render_to_response('recipes/contentpage/search.html',
             { 'results': results,
+               'type': type,
                'search_string': s }, context_instance=RequestContext(request))
     
     return render_to_response('recipes/contentpage/search.html', { }, context_instance=RequestContext(request))

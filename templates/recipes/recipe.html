@@ -10,7 +10,7 @@
         <p>{{ recipe.owner.name }}</p>
     </div>
     <div class="recipe_image">
-        <img src="{{ recipe.image }}" alt="{{ recipe.name }}" />
+        <img src="{% url image_root path=recipe.image %}" width="100%" alt="{{ recipe.name }}" />
     </div>
     <div class="recipe_description">
         <p>{{ recipe.description }}</p>

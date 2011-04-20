@@ -21,7 +21,7 @@ class Recipe(models.Model):
     owner = models.ForeignKey(UserProfile)
     name = models.CharField('Recipe full name', max_length=200)
     description = models.TextField('Recipe description', max_length=1000)
-    image = models.ImageField(upload_to='/media/recipe_images/%Y/%m/%d', blank=True, null=True)
+    image = models.ImageField(upload_to='media/recipe_images/%Y/%m/%d', blank=True, null=True)
     editable = models.IntegerField('Editing allowed')
     eddits = models.IntegerField('Number of times edited')
     lastedit = models.DateTimeField('Last edit date')

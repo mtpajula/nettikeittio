@@ -43,6 +43,7 @@ def search(request, page=None):
     # Gathering results in results -table
     results = []
     
+    
     if 'type' in request.GET and request.GET['type']:
         type = request.GET['type']
         
@@ -58,6 +59,13 @@ def search(request, page=None):
                 # Filter from recipes only names and descriptions matching search string
                 r1 = r1.filter(name__icontains = s) | r1.filter(description__icontains = s)
                 results.extend(r1)
+                
+    if 'q' in request.GET and request.GET['q']:
+        s = request.GET['q']
+        r1 = Recipe.objects.all()
+        # Filter from recipes only names and descriptions matching search string
+        r1 = r1.filter(name__icontains = s) | r1.filter(description__icontains = s)
+        results.extend(r1)
     
     if len(results) >= 1:
         s = request.GET['q']
@@ -109,12 +117,12 @@ def search(request, page=None):
                 
             return render_to_response('recipes/contentpage/search.html', 
                 { 'results': results,
-                   'type': type,
                    'search_string': s,
                    'pages' : pages,
                    'page_previous' : page_previous,
                    'page_next' : page_next,
-                   'pagelist' : pagelist}, context_instance=RequestContext(request))
+                   'pagelist' : pagelist,
+                   'page_url' : request.path}, context_instance=RequestContext(request))
         #####  ---  Above code is for dividing search between pages
         
         return render_to_response('recipes/contentpage/search.html',

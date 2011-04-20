@@ -12,11 +12,19 @@ $(document).ready(function() {
     $('#menu').hide();
     
     $('.initMenu').hover(function () {
-            $('#menu').slideDown();
+            $('#menu').slideDown('fast');
         },function () {
-            $('#menu').slideUp();
+            $('#menu').slideUp('fast');
         }
     );
+    /*
+    $(".initMenu").bind("mouseover", function() {
+       $("#menu:hidden").slideDown('fast'); 
+    });
+    
+    $("#menu").bind("mouseout", function() {
+       $("#menu:visible").slideUp('fast'); 
+    });*/
 });
 
 </script>

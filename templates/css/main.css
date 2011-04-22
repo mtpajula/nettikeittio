@@ -17,18 +17,22 @@ a:active {color:black }  /* selected link */
 
 div.recipeColor {
     background:#619100;
+    border-color: #518100;
     color: white;
 }
 div.ownColor {
     background:#5E1709;
+    border-color: #4D0608;
     color: white;
 }
 div.searchColor {
     background:#aa0000;
+    border-color: #990000;
     color: white;
 }
 div.mainColor {
-    background:white;
+    background: #ffffff;
+    border-color: #eeeeee;
     color: black;
 }
 /*
@@ -50,10 +54,11 @@ div.left {
     float:left;
 }
 
-div.menu, #header {
+#header {
     -webkit-box-shadow: 0px 10px 20px #212121;
     -moz-box-shadow: 0px 10px 20px #212121;
     box-shadow: 0px 10px 20px #212121;
+    height: 8%;
 }
 
 .ingredient .name {

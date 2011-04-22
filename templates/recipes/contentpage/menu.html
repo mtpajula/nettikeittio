@@ -1,33 +1,46 @@
+    <script type="text/javascript">
+$(document).ready(function() {
+    $("div.menulinks").hide();
 
-<div id="menuHeader" class="menu mainColor"> 
-    <div class="menuwrapper"> 
-        <div class="menulist dark recipeColor">
-            Resepti
-        </div>
-        <div class="menulist dark ownColor">
-            Omat
-        </div>
-        <div class="menulist dark searchColor">
-            Etsi
+    
+
+    // Slide down all menu items
+    $("div.menuwrapper").hover(function() {
+        $("div.menulinks").slideDown("fast");
+    }, function() {
+        $("div.menulinks").slideUp("fast");
+    });
+
+    // Add active class to current title and it's siblings (=navi list)
+    $("div.menutitle, div.menulinks").hover(function() {
+        $(this).addClass("active").siblings().addClass("active");
+    }, function() {
+        $(this).removeClass("active").siblings().removeClass("active");
+    });
+
+});
+</script>
+
+<div class="menuwrapper"> 
+
+    <div class="menulist dark recipeColor">
+        <div class="menutitle">Reseptit</div>
+        <div class="menulinks">
+          <ul class="link">
+              <li><a href="{% url new_recipe %}">Uusi</a></li>
+              {% if recipe %}
+                  <li><a href="{% url edit_recipe recipe_id=recipe.pk %}">Muokkaa</a></li>
+                  <li><a href="{% url edit_recipe recipe_id=recipe.pk %}">Tee uusi tämän pohjalta</a></li>
+                  <li><a href="{% url active_view recipe_id=recipe.pk %}">Täysi näkymä</a></li>
+              {% endif %}
+          </ul>
         </div>
     </div>
-</div> 
 
-<div id="menu" class="menu mainColor"> 
-    <div class="menuwrapper">
-    
-        <div class="menulist dark recipeColor">
-            <ul class="link">
-                <li><a href="{% url new_recipe %}">Uusi</a></li>
-                {% if recipe %}
-                    <li><a href="{% url edit_recipe recipe_id=recipe.pk %}">Muokkaa</a></li>
-                    <li><a href="{% url edit_recipe recipe_id=recipe.pk %}">Tee uusi tämän pohjalta</a></li>
-                    <li><a href="{% url active_view recipe_id=recipe.pk %}">Täysi näkymä</a></li>
-                {% endif %}
-            </ul>
-        </div>
+    <div class="menulist dark ownColor">
+        <div class="menutitle">Omat</div>
 
-        <div class="menulist dark ownColor">
+        <div class="menulinks">
             <ul class="link">
                 {% if user.is_authenticated %}
                     <li><a href="{% url user_page user_id=user.pk %}">Sinä</a></li>
@@ -41,14 +54,18 @@
                 <li><a href="{% url nk_login %}">Kirjaudu sisään</a></li>
             </ul>
         </div>
+    </div>
 
-        <div class="menulist dark searchColor">
+    <div class="menulist dark searchColor">
+        <div class="menutitle">Etsi</div>
+        <div class="menulinks">
             <ul class="link">
                 <li><a href="{% url list_recipes %}">Reseptilistaus</a></li>
                 <li><a href="{% url search %}">Käyttäjiä</a></li>
                 <li><a href="{% url search %}">Reseptejä</a></li>
             </ul>
         </div>
-        
-   </div>
+    </div>
+
+
 </div>

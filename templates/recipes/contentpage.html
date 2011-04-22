@@ -6,29 +6,6 @@
 
 {% block body %}
 
-<script type="text/javascript">
-$(document).ready(function() {
-
-    $('#menu').hide();
-    
-    $('.initMenu').hover(function () {
-            $('#menu').slideDown('fast');
-        },function () {
-            $('#menu').slideUp('fast');
-        }
-    );
-    /*
-    $(".initMenu").bind("mouseover", function() {
-       $("#menu:hidden").slideDown('fast'); 
-    });
-    
-    $("#menu").bind("mouseout", function() {
-       $("#menu:visible").slideUp('fast'); 
-    });*/
-});
-
-</script>
-
 
 <div id="header" class="mainColor contentpage">
 {% block header %}

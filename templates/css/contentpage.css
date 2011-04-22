@@ -1,10 +1,9 @@
 
 div#header {
     overflow: auto;
-    padding-top: 2em;
-    padding-bottom: 2em;
-    padding-right: 5em;
-    padding-left: 5em;
+    padding: 0.3em 5em;
+
+    font-size: 90%;
 }
 
 .listresult {
@@ -15,46 +14,70 @@ div#header {
     border: 3px solid white;
 }
 
+
+/*
+    Main navigation
+*/
+div.menuwrapper {
+    overflow: auto;
+    position: absolute;
+    width: 80%;
+    margin-left: 10%;
+    z-index: 100;
+}
+.active {
+    background: rgba(255,255,255,0.1);
+}
 .menulist {
-    padding: 1em;
-    width: 15em;
+    padding: 0;
+    margin: 0;
+    width: 32%;
     float:left;
     height:100%;
     overflow: auto;
+
+    border-width: 0px;
+    border-style: solid;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
 }
 
-div#menu .menulist {
-    margin-bottom: 2em;
+.menulist .menutitle {
+    font-weight: bold;
+    font-size: 110%;
+
+    text-align: center;
+
+    padding: 1em;
+
+    border-bottom: solid rgba(255,255,255,0.1) 5px;
 }
 
-div.menuwrapper {
-    overflow: auto;
-    margin-left: 15%;
-    /*margin-right: 5em;*/
+.menulinks ul {
+    list-style: none;
+    margin: 0 auto;
+    padding: 1em 2em 4em 2em;
+}
+.menulinks ul li {
+    padding: 0.3em;
+    border-bottom: solid rgba(255,255,255,0.1) 3px;
+
+    font-size: 110%;
+    font-weight: bold;
+}
+.menulinks ul li:hover {
+    background: rgba(255,255,255,0.1);
 }
 
-div.menu {
-    overflow: auto;
-    padding: 0em;
-    margin: 0em;
-}
 
-div#menu {
-    position:absolute;
-    left:0em;
-    right:0em;
-}
-
-div#mainnavi {
-    float:left;
-}
-
+/*
+    Content
+*/
 div#content {
     padding: 2em;
-    margin-top: 3em;
-    margin-bottom: 3em;
-    margin-left: 5em;
-    margin-right: 5em;
+    margin: 3.8em auto;
+    width: 90%;
     overflow: auto;
     -webkit-box-shadow: 0px 0px 5px #212121;
     -moz-box-shadow: 0px 0px 5px #212121;

@@ -9,6 +9,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 from django.template import RequestContext
+import datetime
 
 # Simulate slow response from server with time.sleep(2)
 # import time
@@ -147,12 +148,42 @@ def active(request, recipe_id):
 #
 def edit_recipe(request, recipe_id):
 
+    if not request.user.is_authenticated():
+        return HttpResponseForbidden
+
     # Update recipe if post information is received
     if request.method == 'POST':
       return save_edit_recipe(request)
     
     recipe = get_object_or_404(Recipe, pk=recipe_id)
-    phases = Phase.objects.all().filter(recipe=recipe_id)
+    phases = Phase.objects.all().filter(recipe=recipe_id).order_by('-ordering')
+
+    context = { 'recipe': recipe, 'phases': phases }
+    context.update(csrf(request))
+    
+    return render_to_response('recipes/contentpage/edit_recipe.html', context)
+
+def new_recipe(request):
+
+    if not request.user.is_authenticated():
+        return HttpResponseForbidden()
+
+
+    if request.method == 'POST':
+        return save_edit_recipe(request)
+
+    recipe = Recipe(
+        owner=request.user.get_profile(),
+        name='',
+        description='',
+        image='',
+        editable=0,
+        eddits=0,
+        lastedit=datetime.date.today()
+    )
+    recipe.save();
+    # No phases created yet
+    phases = Phase.objects.none()
 
     context = { 'recipe': recipe, 'phases': phases }
     context.update(csrf(request))
@@ -173,6 +204,13 @@ def save_edit_recipe(request):
     r_id = request.POST['recipe_id']
     re_numeric.sub('', r_id)
     rec = Recipe.objects.get(pk=r_id)
+
+    rec.name = request.POST['recipe_name']
+    rec.description = request.POST['recipe_description']
+
+    editable = request.POST['recipe_editable']
+    re_numeric.sub('', editable)
+    rec.editable = editable
 
     # Replace invalid chars
     rec.full_clean()
@@ -282,12 +320,6 @@ def save_edit_recipe(request):
     # Return redirect to avoid reposting information on page refreshh
     return HttpResponseRedirect(request.META["HTTP_REFERER"])
 
-
-
-
-
-def new_recipe(request):
-    return render_to_response('recipes/fullpage.html', { }, context_instance=RequestContext(request))
 
 def user_detail(request, user_id):
     user = get_object_or_404(UserProfile, pk=user_id)

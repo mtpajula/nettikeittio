@@ -131,4 +131,13 @@ div#nkName img {
     border: 3px solid grey;
 }
 
+/* Edit/create recipe */
+div.recipe_phases {
+    border: solid black 1px;
+}
+div.recipe_phase {
+    border: solid red 1px;
+    margin: 0.5em;
+}
+
 

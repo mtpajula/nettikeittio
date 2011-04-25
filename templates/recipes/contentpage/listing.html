@@ -1,0 +1,58 @@
+{% extends "recipes/contentpage.html" %}
+
+{% block content %}
+
+<div id="content" class="searchColor dark">
+    
+    
+    <div class="listDiv">
+    {% if results %}
+    {% if search_string %}
+        <p>Hakusi "<strong>{{ search_string }}</strong>" tulokset:</p>
+    </div>
+    {% endif %}
+    
+    <div class="listDiv">
+    
+        {% for r in results.object_list %}
+            {% if r.owner %}
+            <div class="listresult recipeColor">
+                <img src="{% url image_root path=r.image %}"></img>
+                <p><a href="{% url recipe_page recipe_id=r.pk %}">{{r.name}}</a></p>
+                <p>{{ r.description }}</p>
+            {% else %}
+            <div class="listresult ownColor">
+                <img src="{% url image_root path=r.image %}"></img>
+                <p><a href="{% url user_page user_id=r.pk %}">{{r.name}}</a></p>
+                <p>{{ r.description }}</p>
+            {% endif %}
+            </div>
+
+        {% endfor %}
+
+    </div>
+    <div class="listDiv">
+        <span class="step-links">
+            {% if results.has_previous %}
+                <a href="?page={{ results.previous_page_number }}{{ getString }}">Edellinen</a>
+            {% endif %}
+
+            <span class="current">
+                Sivu {{ results.number }} / {{ results.paginator.num_pages }}.
+            </span>
+
+            {% if results.has_next %}
+                <a href="?page={{ results.next_page_number }}{{ getString }}">Seuraava</a>
+            {% endif %}
+        </span>
+    {% else %}
+        {% if search_string %}
+            <p>Hakusi "<strong>{{ search_string }}</strong>" ei palauttanut yhtään tuloksia</p>
+        {% else %}
+            <p>Tyhjä haku ei anna tuloksia</p>
+        {% endif %}
+    {% endif %}
+    </div>
+
+</div>
+{% endblock %}

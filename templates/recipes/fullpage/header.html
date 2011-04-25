@@ -18,7 +18,7 @@ $(document).ready(function() {
     </div>
     <div id="mainAction" class="right">
     {% if recipe %}
-        <a href="{% url detail recipe_id=recipe.pk %}">Alkuun</a>
+        <a href="{% url recipe_page recipe_id=recipe.pk %}">Alkuun</a>
     {% else %}
         <a href="{% url main_page %}">Alkuun</a>
     {% endif %}

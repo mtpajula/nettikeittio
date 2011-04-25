@@ -60,9 +60,9 @@ $(document).ready(function() {
         <div class="menutitle">Etsi</div>
         <div class="menulinks">
             <ul class="link">
-                <li><a href="{% url list_recipes %}">Reseptilistaus</a></li>
-                <li><a href="{% url search %}">Käyttäjiä</a></li>
-                <li><a href="{% url search %}">Reseptejä</a></li>
+                <li><a href="{% url list_users %}">Käyttäjiä</a></li>
+                <li><a href="{% url list_recipes %}">Reseptejä</a></li>
+                <li><a href="{% url list_recipes %}?type=n">Uusimmat reseptit</a></li>
             </ul>
         </div>
     </div>

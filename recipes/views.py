@@ -10,6 +10,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 from django.template import RequestContext
 import datetime
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Simulate slow response from server with time.sleep(2)
 # import time
@@ -34,104 +35,79 @@ def main_page(request):
     return render_to_response('recipes/contentpage.html', { }, context_instance=RequestContext(request))
 
 def list_recipes(request):
-    recipe_list = Recipe.objects.all().order_by('name')
     
-    if HttpRequest.is_ajax(request):
-        return render_to_response('recipes/contentpage/recipe_list.html', {'recipe_list': recipe_list, }, context_instance=RequestContext(request))
-    return render_to_response('recipes/contentpage/list.html', {'recipe_list': recipe_list, }, context_instance=RequestContext(request))
+    context = {}
+    recipes = Recipe.objects.all()
+    
+    if 'type' in request.GET and request.GET['type']:
+        type = request.GET['type']
+        if "n" in type:
+            context['results'] = recipes.order_by('-lastedit')
+    else:
+        context['results'] = recipes.order_by('name')
+    return listing(request, context)
+
+def list_users(request):
+    context = { 'results': UserProfile.objects.all().order_by('name') }
+    return listing(request, context)
+
+# From http://docs.djangoproject.com/en/dev/topics/pagination/?from=olddocs
+def listing(request, context = {}):
+    
+    results = context['results']
+    
+    if len(results) != 0:
+        paginator = Paginator(results, 5) # Show n contacts per page
+        
+        getString = ""
+        for g, i in request.GET.iteritems():
+            if g != 'page':
+                getString += "&%s=%s" % (g, i)
+                
+        context['getString'] = getString
+        
+        if 'page' in request.GET and request.GET['page']:
+            
+            page = request.GET.get('page')
+            try:
+                results = paginator.page(page)
+            except PageNotAnInteger:
+                # If page is not an integer, deliver first page.
+                results = paginator.page(1)
+            except EmptyPage:
+                # If page is out of range (e.g. 9999), deliver last page of results.
+                results = paginator.page(paginator.num_pages)
+        else:
+            results = paginator.page(1)
+            
+        context['results'] = results
+    else:
+        del context['results']
+    
+    return render_to_response('recipes/contentpage/listing.html', context, context_instance=RequestContext(request))
 
 def search(request, page=None):
     # Gathering results in results -table
     results = []
-    
-    
-    if 'type' in request.GET and request.GET['type']:
-        type = request.GET['type']
-        
-        if "u" in type:
-            print "u in s"
-            if 'q' in request.GET and request.GET['q']:
-                pass
-            
-        if "r" in type:
-            if 'q' in request.GET and request.GET['q']:
-                s = request.GET['q']
-                r1 = Recipe.objects.all()
-                # Filter from recipes only names and descriptions matching search string
-                r1 = r1.filter(name__icontains = s) | r1.filter(description__icontains = s)
-                results.extend(r1)
+    context = {}
                 
     if 'q' in request.GET and request.GET['q']:
         s = request.GET['q']
-        r1 = Recipe.objects.all()
-        # Filter from recipes only names and descriptions matching search string
-        r1 = r1.filter(name__icontains = s) | r1.filter(description__icontains = s)
-        results.extend(r1)
-    
-    if len(results) >= 1:
-        s = request.GET['q']
-        
-        # Gathering results in results -table
-        results = []
         
         r1 = Recipe.objects.all()
         # Filter from recipes only names and descriptions matching search string
         r1 = r1.filter(name__icontains = s) | r1.filter(description__icontains = s)
         results.extend(r1)
         
-        #####  ---  This code is for dividing search between pages
-        # Give here tha amount of results shown in one page
-        results_in_one_page = 1
+        r2 = UserProfile.objects.all()
+        # Filter from recipes only names and descriptions matching search string
+        r2 = r2.filter(name__icontains = s) | r2.filter(description__icontains = s)
+        results.extend(r2)
         
-        pages = 1
-        pagelist = []
-        result_len = len(results)
-
-        if result_len >= results_in_one_page:
-            
-            if page == "":
-                page = 1
-            
-            pages = result_len / results_in_one_page
-            pages_remainder = result_len % results_in_one_page
-            
-            if pages_remainder == 0:
-                pass
-            else:
-                pages = int(pages) + 1
-            
-            for i in range(pages):
-                pagelist += [i+1]
-            
-            result_first = (int(page)-1)*results_in_one_page
-            result_last = result_first+results_in_one_page
-            results = results[result_first:result_last]
-            
-            page_previous = int(page)-1
-            page_next = int(page)+1
-            
-            if page == '1':
-                page_previous = 0
-            elif str(page) == str(pages):
-                page_next = 0
-                
-                
-            return render_to_response('recipes/contentpage/search.html', 
-                { 'results': results,
-                   'search_string': s,
-                   'pages' : pages,
-                   'page_previous' : page_previous,
-                   'page_next' : page_next,
-                   'pagelist' : pagelist,
-                   'page_url' : request.path}, context_instance=RequestContext(request))
-        #####  ---  Above code is for dividing search between pages
+        context['search_string'] = s
         
-        return render_to_response('recipes/contentpage/search.html',
-            { 'results': results,
-               'type': type,
-               'search_string': s }, context_instance=RequestContext(request))
-    
-    return render_to_response('recipes/contentpage/search.html', { }, context_instance=RequestContext(request))
+    context['results'] = results
+    return listing(request, context)
 
 def recipe_detail(request, recipe_id):    
     return render_detail_recipe(request, recipe_id, 'recipes/contentpage/detail.html')

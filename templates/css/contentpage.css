@@ -1,4 +1,8 @@
 
+.recipe_image img {
+    width:100%;
+}
+
 div#header {
     overflow: auto;
     padding: 0.3em 5em;
@@ -14,6 +18,9 @@ div#header {
     border: 3px solid white;
 }
 
+.listresult img {
+    width: 10em;
+}
 
 /*
     Main navigation

@@ -13,6 +13,7 @@ urlpatterns = patterns('',
     url(r'^recipes/$'                      , list_recipes, name='list_recipes'),
     url(r'^users/$'                        , list_users, name='list_users'),
     url(r'^search/$'                       , search, name='search'),
+    url(r'^search/recipes/$'               , recipe_search, name='recipe_search_field'),
     url(r'^recipes/(?P<recipe_id>\d+)/$'   , recipe_detail, name='recipe_page'),
     url(r'^active/(?P<recipe_id>\d+)/$'    , active, name='active_view'),
     url(r'^editrecipe/(?P<recipe_id>\d+)/$', edit_recipe, name='edit_recipe'),
@@ -32,6 +33,8 @@ urlpatterns = patterns('',
         {'document_root': settings.JS_ROOT}),
     url(r'^img/(?P<path>.*)$', 'django.views.static.serve',
         {'document_root': settings.MEDIA_ROOT, 'show_indexes': True}, name='image_root'),
+        
+    url(r'^lookup/ingredient/$'            , ingredient_lookup, name='ingredient_lookup'),
 
     # Example:
     # (r'^nettikeittio/', include('nettikeittio.foo.urls')),

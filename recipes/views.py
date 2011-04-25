@@ -11,6 +11,7 @@ from django.contrib.auth import login, authenticate
 from django.template import RequestContext
 import datetime
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.utils.simplejson import *
 
 # Simulate slow response from server with time.sleep(2)
 # import time
@@ -34,6 +35,9 @@ def render_detail_recipe(request, recipe_id, recipe_template):
 def main_page(request):
     return render_to_response('recipes/contentpage.html', { }, context_instance=RequestContext(request))
 
+def recipe_search(request):
+    return render_to_response('recipes/contentpage/recipe_search_field.html', { }, context_instance=RequestContext(request))
+
 def list_recipes(request):
     
     context = {}
@@ -51,7 +55,7 @@ def list_users(request):
     context = { 'results': UserProfile.objects.all().order_by('name') }
     return listing(request, context)
 
-# From http://docs.djangoproject.com/en/dev/topics/pagination/?from=olddocs
+# Basic skeleton from http://docs.djangoproject.com/en/dev/topics/pagination/?from=olddocs
 def listing(request, context = {}):
     
     results = context['results']
@@ -86,7 +90,7 @@ def listing(request, context = {}):
     
     return render_to_response('recipes/contentpage/listing.html', context, context_instance=RequestContext(request))
 
-def search(request, page=None):
+def search(request):
     # Gathering results in results -table
     results = []
     context = {}
@@ -335,4 +339,24 @@ def register(request):
 
 def nk_help(request):
     return render_to_response('recipes/contentpage/help.html', { }, context_instance=RequestContext(request))
+
+def ingredient_lookup(request):
+    results = []
+    if request.method == "GET":
+        if request.GET.has_key(u'q'):
+            value = request.GET[u'q']
+            # Ignore queries shorter than length 2
+            if len(value) > 1:
+                result = ""
+                model_results = Ingredient.objects.filter(name__icontains=value)
+                #results = [ x.name for x in model_results ]
+                #results = [ (x.__unicode__(), x.id) for x in model_results ]
+                #results = [ (x.name, x.id) for x in model_results ]
+                for x in model_results:
+                    result += x.name + "|" + str(x.id) + "\n"
+            else:
+                result = ""
+                
+    json = simplejson.dumps(results)
+    return HttpResponse(result)
 

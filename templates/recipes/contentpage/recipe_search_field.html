@@ -1,0 +1,37 @@
+{% extends "recipes/contentpage.html" %}
+
+{% block content %}
+
+<script type="text/javascript">
+$(function() {
+    $("#ingredientLookup").autocomplete('{% url ingredient_lookup %}');
+    /*
+    $('#ingredientLookup').autocomplete('{% url ingredient_lookup %}', {
+        dataType: 'json',
+        width: 500,
+        parse: function(data) {
+            return $.map(data, function(row) {
+                return { data:row, value:row[1], result:row[0] };
+            });
+        }
+        }).result(
+            function(e, data, value) {
+                $("#id_title_pk").val(value);
+            }
+        );
+        */
+    
+});
+</script>
+
+<div id="content" class="searchColor dark">
+    
+    
+    <div class="listDiv">
+        <p>form</p>
+        <input type="text" id="ingredientLookup" />
+        <input type="hidden" id="id_title_pk">
+    </div>
+
+</div>
+{% endblock %}

@@ -12,6 +12,7 @@ from django.template import RequestContext
 import datetime
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils.simplejson import *
+from django.core import serializers
 
 # Simulate slow response from server with time.sleep(2)
 # import time
@@ -343,20 +344,30 @@ def nk_help(request):
 def ingredient_lookup(request):
     results = []
     if request.method == "GET":
-        if request.GET.has_key(u'q'):
-            value = request.GET[u'q']
+        if request.GET.has_key(u'term'):
+            value = request.GET[u'term']
             # Ignore queries shorter than length 2
             if len(value) > 1:
-                result = ""
+                result = []
                 model_results = Ingredient.objects.filter(name__icontains=value)
                 #results = [ x.name for x in model_results ]
                 #results = [ (x.__unicode__(), x.id) for x in model_results ]
                 #results = [ (x.name, x.id) for x in model_results ]
+                #result = serializers.serialize('json', model_results)
                 for x in model_results:
-                    result += x.name + "|" + str(x.id) + "\n"
+                    d = { 'id': x.id, 'name': x.name }
+                    #result.extend((x.name, str(x.id)) for x in model_results)
+                    result.extend(str(d))
+                #print result
+                    #result += x.name + "|" + str(x.id) + "\n"
+                #result = serializers.serialize('json', result)
+                #result = '[{"pk":"1","name":"oliivi"},{"pk":"2","name":"oliivioljy"},{"pk":"3","name":"oli"}]'
             else:
                 result = ""
-                
-    json = simplejson.dumps(results)
-    return HttpResponse(result)
+    
+    print result
+    json = simplejson.dumps(result)
+    print json
+    
+    return HttpResponse(json)
 

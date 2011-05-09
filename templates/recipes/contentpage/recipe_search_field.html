@@ -4,7 +4,68 @@
 
 <script type="text/javascript">
 $(function() {
-    $("#ingredientLookup").autocomplete('{% url ingredient_lookup %}');
+
+		$( "#name" ).autocomplete({
+			source: '{% url ingredient_lookup %}',
+			minLength: 2,
+            select: function(event, ui){
+                alert(ui.item.pk);
+                $('#testing').appendTo(ui.item.pk);
+            }
+        });
+                /*
+				var term = request.term;
+				if ( term in cache ) {
+					response( cache[ term ] );
+					return;
+				}
+
+				lastXhr = $.getJSON( '{% url ingredient_lookup %}', request, function( data, status, xhr ) {
+					cache[ term ] = data;
+					if ( xhr === lastXhr ) {
+						response( data );
+					}
+				});
+                
+			}
+		});
+        */
+    /*
+    $("#ingredientLookup").autocomplete('{% url ingredient_lookup %}', {
+        dataType: "json",
+        extraParams: {
+            format: 'json' // pass the required context to the Zend Controller
+        },
+        parse: function(data) {
+            
+            data = data.fields;
+            
+            var parsed = [];
+            for (var i = 0; i < data.length; i++) {
+                parsed[parsed.length] = {
+                    data: data[i],
+                    value: data[i].name,
+                    result: data[i].name
+                };
+            }
+            
+            return parsed;
+            
+            return $.map(data, function(row) {
+                return {
+                    data: row,
+                    value: row.name,
+                    result: row.name
+                }
+            });
+            
+            
+        },
+        formatItem: function(item) {
+            return item.name + " formatItem ";
+        }
+	});
+    */
     /*
     $('#ingredientLookup').autocomplete('{% url ingredient_lookup %}', {
         dataType: 'json',
@@ -28,9 +89,17 @@ $(function() {
     
     
     <div class="listDiv">
+        <div class="ui-widget">
+            <label for="name">Name: </label>
+            <input id="name" />
+        </div>
         <p>form</p>
         <input type="text" id="ingredientLookup" />
         <input type="hidden" id="id_title_pk">
+    </div>
+    
+    <div class="listDiv" id="testing">
+        <p>info</p>
     </div>
 
 </div>

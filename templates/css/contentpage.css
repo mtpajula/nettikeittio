@@ -147,4 +147,8 @@ div.recipe_phase {
     margin: 0.5em;
 }
 
+a.remove_ingredient {
+    float:right;
+}
+
 

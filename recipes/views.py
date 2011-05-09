@@ -350,24 +350,14 @@ def ingredient_lookup(request):
             if len(value) > 1:
                 result = []
                 model_results = Ingredient.objects.filter(name__icontains=value)
-                #results = [ x.name for x in model_results ]
-                #results = [ (x.__unicode__(), x.id) for x in model_results ]
-                #results = [ (x.name, x.id) for x in model_results ]
-                #result = serializers.serialize('json', model_results)
                 for x in model_results:
-                    d = { 'id': x.id, 'name': x.name }
-                    #result.extend((x.name, str(x.id)) for x in model_results)
-                    result.extend(str(d))
-                #print result
-                    #result += x.name + "|" + str(x.id) + "\n"
-                #result = serializers.serialize('json', result)
-                #result = '[{"pk":"1","name":"oliivi"},{"pk":"2","name":"oliivioljy"},{"pk":"3","name":"oli"}]'
+                    result.append({"id":x.id, "name":x.name})
             else:
                 result = ""
-    
-    print result
+
     json = simplejson.dumps(result)
-    print json
-    
-    return HttpResponse(json)
+    return HttpResponse(
+        json,
+        content_type = 'application/javascript; charset=utf8'
+    )
 

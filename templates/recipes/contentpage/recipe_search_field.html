@@ -3,104 +3,76 @@
 {% block content %}
 
 <script type="text/javascript">
-$(function() {
+$(document).ready(function() {
+    // http://net.tutsplus.com/tutorials/javascript-ajax/how-to-use-the-jquery-ui-autocomplete-widget/
+    //attach autocomplete
+    $("#input_ingredient").autocomplete({
 
-		$( "#name" ).autocomplete({
-			source: '{% url ingredient_lookup %}',
-			minLength: 2,
-            select: function(event, ui){
-                alert(ui.item.pk);
-                $('#testing').appendTo(ui.item.pk);
-            }
-        });
-                /*
-				var term = request.term;
-				if ( term in cache ) {
-					response( cache[ term ] );
-					return;
-				}
+        //define callback to format results
+        source: function(req, add){
 
-				lastXhr = $.getJSON( '{% url ingredient_lookup %}', request, function( data, status, xhr ) {
-					cache[ term ] = data;
-					if ( xhr === lastXhr ) {
-						response( data );
-					}
-				});
-                
-			}
-		});
-        */
-    /*
-    $("#ingredientLookup").autocomplete('{% url ingredient_lookup %}', {
-        dataType: "json",
-        extraParams: {
-            format: 'json' // pass the required context to the Zend Controller
-        },
-        parse: function(data) {
-            
-            data = data.fields;
-            
-            var parsed = [];
-            for (var i = 0; i < data.length; i++) {
-                parsed[parsed.length] = {
-                    data: data[i],
-                    value: data[i].name,
-                    result: data[i].name
-                };
-            }
-            
-            return parsed;
-            
-            return $.map(data, function(row) {
-                return {
-                    data: row,
-                    value: row.name,
-                    result: row.name
-                }
+            //pass request to server
+            $.getJSON('{% url ingredient_lookup %}', req, function(data) {
+
+                //create array for response objects
+                var suggestions = [];
+
+                //process response
+                $.each(data, function(i, val){
+                    suggestions.push(val.name);
+                });
+
+                //pass array to callback
+                add(suggestions);
             });
-            
-            
         },
-        formatItem: function(item) {
-            return item.name + " formatItem ";
+
+        //define select handler
+        /*
+        select: function(e, ui) {
+            console.log(ui)
+            var name = ui.item.label;
+            //$('#testing').text(name);
+            $('#ingredients').append('<div class="ingredient"><p>' + name + '</p></div>');
+            $("#name").val("");
         }
-	});
-    */
-    /*
-    $('#ingredientLookup').autocomplete('{% url ingredient_lookup %}', {
-        dataType: 'json',
-        width: 500,
-        parse: function(data) {
-            return $.map(data, function(row) {
-                return { data:row, value:row[1], result:row[0] };
-            });
-        }
-        }).result(
-            function(e, data, value) {
-                $("#id_title_pk").val(value);
-            }
-        );
         */
+    });
     
+    $(".add_ingredient").click(function() {
+        var name = $("#input_ingredient").val();
+        var remove = '<a href="#" title="Remove phase" class="remove_ingredient">x</a>';
+        var hidden = '<input type="hidden" name="i" value="' + name + '" />';
+        $('#ingredients').append('<div class="ingredient listresult recipeColor">' + name + remove + hidden + '</div>');
+        $("#input_ingredient").val("");
+        $('.listresult').corner();
+    });
+    
+    $(".remove_ingredient").live('click',function(){
+        $(this).parent().remove();
+    });
 });
 </script>
 
 <div id="content" class="searchColor dark">
     
-    
     <div class="listDiv">
         <div class="ui-widget">
-            <label for="name">Name: </label>
-            <input id="name" />
+            <!--<label for="input_ingredient">Lisää: </label>-->
+            <input id="input_ingredient" />
+            <button type="button" class="add_ingredient">Lisää raaka-aine</button>
         </div>
-        <p>form</p>
-        <input type="text" id="ingredientLookup" />
-        <input type="hidden" id="id_title_pk">
     </div>
     
-    <div class="listDiv" id="testing">
-        <p>info</p>
-    </div>
+    <form method="get" action="{% url list_recipes %}">
+        <div class="listDiv" id="ingredients">
+            <p>Raaka-aineet:</p>
+        </div>
+        
+        <div class="listDiv" id="ingredients">
+            <input type="submit" value="Hae" />
+        </div>
+    </form>
 
 </div>
 {% endblock %}

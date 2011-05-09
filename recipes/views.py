@@ -41,6 +41,7 @@ def recipe_search(request):
 
 def list_recipes(request):
     
+    results = []
     context = {}
     recipes = Recipe.objects.all()
     
@@ -50,6 +51,23 @@ def list_recipes(request):
             context['results'] = recipes.order_by('-lastedit')
     else:
         context['results'] = recipes.order_by('name')
+    
+    
+    if 'i' in request.GET and request.GET['i']:
+        i_list = request.GET.getlist('i')
+
+        pi1 = PhaseIngredient.objects.filter(ingredient__name__in=i_list)
+
+        wanted_items = set()
+        for item in pi1:
+            wanted_items.add(item.phase.recipe)
+
+        for item in wanted_items:
+            results.append(item)
+
+        context['results'] = results
+
+    
     return listing(request, context)
 
 def list_users(request):
@@ -66,7 +84,13 @@ def listing(request, context = {}):
         
         getString = ""
         for g, i in request.GET.iteritems():
-            if g != 'page':
+            if g == 'page':
+                pass
+            elif g == 'i':
+                i_list = request.GET.getlist('i')
+                for ingr in i_list:
+                    getString += "&i="+ingr
+            else:
                 getString += "&%s=%s" % (g, i)
                 
         context['getString'] = getString
@@ -342,7 +366,7 @@ def nk_help(request):
     return render_to_response('recipes/contentpage/help.html', { }, context_instance=RequestContext(request))
 
 def ingredient_lookup(request):
-    results = []
+
     if request.method == "GET":
         if request.GET.has_key(u'term'):
             value = request.GET[u'term']

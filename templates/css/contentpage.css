@@ -51,14 +51,13 @@ div.menuwrapper {
 }
 
 .menulist .menutitle {
-    font-weight: bold;
     font-size: 110%;
 
     text-align: center;
 
     padding: 1em;
 
-    border-bottom: solid rgba(255,255,255,0.1) 5px;
+    /*border-bottom: solid rgba(255,255,255,0.1) 5px;*/
 }
 
 .menulinks ul {
@@ -68,10 +67,9 @@ div.menuwrapper {
 }
 .menulinks ul li {
     padding: 0.3em;
-    border-bottom: solid rgba(255,255,255,0.1) 3px;
+    /*border-bottom: solid rgba(255,255,255,0.1) 3px;*/
 
     font-size: 110%;
-    font-weight: bold;
 }
 .menulinks ul li:hover {
     background: rgba(255,255,255,0.1);

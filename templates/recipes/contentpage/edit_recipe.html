@@ -45,6 +45,7 @@ $(".add_ingredient_button").click(function(event){
 	var ing_container = $(this).siblings("div.phase_ingredients");
 	var ing_index = ing_container.children().length;
 	var new_ing = $("#phaseIngredientTemplate").clone();
+    new_ing.attr("id", "");
 
     var phase_index = $(this).parent().attr("id");
     var phase_regex = /recipe_phase_(\d)/;
@@ -71,6 +72,43 @@ $(".add_ingredient_button").click(function(event){
 	new_ing
 	);
 
+    alert( new_ing.children("input.phase_ingredient_name").length);
+    new_ing.children("input.phase_ingredient_name").autocomplete({
+        //define callback to format results
+        source: function(req, add){
+            //pass request to server
+            $.getJSON('{% url ingredient_lookup %}', req, function(data) {
+                //create array for response objects
+                var suggestions = [];
+                //process response
+                $.each(data, function(i, val){
+                    suggestions.push(val.name);
+                });
+                //pass array to callback
+                add(suggestions);
+            });
+        },
+    });
+    
+
+
+    new_ing.children("input.phase_ingredient_unit").autocomplete({
+        //define callback to format results
+        source: function(req, add){
+            //pass request to server
+            $.getJSON('{% url unit_lookup %}', req, function(data) {
+                //create array for response objects
+                var suggestions = [];
+                //process response
+                $.each(data, function(i, val){
+                    suggestions.push(val.name);
+                });
+                //pass array to callback
+                add(suggestions);
+            });
+        },
+    });
+
 });
 
 // Remove phase button
@@ -78,6 +116,42 @@ $(".remove_phase_button, .remove_ingredient_button").click(function(event){
   event.preventDefault();
   $(this).parent().remove();
 });
+
+
+$("input.phase_ingredient_name").autocomplete({
+        //define callback to format results
+        source: function(req, add){
+            //pass request to server
+            $.getJSON('{% url ingredient_lookup %}', req, function(data) {
+                //create array for response objects
+                var suggestions = [];
+                //process response
+                $.each(data, function(i, val){
+                    suggestions.push(val.name);
+                });
+                //pass array to callback
+                add(suggestions);
+            });
+        },
+    });
+
+
+$("input.phase_ingredient_unit").autocomplete({
+        //define callback to format results
+        source: function(req, add){
+            //pass request to server
+            $.getJSON('{% url unit_lookup %}', req, function(data) {
+                //create array for response objects
+                var suggestions = [];
+                //process response
+                $.each(data, function(i, val){
+                    suggestions.push(val.name);
+                });
+                //pass array to callback
+                add(suggestions);
+            });
+        },
+    });
 
 });
 </script>

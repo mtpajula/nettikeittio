@@ -297,20 +297,25 @@ def save_edit_recipe(request):
                 i_unit= params['unit']
                 i_amount = params['amount']
 
-                # TODO: Should check for existence first
-                ing = Ingredient(
-                    name=i_name
-                )
-                ing.full_clean()
-                ing.save()
+                try:
+                    ing = Ingredient.objects.filter(name=i_name)[:1][0]
+                except IndexError:
+                    ing = Ingredient(
+                        name=i_name
+                    )
+                    ing.full_clean()
+                    ing.save()
 
-                # TODO: Should check for existence first
-                un = Unit(
-                    name=i_unit,
-                    description=i_unit
-                )
-                un.full_clean()
-                un.save()           
+
+                try:
+                    un = Unit.objects.filter(name=i_unit)[:1][0]
+                except IndexError:
+                    un = Unit(
+                        name=i_unit,
+                        description=i_unit
+                    )
+                    un.full_clean()
+                    un.save()           
 
                 pi = PhaseIngredient(
                     phase=p,
@@ -374,6 +379,26 @@ def ingredient_lookup(request):
             if len(value) > 1:
                 result = []
                 model_results = Ingredient.objects.filter(name__icontains=value)
+                for x in model_results:
+                    result.append({"id":x.id, "name":x.name})
+            else:
+                result = ""
+
+    json = simplejson.dumps(result)
+    return HttpResponse(
+        json,
+        content_type = 'application/javascript; charset=utf8'
+    )
+
+def unit_lookup(request):
+
+    if request.method == "GET":
+        if request.GET.has_key(u'term'):
+            value = request.GET[u'term']
+            # Ignore queries shorter than length 2
+            if len(value) > 1:
+                result = []
+                model_results = Unit.objects.filter(name__icontains=value)
                 for x in model_results:
                     result.append({"id":x.id, "name":x.name})
             else:

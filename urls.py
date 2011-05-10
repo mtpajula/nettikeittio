@@ -36,6 +36,8 @@ urlpatterns = patterns('',
         
     url(r'^lookup/ingredient/$'            , ingredient_lookup, name='ingredient_lookup'),
 
+    url(r'^lookup/unit/$'            , unit_lookup, name='unit_lookup'),
+
     # Example:
     # (r'^nettikeittio/', include('nettikeittio.foo.urls')),
 

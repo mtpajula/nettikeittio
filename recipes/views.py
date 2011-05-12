@@ -161,7 +161,7 @@ def edit_recipe(request, recipe_id):
       return save_edit_recipe(request)
     
     recipe = get_object_or_404(Recipe, pk=recipe_id)
-    phases = Phase.objects.all().filter(recipe=recipe_id).order_by('-ordering')
+    phases = Phase.objects.all().filter(recipe=recipe_id).order_by('ordering')
 
     context = { 'recipe': recipe, 'phases': phases }
     context.update(csrf(request))

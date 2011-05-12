@@ -3,6 +3,10 @@ body {
     padding: 0;
     font-family: Tahoma, Geneva, sans-serif;
     background:#e8fcff;
+
+    background: #245978;
+    border-color: #072c41;
+    color: #c7e198;
 }
 
 a:link {color:Navy }      /* unvisited link */
@@ -17,27 +21,42 @@ a:active {color:black }  /* selected link */
 
 div.recipeColor {
     background:#619100;
-    background: rgba(97,145,0, 0.95);
-
     border-color: #518100;
-    color: white;
+    color: black;
+
+    background: #81af2e;
+    color: #072c41;
+    border-color: #6aa7cc;
+    
+    
 }
 div.ownColor {
     background:#5E1709;
-    background: rgba(94,23,9,0.95);
     border-color: #4D0608;
-    color: white;
+    color: black;
+
+    background: #405f09;
+    color: #072c41;
+    border-color: #6aa7cc;
+    
+
+    
 }
 div.searchColor {
     background:#aa0000;
-    background: rgba(170,0,0,0.95);
     border-color: #990000;
-    color: white;
+    color: black;
+
+    background: #b8e16e;
+    color: #072c41;
+    border-color: #6aa7cc;
+
+    
 }
 div.mainColor {
-    background: #ffffff;
-    border-color: #eeeeee;
-    color: black;
+    background: #405f09;
+    border-color: #072c41;
+    color: #c7e198;
 }
 /*
 ul.link li {  

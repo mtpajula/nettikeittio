@@ -17,14 +17,18 @@
         {% for r in results.object_list %}
             {% if r.owner %}
             <div class="listresult recipeColor">
-                <img src="{% url image_root path=r.image %}"></img>
-                <p><a href="{% url recipe_page recipe_id=r.pk %}">{{r.name}}</a></p>
-                <p>{{ r.description }}</p>
+                <div class="img_container">
+                    <img src="{% url image_root path=r.image %}"></img>
+                </div>
+                <p class="name"><a href="{% url recipe_page recipe_id=r.pk %}">{{r.name}}</a></p>
+                <p class="description">{{ r.description }}</p>
             {% else %}
             <div class="listresult ownColor">
+                <div class="img_container">
                 <img src="{% url image_root path=r.image %}"></img>
-                <p><a href="{% url user_page user_id=r.pk %}">{{r.name}}</a></p>
-                <p>{{ r.description }}</p>
+                </div>
+                <p class="name"><a href="{% url user_page user_id=r.pk %}">{{r.name}}</a></p>
+                <p class="description">{{ r.description }}</p>
             {% endif %}
             </div>
 

@@ -12,14 +12,33 @@ div#header {
 
 .listresult {
     float: left;
-    width: 10em;
+    width: 15em;
+    height: 15em;
     margin: 0.5em;
     padding: 0.5em;
     border: 3px solid white;
 }
 
-.listresult img {
-    width: 10em;
+.listresult div.img_container img {
+    height: 7em;
+    -webkit-border-radius: 5px;
+}
+.listresult div.img_container {
+    width: 7em;
+    height: 7em;
+    overflow: hidden;
+
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border: solid rgba(0,0,0,0.2) 1px;
+
+    float: right;
+}
+
+div.listresult p.description {
+    float: left;
+    clear: both;
 }
 
 /*
@@ -137,16 +156,83 @@ div#nkName img {
 }
 
 /* Edit/create recipe */
-div.recipe_phases {
-    border: solid black 1px;
+div.inputblock {
+    border: solid rgba(0,0,0,0.1) 1px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+
+    padding: 0.5em;
+    margin: 0.15em;
+
+    width: 90%;
 }
-div.recipe_phase {
-    border: solid red 1px;
-    margin: 0.5em;
+div.inputblock:hover {
+    background: rgba(0,0,0,0.1);
 }
 
-a.remove_ingredient {
-    float:right;
+div.inputblock label {
+    width: 7em;
+    display: inline-block;
+    vertical-align: top;
+}
+div.inputblock input, div.inputblock select, div.inputblock textarea {
+    display: inline-block;
 }
 
+div.inputblock textarea {
+    width: 40%;
+    height: 10em;
+    margin-bottom: 1em;
+}
+
+div#recipe_header {
+
+}
+
+div.recipe_phase, div#recipe_header {
+    border: solid rgba(0,0,0,0.2) 3px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+
+    padding: 0.5em 0.5em;
+    margin: 0.2em 0;
+}
+
+div.phase_ingredient {
+    border: solid rgba(0,0,0,0.1) 1px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+
+    padding: 0.5em;
+    margin: 0.1em 0;
+}
+div.phase_ingredient:hover {
+    background: rgba(0,0,0,0.1);
+}
+
+a.add_ingredient_button, a#add_phase_button {
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    background: transparent url(le-frog/images/ui-icons_cd0a0a_256x240.png) no-repeat scroll -16px -128px;;
+    color: transparent;
+}
+a.add_ingredient_button:hover, a#add_phase_button:hover {
+    background-position: -32px -128px;
+}
+
+a.remove_ingredient_button, a.remove_phase_button {
+    float: right;
+    width: 16px;
+    height: 16px;
+    color: transparent;
+
+    background: transparent url(le-frog/images/ui-icons_cd0a0a_256x240.png) no-repeat scroll -48px -128px;
+}
+a.remove_ingredient_button:hover, a.remove_phase_button:hover {
+    background-position: -64px -128px;
+}
 

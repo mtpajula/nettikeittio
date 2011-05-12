@@ -34,7 +34,17 @@ def render_detail_recipe(request, recipe_id, recipe_template):
                                 'ingredient_list': ingredient_list }, context_instance=RequestContext(request))
 
 def main_page(request):
-    return render_to_response('recipes/contentpage.html', { }, context_instance=RequestContext(request))
+
+    recipes = Recipe.objects.order_by('lastedit')[:10]
+
+    users = UserProfile.objects.order_by('?')[:10]
+
+    return render_to_response('recipes/contentpage/frontpage.html', { 'recipes': recipes, 'users': users }, context_instance=RequestContext(request))
+
+
+
+
+
 
 def recipe_search(request):
     return render_to_response('recipes/contentpage/recipe_search_field.html', { }, context_instance=RequestContext(request))

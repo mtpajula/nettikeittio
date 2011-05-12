@@ -1,28 +1,58 @@
+{% extends "recipes/contentpage.html" %}
 
+{% block header %}
+{% include "recipes/contentpage/header.html" %}
+{% endblock %}
+
+{% block content %}
 <div id="content" class="mainColor">
-    <div class="listDiv" id="dev">
-        <p>
-            {% if user.is_authenticated %}
-                USER IS AUTHENTICATED!
-            {% else %}
-                USER IS _NOT_ AUTHENTICATED!
-            {% endif %}
-            
-            {% if user %}
-            The user is: {{ user }}.
-            {% else %}
-            There was no user object in the template!
-            {% endif %}
-            
-        </p>
-    </div>
 
-    <div class="listDiv recipeColor dark" id="demorecipes">
-        Demoreseptit
+    <h3>10 uusinta reseptiä</h3>
+    <div class="listDiv searchColor dark" id="demorecipes">
+    {% for r in recipes %}
+        {% if r.owner %}
+        <div class="listresult recipeColor">
+            <div class="img_container">
+                <img src="{% url image_root path=r.image %}"></img>
+            </div>
+            <p class="name"><a href="{% url recipe_page recipe_id=r.pk %}">{{r.name}}</a></p>
+            <p class="description">{{ r.description }}</p>
+        {% else %}
+        <div class="listresult ownColor">
+            <div class="img_container">
+            <img src="{% url image_root path=r.image %}"></img>
+            </div>
+            <p class="name"><a href="{% url user_page user_id=r.pk %}">{{r.name}}</a></p>
+            <p class="description">{{ r.description }}</p>
+        {% endif %}
+        </div>
+
+    {% endfor %}
     </div>
     
-    <div class="listDiv ownColor dark" id="demousers">
-        Demokäyttäjät
+    <h3>10 satunnaista käyttäjää</h3>
+    <div class="listDiv searchColor dark" id="demousers">
+        {% for r in users %}
+        {% if r.owner %}
+        <div class="listresult ownColor">
+            <div class="img_container">
+                <img src="{% url image_root path=r.image %}"></img>
+            </div>
+            <p class="name"><a href="{% url recipe_page recipe_id=r.pk %}">{{r.name}}</a></p>
+            <p class="description">{{ r.description }}</p>
+        {% else %}
+        <div class="listresult ownColor">
+            <div class="img_container">
+            <img src="{% url image_root path=r.image %}"></img>
+            </div>
+            <p class="name"><a href="{% url user_page user_id=r.pk %}">{{r.name}}</a></p>
+            <p class="description">{{ r.description }}</p>
+        {% endif %}
+        </div>
+
+    {% endfor %}
+    </div>
     </div>
 
 </div>
+{% endblock %}

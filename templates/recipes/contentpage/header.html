@@ -14,6 +14,14 @@
     </div>
     
     <div class="right">
+        <div class="loggeduser">
+            {% if user.is_authenticated %}
+            Kirjautunut: <strong><a href="{% url edit_user user_id=user.id %}">{{ user }}</a></strong>.
+            {% else %}
+            <a href="{%url nk_login %}">Kirjaudu sisään</a>
+            {% endif %}
+        </div>
+
         <div class="search">
             <form method="get" action="{% url search %}">
                 <input name="q"  type="search" placeholder="Nettikeittiöstä">

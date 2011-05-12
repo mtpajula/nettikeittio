@@ -26,10 +26,9 @@ div.recipeColor {
 
     background: #81af2e;
     color: #072c41;
-    border-color: #6aa7cc;
-    
-    
+    border-color: #6aa7cc;    
 }
+
 div.ownColor {
     background:#5E1709;
     border-color: #4D0608;
@@ -38,10 +37,8 @@ div.ownColor {
     background: #405f09;
     color: #072c41;
     border-color: #6aa7cc;
-    
-
-    
 }
+
 div.searchColor {
     background:#aa0000;
     border-color: #990000;
@@ -57,6 +54,12 @@ div.mainColor {
     background: #405f09;
     border-color: #072c41;
     color: #c7e198;
+}
+div.mainColor a{
+    color: #c7e198;
+}
+div.mainColor a:hover, div.mainColor a:active, div.mainColor a:visited {
+    color: #d7f108;
 }
 /*
 ul.link li {  

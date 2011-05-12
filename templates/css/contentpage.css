@@ -10,6 +10,13 @@ div#header {
     font-size: 90%;
 }
 
+div#header div.loggeduser {
+}
+
+div#header div.right div {
+    padding: 0.5em 0.5em;
+}
+
 .listresult {
     float: left;
     width: 15em;

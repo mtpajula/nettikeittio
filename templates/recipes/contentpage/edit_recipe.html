@@ -72,41 +72,42 @@ $(".add_ingredient_button").click(function(event){
 	new_ing
 	);
 
-    new_ing.children("input.phase_ingredient_name").autocomplete({
-        //define callback to format results
-        source: function(req, add){
-            //pass request to server
-            $.getJSON('{% url ingredient_lookup %}', req, function(data) {
-                //create array for response objects
-                var suggestions = [];
-                //process response
-                $.each(data, function(i, val){
-                    suggestions.push(val.name);
-                });
-                //pass array to callback
-                add(suggestions);
-            });
-        },
-    });
-    
+  new_ing.find("input.phase_ingredient_name").autocomplete({
+      //define callback to format results
+      source: function(req, add){
+          //pass request to server
+          $.getJSON('{% url ingredient_lookup %}', req, function(data) {
+              //create array for response objects
+              var suggestions = [];
+              //process response
+              $.each(data, function(i, val){
+                  suggestions.push(val.name);
+              });
+              //pass array to callback
+              add(suggestions);
+          });
+      },
+  });
+  
+  new_ing.find("input.phase_ingredient_unit").css("color", "red");
 
-
-    new_ing.children("input.phase_ingredient_unit").autocomplete({
-        //define callback to format results
-        source: function(req, add){
-            //pass request to server
-            $.getJSON('{% url unit_lookup %}', req, function(data) {
-                //create array for response objects
-                var suggestions = [];
-                //process response
-                $.each(data, function(i, val){
-                    suggestions.push(val.name);
-                });
-                //pass array to callback
-                add(suggestions);
-            });
-        },
-    });
+  new_ing.find("input.phase_ingredient_unit").autocomplete({
+      //define callback to format results
+      source: function(req, add){
+          //pass request to server
+          $.getJSON('{% url unit_lookup %}', req, function(data) {
+              //create array for response objects
+              var suggestions = [];
+              //process response
+              $.each(data, function(i, val){
+                  suggestions.push(val.name);
+              });
+              //pass array to callback
+              add(suggestions);
+          });
+      },
+  });
+  
 
 });
 

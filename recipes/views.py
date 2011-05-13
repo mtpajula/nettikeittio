@@ -336,7 +336,7 @@ def save_edit_recipe(request):
             phases[phasenum][phaseparam] = value
 
     # Delete existing phase and phaseingredient objects bound to current recipe
-    Phase.objects.filter(recipe=r_id).select_related('phase').delete()
+    Phase.objects.filter(recipe=r_id).select_related('phaseingredient').delete()
     Phase.objects.filter(recipe=r_id).delete()
     for phase, dic in phases.iteritems():
 

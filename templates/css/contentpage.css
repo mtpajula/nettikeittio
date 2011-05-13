@@ -26,6 +26,10 @@ div#header div.right div {
     border: 3px solid white;
 }
 
+div.ingredient {
+    height:auto;
+}
+
 .listresult div.img_container img {
     height: 7em;
     -webkit-border-radius: 5px;
@@ -231,7 +235,7 @@ a.add_ingredient_button:hover, a#add_phase_button:hover {
     background-position: -32px -128px;
 }
 
-a.remove_ingredient_button, a.remove_phase_button {
+a.remove_ingredient_button, a.remove_phase_button, a.remove_ingredient {
     float: right;
     width: 16px;
     height: 16px;

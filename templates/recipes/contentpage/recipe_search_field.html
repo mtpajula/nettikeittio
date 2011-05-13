@@ -41,7 +41,7 @@ $(document).ready(function() {
     
     $(".add_ingredient").click(function() {
         var name = $("#input_ingredient").val();
-        var remove = '<a href="#" title="Remove phase" class="remove_ingredient">x</a>';
+        var remove = '<a href="#" title="Remove phase" class="remove_ingredient"></a>';
         var hidden = '<input type="hidden" name="i" value="' + name + '" />';
         $('#ingredients').append('<div class="ingredient listresult recipeColor">' + name + remove + hidden + '</div>');
         $("#input_ingredient").val("");

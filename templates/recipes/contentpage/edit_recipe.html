@@ -275,9 +275,7 @@ $("input.phase_ingredient_unit").autocomplete({
 <!-- Contains all recipe phases -->
 <div id="recipe_phases" >
 
-{% if phases %}
-
-{% for phase in phases %}
+{% for phase in recipe.phase_set.all %}
 <div id="recipe_phase_{{phase.id}}" class="recipe_phase recipeColor">
   <a href="#" title="Remove phase" class="remove_phase_button">x</a>
 
@@ -358,7 +356,5 @@ $("input.phase_ingredient_unit").autocomplete({
 <input type="submit" value="Save"></input>
 
 </form>
-
-{% endif %}
 
 {% endblock %}

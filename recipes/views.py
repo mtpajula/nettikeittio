@@ -11,14 +11,18 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
 from django.template import RequestContext
-import datetime
+
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+# Used for serializing responses for autocomplete
 from django.utils.simplejson import *
+
 from django.core import serializers
 
+# Used for getting current time
+from time import strftime
 
-# Simulate slow response from server with time.sleep(2)
-# import time
+
 
 def menu(request):
     if request.user.is_authenticated():
@@ -223,8 +227,9 @@ def edit_recipe(request, recipe_id):
 
     context = { 'recipe': recipe, 'phases': phases }
     context.update(csrf(request))
+
     
-    return render_to_response('recipes/contentpage/edit_recipe.html', context)
+    return render_to_response('recipes/contentpage/edit_recipe.html', context, context_instance=RequestContext(request))
 
 def new_recipe(request):
 
@@ -235,23 +240,15 @@ def new_recipe(request):
     if request.method == 'POST':
         return save_edit_recipe(request)
 
-    recipe = Recipe(
-        owner=request.user.get_profile(),
-        name='',
-        description='',
-        image='',
-        editable=0,
-        eddits=0,
-        lastedit=datetime.date.today()
-    )
-    recipe.save();
-    # No phases created yet
+    # Create empty recipe and phase set
+    recipe = Recipe(pk=0,name='',description='')
     phases = Phase.objects.none()
 
     context = { 'recipe': recipe, 'phases': phases }
+
     context.update(csrf(request))
     
-    return render_to_response('recipes/contentpage/edit_recipe.html', context)
+    return render_to_response('recipes/contentpage/edit_recipe.html', context, context_instance=RequestContext(request))
 
 #
 # Save recipe with parameters specified in POST. Called from edit_recipe
@@ -260,16 +257,30 @@ def save_edit_recipe(request):
     if request.method != 'POST':
         return HttpResponseBadRequest
 
-    print request.POST
 
     #Replace non-digits
     re_numeric = re.compile('[^0-9]' )
     r_id = request.POST['recipe_id']
     re_numeric.sub('', r_id)
-    rec = Recipe.objects.get(pk=r_id)
+    if r_id < 1:
+      r_id = 0
+
+    try:
+      rec = Recipe.objects.get(pk=r_id)
+      # If recipe found, check it's owner and editability
+      if rec.editable == 0:
+        if rec.owner == request.user.id:
+          return HttpResponseForbidden()
+
+    except:
+      rec = Recipe()
+      rec.eddits = 0
 
     rec.name = request.POST['recipe_name']
     rec.description = request.POST['recipe_description']
+    rec.owner = UserProfile.objects.get(pk=request.user.id)
+    rec.eddits = rec.eddits + 1
+    rec.lastedit = strftime("%Y-%m-%d %H:%M:%S")
 
     editable = request.POST['recipe_editable']
     re_numeric.sub('', editable)
@@ -386,7 +397,10 @@ def save_edit_recipe(request):
 
 
     # Return redirect to avoid reposting information on page refreshh
-    return HttpResponseRedirect(request.META["HTTP_REFERER"])
+    context = { 'recipe': rec }
+    context.update(csrf(request))
+    
+    return render_to_response('recipes/contentpage/edit_recipe.html', context, context_instance=RequestContext(request))
 
 
 def user_detail(request, user_id):

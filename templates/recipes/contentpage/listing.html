@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<div id="content" class="searchColor dark">
+<div id="content" class="{% if DOM_class_string %}{{ DOM_class_string }}{% else %}searchColor{% endif %} dark">
     
     
     <div class="listDiv">

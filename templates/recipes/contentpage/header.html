@@ -16,7 +16,7 @@
     <div class="right">
         <div class="loggeduser">
             {% if user.is_authenticated %}
-            Kirjautunut: <strong><a href="{% url edit_user user_id=user.id %}">{{ user }}</a></strong>.
+            <a href="{% url nk_logout %}">Kirjaudu ulos</a> <strong><a href="{% url edit_user user_id=user.id %}">{{ user }}</a></strong>.
             {% else %}
             <a href="{%url nk_login %}">Kirjaudu sisään</a>
             {% endif %}

@@ -8,12 +8,14 @@ from django.http import HttpRequest, HttpResponseRedirect
 from recipes.models import *
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
 from django.template import RequestContext
 import datetime
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils.simplejson import *
 from django.core import serializers
+
 
 # Simulate slow response from server with time.sleep(2)
 # import time
@@ -58,6 +60,7 @@ def own_recipes(request):
     recipes = Recipe.objects.filter(owner = request.user.get_profile())
     
     context['search_description'] = 'Omat reseptit'
+    context['DOM_class_string'] = 'ownColor'
     context['results'] = recipes
     
     return listing(request, context)
@@ -68,13 +71,11 @@ def favourite_recipes(request):
         return HttpResponseForbidden
     
     nk_user = UserProfile.objects.get(user = request.user.get_profile())
-    print nk_user
-    #nk_user = request.user.get_profile()
-    recipes = Recipe.objects.filter(owner = request.user.get_profile())
-    
+
     favorites = nk_user.favorites.all()
     
     context['search_description'] = 'Omat suosikkireseptit'
+    context['DOM_class_string'] = 'ownColor'
     context['results'] = favorites
     return listing(request, context)
 
@@ -207,10 +208,11 @@ def active(request, recipe_id):
 #
 # Edits recipe if data is posted and displays recipe edit form
 #
+@login_required
 def edit_recipe(request, recipe_id):
 
-    if not request.user.is_authenticated():
-        return HttpResponseForbidden
+    #if not request.user.is_authenticated():
+    #    return HttpResponseForbidden
 
     # Update recipe if post information is received
     if request.method == 'POST':

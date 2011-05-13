@@ -30,8 +30,8 @@ $(document).ready(function() {
               <li><a href="{% url new_recipe %}">Uusi</a></li>
               {% if recipe %}
                   <li><a href="{% url edit_recipe recipe_id=recipe.pk %}">Muokkaa</a></li>
-                  <li><a href="{% url edit_recipe recipe_id=recipe.pk %}">Tee uusi tämän pohjalta</a></li>
-                  <li><a href="{% url active_view recipe_id=recipe.pk %}">Täysi näkymä</a></li>
+                  <!--<li><a href="{% url edit_recipe recipe_id=recipe.pk %}">Tee uusi tämän pohjalta</a></li>-->
+                  <li><a href="{% url active_view recipe_id=recipe.pk %}">Kokkausnäkymä!</a></li>
               {% endif %}
           </ul>
         </div>
@@ -43,15 +43,16 @@ $(document).ready(function() {
         <div class="menulinks">
             <ul class="link">
                 {% if user.is_authenticated %}
-                    <li><a href="{% url user_page user_id=user.pk %}">Sinä</a></li>
-                    <li><a href="{% url edit_user user_id=user.pk %}">Muokkaa itseäsi</a></li>
-                    <li><a href="{% url nk_logout %}">Kirjaudu ulos</a></li>
+                    <li><a href="{% url user_page user_id=user.pk %}">Profiili</a></li>
+                    <li><a href="{% url edit_user user_id=user.pk %}">Muokkaa profiiliasi</a></li>
                     <li><a href="{% url own_recipes %}">Omat reseptit</a></li>
                     <li><a href="{% url favourite_recipes %}">Omat suosikit</a></li>
+                    <li><a href="{% url nk_logout %}">Kirjaudu ulos</a></li>
 
+                {% else %}
+					<li><a href="{% url register %}">Uusi käyttäjä</a></li>
+					<li><a href="{% url nk_login %}">Kirjaudu sisään</a></li>
                 {% endif %}
-                <li><a href="{% url register %}">Uusi käyttäjä</a></li>
-                <li><a href="{% url nk_login %}">Kirjaudu sisään</a></li>
             </ul>
         </div>
     </div>
@@ -60,10 +61,10 @@ $(document).ready(function() {
         <div class="menutitle">Etsi</div>
         <div class="menulinks">
             <ul class="link">
-                <li><a href="{% url recipe_search_field %}">Reseptejä</a></li>
+                <li><a href="{% url recipe_search_field %}">Reseptejä raaka-aineilla</a></li>
+                <li><a href="{% url list_recipes %}?type=n">Uusimmat reseptit</a></li>
                 <li><a href="{% url list_users %}">Kaikki käyttäjät</a></li>
                 <li><a href="{% url list_recipes %}">Kaikki reseptit</a></li>
-                <li><a href="{% url list_recipes %}?type=n">Uusimmat reseptit</a></li>
             </ul>
         </div>
     </div>

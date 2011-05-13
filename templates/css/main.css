@@ -7,11 +7,21 @@ body {
     background: #245978;
     border-color: #072c41;
     color: #c7e198;
+    
+    /* 13.5.2011 Mikko : RuskeeSini! */
+    background: white;
+    border-color: #072c41;
+    color: #FFFFFF;
 }
-
-a:link {color:Navy }      /* unvisited link */
-a:visited {color:blue }  /* visited link */
-a:hover {color:CornflowerBlue }  /* mouse over link */
+/*
+a:link {color:Navy }
+a:visited {color:blue }
+a:hover {color:CornflowerBlue }
+a:active {color:black }
+*/
+a:link {color:white }      /* unvisited link */
+a:visited {color:white }  /* visited link */
+a:hover {color:grey }  /* mouse over link */
 a:active {color:black }  /* selected link */
 
 .dark a:link {color:white }      /* unvisited link */
@@ -26,7 +36,12 @@ div.recipeColor {
 
     background: #81af2e;
     color: #072c41;
-    border-color: #6aa7cc;    
+    border-color: #6aa7cc;
+    
+    /* 13.5.2011 Mikko : RuskeeSini! */
+    background: #245978;
+    border-color: #072c41;
+    color: #FFFFFF;
 }
 
 div.ownColor {
@@ -37,6 +52,11 @@ div.ownColor {
     background: #405f09;
     color: #072c41;
     border-color: #6aa7cc;
+    
+    /* 13.5.2011 Mikko : RuskeeSini! */
+    background: #7F7F7F;
+    border-color: #072c41;
+    color: #FFFFFF;
 }
 
 div.searchColor {
@@ -47,19 +67,32 @@ div.searchColor {
     background: #b8e16e;
     color: #072c41;
     border-color: #6aa7cc;
-
     
-}
-div.mainColor {
-    background: #405f09;
+    /* 13.5.2011 Mikko : RuskeeSini! */
+    background: #785424;
     border-color: #072c41;
-    color: #c7e198;
+    color: #FFFFFF;
+}
+
+div.mainColor {
+    background: #C47914;
+    border-color: #072c41;
+    color: #FFFFFF;
+    
+    /* 13.5.2011 Mikko : RuskeeSini */
+    background: white;
+    border-color: #072c41;
+    color: #785424;
 }
 div.mainColor a{
-    color: #c7e198;
+    color: #072c41;
 }
 div.mainColor a:hover, div.mainColor a:active, div.mainColor a:visited {
-    color: #d7f108;
+    color: #072c41;
+}
+
+div.searchColor a, div.searchColor a:hover, div.searchColor a:active, div.searchColor a:visited {
+    color: white;
 }
 /*
 ul.link li {  

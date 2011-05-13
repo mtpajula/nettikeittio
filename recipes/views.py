@@ -97,19 +97,30 @@ def list_recipes(request):
     if 'i' in request.GET and request.GET['i']:
         i_list = request.GET.getlist('i')
 
-        pi1 = PhaseIngredient.objects.filter(ingredient__name__in=i_list)
-
-        wanted_items = set()
-        for item in pi1:
-            wanted_items.add(item.phase.recipe)
-
-        for item in wanted_items:
-            results.append(item)
-            
+        id_listlist = []
         
-        context['search_description'] = 'Raaka-ainehaulla'
-        context['results'] = results
+        # Getting all recipe id's that have one of the queryed ingredients in it
+        for i in i_list:
+            id_list = []
+            pi = PhaseIngredient.objects.filter(ingredient__name__icontains=i)
+            for item in pi:
+                id_list.append(item.phase.recipe.id)
+            
+            id_listlist.append(id_list)
 
+        # Filtering recipes including all listed ingredients with id list
+        r_results = Recipe.objects.none()
+        f = True
+        for r in id_listlist:
+            if f == True:
+                r_results = Recipe.objects.filter(id__in=r)
+                f = False
+            else:
+                r_results = r_results.filter(id__in=r)
+
+        context['search_description'] = 'Raaka-ainehaulla'
+        context['results'] = r_results
+    
     
     return listing(request, context)
 

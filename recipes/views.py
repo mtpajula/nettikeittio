@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.shortcuts import render_to_response, get_object_or_404
 from django.core.context_processors import csrf
 from django.http import *
@@ -49,6 +50,34 @@ def main_page(request):
 def recipe_search(request):
     return render_to_response('recipes/contentpage/recipe_search_field.html', { }, context_instance=RequestContext(request))
 
+def own_recipes(request):
+    context = {}
+    if not request.user.is_authenticated():
+        return HttpResponseForbidden
+
+    recipes = Recipe.objects.filter(owner = request.user.get_profile())
+    
+    context['search_description'] = 'Omat reseptit'
+    context['results'] = recipes
+    
+    return listing(request, context)
+    
+def favourite_recipes(request):
+    context = {}
+    if not request.user.is_authenticated():
+        return HttpResponseForbidden
+    
+    nk_user = UserProfile.objects.get(user = request.user.get_profile())
+    print nk_user
+    #nk_user = request.user.get_profile()
+    recipes = Recipe.objects.filter(owner = request.user.get_profile())
+    
+    favorites = nk_user.favorites.all()
+    
+    context['search_description'] = 'Omat suosikkireseptit'
+    context['results'] = favorites
+    return listing(request, context)
+
 def list_recipes(request):
     
     results = []
@@ -59,8 +88,10 @@ def list_recipes(request):
         type = request.GET['type']
         if "n" in type:
             context['results'] = recipes.order_by('-lastedit')
+            context['search_description'] = 'Uusimmat reseptit'
     else:
         context['results'] = recipes.order_by('name')
+        context['search_description'] = 'Kaikki reseptit'
     
     
     if 'i' in request.GET and request.GET['i']:
@@ -74,14 +105,18 @@ def list_recipes(request):
 
         for item in wanted_items:
             results.append(item)
-
+            
+        
+        context['search_description'] = 'Raaka-ainehaulla'
         context['results'] = results
 
     
     return listing(request, context)
 
 def list_users(request):
-    context = { 'results': UserProfile.objects.all().order_by('name') }
+    context = {}
+    context['results'] = UserProfile.objects.all().order_by('name')
+    context['search_description'] = 'Kaikki käyttäjät'
     return listing(request, context)
 
 # Basic skeleton from http://docs.djangoproject.com/en/dev/topics/pagination/?from=olddocs

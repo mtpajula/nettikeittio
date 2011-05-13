@@ -7,6 +7,9 @@
     
     <div class="listDiv">
     {% if results %}
+    {% if search_description %}
+        <p><strong>{{ search_description }}</strong></p>
+    {% endif %}
     {% if search_string %}
         <p>Hakusi "<strong>{{ search_string }}</strong>" tulokset:</p>
     </div>

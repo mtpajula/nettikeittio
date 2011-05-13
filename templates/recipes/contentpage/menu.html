@@ -44,10 +44,10 @@ $(document).ready(function() {
             <ul class="link">
                 {% if user.is_authenticated %}
                     <li><a href="{% url user_page user_id=user.pk %}">Sinä</a></li>
-                    <li><a href="{% url edit_user user_id=user.pk %}">Sinä</a></li>
+                    <li><a href="{% url edit_user user_id=user.pk %}">Muokkaa itseäsi</a></li>
                     <li><a href="{% url nk_logout %}">Kirjaudu ulos</a></li>
-                    <li><a href="{% url search %}">Omat reseptit</a></li>
-                    <li><a href="{% url search %}">Omat suosikit</a></li>
+                    <li><a href="{% url own_recipes %}">Omat reseptit</a></li>
+                    <li><a href="{% url favourite_recipes %}">Omat suosikit</a></li>
 
                 {% endif %}
                 <li><a href="{% url register %}">Uusi käyttäjä</a></li>

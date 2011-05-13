@@ -96,6 +96,7 @@ def list_recipes(request):
             context['search_description'] = 'Uusimmat reseptit'
     else:
         context['results'] = recipes.order_by('name')
+        context['DOM_class_string'] = 'recipeColor'
         context['search_description'] = 'Kaikki reseptit'
     
     
@@ -133,6 +134,7 @@ def list_users(request):
     context = {}
     context['results'] = UserProfile.objects.all().order_by('name')
     context['search_description'] = 'Kaikki käyttäjät'
+    context['DOM_class_string'] = 'ownColor'
     return listing(request, context)
 
 # Basic skeleton from http://docs.djangoproject.com/en/dev/topics/pagination/?from=olddocs
@@ -200,7 +202,7 @@ def search(request):
     return listing(request, context)
 
 def recipe_detail(request, recipe_id):    
-    return render_detail_recipe(request, recipe_id, 'recipes/contentpage/detail.html')
+    return render_detail_recipe(request, recipe_id, 'recipes/contentpage/recipe_detail.html')
 
 def active(request, recipe_id):
     #recipe = get_object_or_404(Recipe, pk=recipe_id)
@@ -404,15 +406,15 @@ def save_edit_recipe(request):
 
 
 def user_detail(request, user_id):
-    user = get_object_or_404(UserProfile, pk=user_id)
-    return render_to_response('recipes/contentpage/user.html', { 'user': user }, context_instance=RequestContext(request))
+    userprofile = get_object_or_404(UserProfile, pk=user_id)
+    return render_to_response('recipes/contentpage/user.html', { 'userprofile': userprofile }, context_instance=RequestContext(request))
 
 def new_user(request):
     return render_to_response('recipes/contentpage/user.html', { }, context_instance=RequestContext(request))
 
 def edit_user(request, user_id):
-    user = get_object_or_404(UserProfile, pk=user_id)
-    return render_to_response('recipes/contentpage/user.html', { 'user': user }, context_instance=RequestContext(request))
+    userprofile = get_object_or_404(UserProfile, pk=user_id)
+    return render_to_response('recipes/contentpage/user.html', { 'userprofile': userprofile }, context_instance=RequestContext(request))
 
 # This is currently not in use
 def nk_login(request):
@@ -426,6 +428,8 @@ def register(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             new_user = form.save()
+            profile = UserProfile(user=new_user)
+            profile.save()
             new_user = authenticate(username=request.POST['username'],
                                     password=request.POST['password1']) # POST has password data for both fields!
             login(request, new_user)

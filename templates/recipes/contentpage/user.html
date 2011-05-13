@@ -3,16 +3,31 @@
 {% block content %}
 
 <div id="content" class="ownColor dark">
-<p>user</p>
-{% if user %}
-    <p>{{ user.name }}</p>
-{% endif %}
+{% if userprofile %}
 
-{% if userlist %}
-    {% for u in userlist %}
-        <p>1</p>
-        <p>{{ u.username }}</p>
-    {% endfor %}
+    <div id="detailHeader" class="listDiv">
+        <div class="left">
+			{{ userprofile.name }}
+        </div>
+        <div class="right">
+        </div>
+    </div>
+    
+    <div id="detailMain" class="listDiv">
+        <div class="left">
+            <div class="detailImage">
+				<div class="user_image img_container">
+					<img src="{% url image_root path=userprofile.image %}" alt="{{ userprofile.name }}" />
+				</div>
+            </div>
+            <div class="detailIngredients mainColor">
+				{{ userprofile.description }}
+            </div>
+        </div>
+        <div class="right">
+        </div>
+    </div>
+
 {% endif %}
 
 </div>

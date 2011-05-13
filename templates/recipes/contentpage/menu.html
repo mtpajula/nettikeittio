@@ -22,12 +22,14 @@ $(document).ready(function() {
 </script>
 
 <div class="menuwrapper"> 
-
     <div class="menulist dark recipeColor">
         <div class="menutitle">Reseptit</div>
         <div class="menulinks">
           <ul class="link">
-              <li><a href="{% url new_recipe %}">Uusi</a></li>
+			  <li><a href="{% url list_recipes %}">Kaikki reseptit</a></li>
+			  {% if user.is_authenticated %}
+				  <li><a href="{% url new_recipe %}">Uusi</a></li>
+              {% endif %}
               {% if recipe %}
                   <li><a href="{% url edit_recipe recipe_id=recipe.pk %}">Muokkaa</a></li>
                   <!--<li><a href="{% url edit_recipe recipe_id=recipe.pk %}">Tee uusi tämän pohjalta</a></li>-->
@@ -42,13 +44,13 @@ $(document).ready(function() {
 
         <div class="menulinks">
             <ul class="link">
+				<li><a href="{% url list_users %}">Kaikki käyttäjät</a></li>
                 {% if user.is_authenticated %}
                     <li><a href="{% url user_page user_id=user.pk %}">Profiili</a></li>
                     <li><a href="{% url edit_user user_id=user.pk %}">Muokkaa profiiliasi</a></li>
                     <li><a href="{% url own_recipes %}">Omat reseptit</a></li>
                     <li><a href="{% url favourite_recipes %}">Omat suosikit</a></li>
                     <li><a href="{% url nk_logout %}">Kirjaudu ulos</a></li>
-
                 {% else %}
 					<li><a href="{% url register %}">Uusi käyttäjä</a></li>
 					<li><a href="{% url nk_login %}">Kirjaudu sisään</a></li>
@@ -63,8 +65,6 @@ $(document).ready(function() {
             <ul class="link">
                 <li><a href="{% url recipe_search_field %}">Reseptejä raaka-aineilla</a></li>
                 <li><a href="{% url list_recipes %}?type=n">Uusimmat reseptit</a></li>
-                <li><a href="{% url list_users %}">Kaikki käyttäjät</a></li>
-                <li><a href="{% url list_recipes %}">Kaikki reseptit</a></li>
             </ul>
         </div>
     </div>

@@ -32,7 +32,7 @@ def menu(request):
         print "user"
     return render_to_response('recipes/contentpage/menu.html', { }, context_instance=RequestContext(request))
 
-def render_detail_recipe(request, recipe_id):
+def render_detail_recipe(request, recipe_id, recipe_template = 'recipes/contentpage/recipe_detail.html'):
     context = {}
     
     if request.method == 'POST':
@@ -40,7 +40,7 @@ def render_detail_recipe(request, recipe_id):
         print result
         context['comment_result'] = result
     
-    recipe_template = 'recipes/contentpage/recipe_detail.html'
+    
     
     commentform = CommentForm()
     context['commentform'] = commentform

@@ -123,3 +123,8 @@ div.left {
 .ingredient .name {
     color:red;    
 }
+
+.noImage {
+    width:100%;
+    height:100%;
+}

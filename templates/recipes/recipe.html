@@ -10,7 +10,11 @@
         <p>{{ recipe.owner.name }}</p>
     </div>
     <div class="recipe_image">
-        <img src="{% url image_root path=recipe.image %}" alt="{{ recipe.name }}" />
+        {% if recipe.image %}
+            <img src="{% url image_root path=recipe.image %}" alt="{{ recipe.name }}" />
+        {% else %}
+            <span class="detailMissingText">Ei kuvaa</span>
+        {% endif %}
     </div>
     <div class="recipe_description">
         <p>{{ recipe.description }}</p>

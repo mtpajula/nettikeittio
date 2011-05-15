@@ -18,6 +18,14 @@
         
     </head>
     <body>
+   
+<script type="text/javascript">
+$(document).ready(function() {
+    $(".detailMissingText").parent().append('<div class="noImage"><img src="{% url image_root path='nk_images/noImage.png' %}" /></div>');
+    $(".detailMissingText").remove()
+});
+</script>
+
         {% block body %}
         {% endblock %}
     </body>

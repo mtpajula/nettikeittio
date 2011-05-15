@@ -8,7 +8,7 @@
     <div id="detailHeader" class="listDiv">
         <div class="left">
         	{% if userprofile.name != '' %}
-				{{ userprofile.name }}
+				<h2>{{ userprofile.name }}</h2>
 			{% else %}
 				<span class='detailMissingText'>Käyttäjällä ei ole nimeä profiilissa</span>
 			{% endif %}
@@ -37,6 +37,26 @@
             </div>
         </div>
         <div class="right">
+            <p>Käyttäjän omat reseptit:</p>
+            {% for r in recipes %}
+                {% if r.owner %}
+                <div class="recipe_phase recipeColor">
+                    <p class="name"><a href="{% url recipe_page recipe_id=r.pk %}">{{r.name}}</a></p>
+                    <p class="description">{{ r.description }}</p>
+                {% else %}
+                <div class="listresult ownColor">
+                    <div class="img_container">
+                        {% if r.image %}
+                            <img src="{% url image_root path=r.image %}"></img>
+                        {% else %}
+                            <span class="detailMissingText">Ei kuvaa</span>
+                        {% endif %}
+                    </div>
+                    <p class="name"><a href="{% url user_page user_id=r.user.id %}">{{r.name}}</a></p>
+                    <p class="description">{{ r.description }}</p>
+                {% endif %}
+                </div>
+            {% endfor %}
         </div>
     </div>
 

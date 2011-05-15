@@ -490,7 +490,9 @@ def save_edit_recipe(request):
 
 def user_detail(request, user_id):
     userprofile = get_object_or_404(UserProfile, user=user_id)
-    return render_to_response('recipes/contentpage/user.html', { 'userprofile': userprofile }, context_instance=RequestContext(request))
+    recipes = Recipe.objects.filter(owner = userprofile)
+    print recipes
+    return render_to_response('recipes/contentpage/user.html', { 'userprofile': userprofile, 'recipes': recipes }, context_instance=RequestContext(request))
 
 def new_user(request):
     return render_to_response('recipes/contentpage/user.html', { }, context_instance=RequestContext(request))

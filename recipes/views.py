@@ -153,7 +153,7 @@ def favourite_recipes(request):
     #if not request.user.is_authenticated():
         #return HttpResponseForbidden
     
-    nk_user = UserProfile.objects.get(user = request.user.get_profile())
+    nk_user = request.user.get_profile()
 
     favorites = nk_user.favorites.all()
     

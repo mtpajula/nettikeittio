@@ -22,6 +22,16 @@
                     </td>
                 </tr>
                 <tr>
+                    <th>Nimesi</td>
+                    <td>{{ profile_form.name }}</td>
+                    <td>
+                    	{{ profile_form.name.help_text }}
+                    	{% if profile_form.name.errors %}
+                    		<strong>{{ profile_form.name.errors|escape }}</strong>
+                    	{% endif %}
+                    </td>
+                </tr>
+                <tr>
                     <th>Salasana</th>
                     <td>{{ form.password1 }}</td>
                     <td>

@@ -21,6 +21,7 @@ from django.core import serializers
 
 # Used for getting current time
 from time import strftime
+from recipes.forms import UserProfileRegistrationForm
 
 
 
@@ -476,12 +477,19 @@ def nk_logout(request):
 
 def register(request):
     if request.method == 'POST':
+        # Bound forms
         form = UserCreationForm(request.POST)
-        if form.is_valid():
+        profile_form = UserProfileRegistrationForm(request.POST)
+        
+        if form.is_valid() and profile_form.is_valid():
             new_user = form.save()
             
+            #profile_form.user = new_user
+            userprofile = profile_form.save(commit=False)
+            userprofile.user = new_user
+            userprofile.save()
             # Also create an empty user profile for the user
-            UserProfile.objects.create(user=new_user)
+            #UserProfile.objects.create(user=new_user)
             
             new_user = authenticate(username=request.POST['username'],
                                     password=request.POST['password1']) # POST has password data for both fields!
@@ -491,9 +499,11 @@ def register(request):
             # Show error page
             pass
     else:
+        # Unbound forms
         form = UserCreationForm()
+        profile_form = UserProfileRegistrationForm()
     return render_to_response("recipes/contentpage/register.html", {
-                            'form': form,
+                            'form': form, 'profile_form': profile_form
                             }, context_instance=RequestContext(request))
 
 def nk_help(request):

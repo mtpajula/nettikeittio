@@ -71,7 +71,7 @@ def favourite_ajax(request):
     uid = request.POST['uid']
     current = request.POST['s']
     
-    nk_user = UserProfile.objects.get(id = uid)
+    nk_user = UserProfile.objects.get(user = uid)
     nk_recipe = Recipe.objects.get(id = rid)
     
     if nk_user.favorites.filter(id=rid):

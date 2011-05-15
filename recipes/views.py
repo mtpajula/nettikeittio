@@ -39,7 +39,7 @@ def render_detail_recipe(request, recipe_id, recipe_template):
     
     #find, if recipe is in user's favourites list
     if request.user.is_authenticated():
-        nk_user = UserProfile.objects.get(user = request.user.get_profile())
+        nk_user = request.user.get_profile()
         if nk_user.favorites.filter(id=recipe.id):
             context['favourite'] = True
     

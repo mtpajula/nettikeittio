@@ -205,6 +205,7 @@ def list_recipes(request):
 
         context['search_description'] = 'Raaka-ainehaulla'
         context['results'] = r_results
+        context['DOM_class_string'] = 'searchColor'
     
     
     return listing(request, context)

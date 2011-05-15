@@ -8,9 +8,47 @@
             <p>Jotain formissa oli pielessä.</p>
         {% endif %}
         
-        <form action="/register/" method="post">{% csrf_token %}
-            {{ form.as_p }}
+        <form action="/register/" method="post">
+        	{% csrf_token %}
+        	<table>
+            	<tr>
+                    <th>Käyttäjätunnus</td>
+                    <td>{{ form.username }}</td>
+                    <td>{{ form.username.help_text }}</td>
+                </tr>
+                <tr>
+                    <th>Salasana</th>
+                    <td>{{ form.password1 }}</td>
+                    <td>{{ form.password1.help_text }}</td>
+                </tr>
+                <tr>
+                    <th>Salasanan vahvistus</th>
+                    <td>{{ form.password2 }}</td>
+                    <td>{{ form.password2.help_text }}</td>
+                </tr>
+            </table>
             <input type="submit" value="Rekisteröidy" />
         </form>
+        
+        
+        <!-- MODEL EXAMPLE FROM LOGIN
+        <form method="post" action="/login/">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td>Käyttäjätunnus</td>
+                    <td>{{ form.username }}</td>
+                </tr>
+                <tr>
+                    <td>Salasana</td>
+                    <td>{{ form.password }}</td>
+                </tr>
+            </table>
+            <input type="submit" value="Kirjaudu sisään" />
+            <input type="hidden" name="next" value="{{ next }}" />
+        </form>
+        
+        EXAMPLE ENDS -->
+        
     </div>
 {% endblock %}

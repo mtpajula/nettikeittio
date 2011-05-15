@@ -1,16 +1,32 @@
+
+<script type="text/javascript">
+$(document).ready(function() {
+    
+    $(".commentFormDiv").hide();
+    
+    $("button.toggle").click(function() {
+        $(".commentFormDiv").slideToggle();
+    });
+    
+});
+</script>
+
 <div id="detailComment" class="listDiv">
     {% if user.is_authenticated %}
 
-    <div class="commentBox" id="postNewComment">
+    <div class="commentBox ownColor" id="postNewComment">
         <div class="commentFormDiv">
-            <form method="POST" action="{% url comment_ajax %}">
-                <input type="hidden" name="author" id="author"
+            <form method="POST" action="{% url recipe_page recipe_id=recipe.id %}">
+                <input type="hidden" name="user" id="user"
                     value="{{ user.id }}"/>
                 <input type="hidden" name="recipe" id="recipe"
                     value="{{ recipe.id }}"/>
-                <p>Your comment:</p>
-                <textarea name="commentText" id="commentText"
-                        rows="10" cols="50" required ></textarea>
+                <p>kommentin otsikko:</p>
+                {{ commentform.title }}
+                <p>Kommenttisi:</p>
+                {{ commentform.text }}
+                <!--<textarea name="commentText" id="commentText"
+                        rows="10" cols="50" required ></textarea>-->
                 <p>
                 <input type="submit" id="postComment"
                         value="Lähetä kommenttisi" />
@@ -21,16 +37,16 @@
         <button class="toggle">Leivoitko reseptin mukaan? Kommentoi ihmeessä!</button>
     </div>
     {% else %}
-    <div class="commentBox">
-        <p>Log in to comment</p>
+    <div class="commentBox ownColor">
+        <p>Kirjaudu sisään kommentoidaksesi</p>
     </div>
     {% endif %}
 
     {% for comment in comments %}
-    <div class="comment">
+    <div class="comment ownColor">
         <input type="hidden" class="commentId" value="{{ comment.id }}" />
         <div class="title">
-            <span class="user">{{ comment.user }}</span>
+            <span class="user">{{ comment.user.name }}</span>
             &mdash;
             <span class="title">{{ comment.title }}</span>
             &mdash;

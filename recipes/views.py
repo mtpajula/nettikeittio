@@ -22,6 +22,8 @@ from django.core import serializers
 # Used for getting current time
 from time import strftime
 
+#Forms
+from recipes.forms import *
 
 
 def menu(request):
@@ -29,13 +31,24 @@ def menu(request):
         print "user"
     return render_to_response('recipes/contentpage/menu.html', { }, context_instance=RequestContext(request))
 
-def render_detail_recipe(request, recipe_id, recipe_template):
+def render_detail_recipe(request, recipe_id):
+    context = {}
+    
+    if request.method == 'POST':
+        result = comment_ajax(request)
+        print result
+        context['comment_result'] = result
+    
+    recipe_template = 'recipes/contentpage/recipe_detail.html'
+    
+    commentform = CommentForm()
+    context['commentform'] = commentform
     
     recipe = get_object_or_404(Recipe, pk=recipe_id)
-    comments = Comment.objects.filter(recipe = recipe)
-    phase_list = Phase.objects.filter(recipe = recipe).order_by('ordering')
-    ingredient_list = PhaseIngredient.objects.filter(phase__recipe = recipe)
-    context = { 'recipe': recipe, 'phase_list': phase_list, 'ingredient_list': ingredient_list, 'comments': comments }
+    context['recipe'] = recipe
+    context['comments'] = Comment.objects.filter(recipe = recipe)
+    context['phase_list'] = Phase.objects.filter(recipe = recipe).order_by('ordering')
+    context['ingredient_list'] = PhaseIngredient.objects.filter(phase__recipe = recipe)
     
     #find, if recipe is in user's favourites list
     if request.user.is_authenticated():
@@ -76,6 +89,31 @@ def favourite_ajax(request):
 def comment_ajax(request):
     if request.method != 'POST':
         return HttpResponseForbidden
+    
+    print request.POST
+    if request.POST['text'] != "" and request.POST['title'] != "":
+        
+        nk_user = UserProfile.objects.get(id = request.POST['user'])
+        nk_recipe = Recipe.objects.get(id = request.POST['recipe'])
+        
+        com = Comment()
+        com.added = strftime("%Y-%m-%d %H:%M:%S")
+        com.text = request.POST['text']
+        com.title = request.POST['title']
+        com.user = nk_user
+        com.recipe = nk_recipe
+        # print request.POST['user']
+        rating = 0
+        com.rating = rating
+        com.save()
+        #print com
+        return "Kommenttisi on lähetetty"
+    else:
+        return "Täytä kaikki kentät"
+    
+    return "Jokin virhe... hmm?"
+
+    
 
 def main_page(request):
 
@@ -237,9 +275,6 @@ def search(request):
         
     context['results'] = results
     return listing(request, context)
-
-def recipe_detail(request, recipe_id):    
-    return render_detail_recipe(request, recipe_id, 'recipes/contentpage/recipe_detail.html')
 
 def active(request, recipe_id):
     #recipe = get_object_or_404(Recipe, pk=recipe_id)

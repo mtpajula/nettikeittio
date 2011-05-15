@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django.contrib.auth.models import User
-from recipes.models import UserProfile
+from recipes.models import UserProfile, Comment
 
 class UserDataForm(ModelForm):
     class Meta:
@@ -11,3 +11,8 @@ class UserDataForm(ModelForm):
 class UserProfileForm(ModelForm):
     class Meta:
         model = UserProfile
+        
+class CommentForm(ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('title', 'text')

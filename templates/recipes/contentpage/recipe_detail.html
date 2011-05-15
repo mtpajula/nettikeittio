@@ -4,6 +4,12 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
+    
+    $("button.hideCR").click(function() {
+        $("#comment_result").slideUp("fast");
+    });
+    
+    
     $("#add_favourites").submit(function(event) {
 
         // stop form from submitting normally
@@ -38,6 +44,18 @@ $(document).ready(function() {
 </script>
 
 <div id="content" class="recipeColor dark">
+
+    {% if comment_result %}
+        <div id="comment_result" class="mainColor listDiv">
+            <div class="left">
+                <p>{{ comment_result }}</p>
+            </div>
+            <div class="right">
+                <button class="hideCR">Poista ilmoitus</button>
+            </div>
+        </div>
+    {% endif %}
+
 {% if recipe %}
     <div id="detailHeader" class="listDiv">
         <div class="left">

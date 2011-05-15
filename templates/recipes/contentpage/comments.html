@@ -1,0 +1,42 @@
+<div id="detailComment" class="listDiv">
+    {% if user.is_authenticated %}
+
+    <div class="commentBox" id="postNewComment">
+        <div class="commentFormDiv">
+            <form method="POST" action="{% url comment_ajax %}">
+                <input type="hidden" name="author" id="author"
+                    value="{{ user.id }}"/>
+                <input type="hidden" name="recipe" id="recipe"
+                    value="{{ recipe.id }}"/>
+                <p>Your comment:</p>
+                <textarea name="commentText" id="commentText"
+                        rows="10" cols="50" required ></textarea>
+                <p>
+                <input type="submit" id="postComment"
+                        value="Lähetä kommenttisi" />
+                </p>
+                {% csrf_token %}
+            </form>
+        </div>
+        <button class="toggle">Leivoitko reseptin mukaan? Kommentoi ihmeessä!</button>
+    </div>
+    {% else %}
+    <div class="commentBox">
+        <p>Log in to comment</p>
+    </div>
+    {% endif %}
+
+    {% for comment in comments %}
+    <div class="comment">
+        <input type="hidden" class="commentId" value="{{ comment.id }}" />
+        <div class="title">
+            <span class="user">{{ comment.user }}</span>
+            &mdash;
+            <span class="title">{{ comment.title }}</span>
+            &mdash;
+            <span class="added">{{ comment.added }}</span>
+        </div>
+        <div class="commentText"><p>{{ comment.text }}</p></div>
+    </div>
+    {% endfor %}
+</div>

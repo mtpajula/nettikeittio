@@ -95,7 +95,7 @@ def comment_ajax(request):
     print request.POST
     if request.POST['text'] != "" and request.POST['title'] != "":
         
-        nk_user = UserProfile.objects.get(id = request.POST['user'])
+        nk_user = UserProfile.objects.get(user = request.POST['user'])
         nk_recipe = Recipe.objects.get(id = request.POST['recipe'])
         
         com = Comment()

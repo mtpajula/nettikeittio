@@ -504,7 +504,7 @@ def edit_user(request, user_id):
         return HttpResponseForbidden()
     
     if request.method == 'POST':
-        profile_form = UserProfileForm(request.POST, instance=userprofile)
+        profile_form = UserProfileForm(request.POST, request.FILES, instance=userprofile)
         
         if profile_form.is_valid():
             profile_form.save()

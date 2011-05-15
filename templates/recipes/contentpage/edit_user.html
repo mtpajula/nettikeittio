@@ -11,7 +11,7 @@
             <p>Syötit tietoja virheellisesti!</p>
         {% endif %}
         
-        <form action="/edituser/{{user.id}}/" method="post">
+        <form action="/edituser/{{user.id}}/" method="post" enctype="multipart/form-data">
         	{% csrf_token %}
         	<table>
         		<!--

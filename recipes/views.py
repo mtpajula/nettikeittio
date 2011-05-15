@@ -62,7 +62,7 @@ def render_detail_recipe(request, recipe_id, recipe_template = 'recipes/contentp
 
 def favourite_ajax(request):
     if request.method != 'POST':
-        return HttpResponseForbidden
+        return HttpResponseForbidden()
         
     context = {}
     context['status'] = "null"

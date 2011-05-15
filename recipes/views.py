@@ -359,7 +359,7 @@ def save_edit_recipe(request):
 
     rec.name = request.POST['recipe_name']
     rec.description = request.POST['recipe_description']
-    rec.owner = UserProfile.objects.get(pk=request.user.id)
+    rec.owner = request.user.get_profile()#UserProfile.objects.get(pk=request.user.id)
     rec.eddits = rec.eddits + 1
     rec.lastedit = strftime("%Y-%m-%d %H:%M:%S")
 

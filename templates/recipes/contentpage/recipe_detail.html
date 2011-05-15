@@ -2,6 +2,41 @@
 
 {% block content %}
 
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#add_favourites").submit(function(event) {
+
+        // stop form from submitting normally
+        event.preventDefault(); 
+            
+        // get some values from elements on the page:
+        var $form = $( this ),
+            fav = $form.find( 'input[name="fav"]' ).val(),
+            csrf = $form.find( 'input[name="csrfmiddlewaretoken"]' ).val(),
+            rid = $form.find( 'input[name="recipe_id"]' ).val(),
+            uid = $form.find( 'input[name="user_id"]' ).val(),
+            url = $form.attr( 'action' );
+
+        // Send the data using post and put the results in a div
+        $.post( url, { s: fav, csrfmiddlewaretoken: csrf, rid: rid, uid: uid } ,
+            function( data ) {
+                //var content = $( data ).find( '#content' );
+                //$( ".favourite" ).html( content );
+                //alert("Data Loaded: " + data.status);
+                if (data.status == "removed") {
+                    $("#add_favourites_button").attr('value', 'Lisää suosikkeihin');
+                } else if (data.status == "added") {
+                    $("#add_favourites_button").attr('value', 'Poista suosikeista');
+                } else {
+                    $("#add_favourites_button").attr('value', 'Virhe!');
+                }
+            }, "json"
+        );
+    });
+});
+
+</script>
+
 <div id="content" class="recipeColor dark">
 {% if recipe %}
     <div id="detailHeader" class="listDiv">
@@ -14,6 +49,22 @@
 			</div>
         </div>
         <div class="right">
+            {% if user.is_authenticated %}
+                <div class="favourite">
+                    <form id="add_favourites" action="{% url favourite_ajax %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="recipe_id" value="{{ recipe.id }}"></input>
+                        <input type="hidden" name="user_id" value="{{ user.id }}"></input>
+                    {% if favourite %}
+                        <input type="hidden" name="fav" value="is"></input>
+                        <input type="submit" id="add_favourites_button" value="Poista suosikeista"></input>
+                    {% else %}
+                        <input type="hidden" name="fav" value="not"></input>
+                        <input type="submit" id="add_favourites_button" value="Lisää suosikkeihin"></input>
+                    {% endif %}
+                    </form>
+                </div>
+            {% endif %}
         </div>
     </div>
     
@@ -53,6 +104,19 @@
 					<div class="phase_dscr">
 						{{ phase.description }}
 					</div>
+                    <div class="phase_ingredients">
+                        {% if ingredient_list %}
+                            {% for ingredient in ingredient_list %}
+                                {% if phase == ingredient.phase %}
+                                <div class="ingredient">
+                                    <span class="amount">{{ ingredient.amount }}</span>
+                                    <span class="unit">{{ ingredient.unit.name }}</span>
+                                    <span class="name">{{ ingredient.ingredient.name }}</span>
+                                </div>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </div>
 				</div>
 			{% endfor %}
 		{% endif %}

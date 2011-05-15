@@ -37,8 +37,8 @@ urlpatterns = patterns('',
         {'document_root': settings.MEDIA_ROOT, 'show_indexes': True}, name='image_root'),
         
     url(r'^lookup/ingredient/$'            , ingredient_lookup, name='ingredient_lookup'),
-
     url(r'^lookup/unit/$'            , unit_lookup, name='unit_lookup'),
+    url(r'^ajax/favourite/$'            , favourite_ajax, name='favourite_ajax'),
 
     # Example:
     # (r'^nettikeittio/', include('nettikeittio.foo.urls')),

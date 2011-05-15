@@ -34,11 +34,43 @@ def render_detail_recipe(request, recipe_id, recipe_template):
     recipe = get_object_or_404(Recipe, pk=recipe_id)
     phase_list = Phase.objects.filter(recipe = recipe).order_by('ordering')
     ingredient_list = PhaseIngredient.objects.filter(phase__recipe = recipe)
+    context = { 'recipe': recipe, 'phase_list': phase_list, 'ingredient_list': ingredient_list }
     
-    return render_to_response(recipe_template, {
-                                'recipe': recipe,
-                                'phase_list': phase_list,
-                                'ingredient_list': ingredient_list }, context_instance=RequestContext(request))
+    #find, if recipe is in user's favourites list
+    if request.user.is_authenticated():
+        nk_user = UserProfile.objects.get(user = request.user.get_profile())
+        if nk_user.favorites.filter(id=recipe.id):
+            context['favourite'] = True
+    
+    return render_to_response(recipe_template, context, context_instance=RequestContext(request))
+
+def favourite_ajax(request):
+    if request.method != 'POST':
+        return HttpResponseForbidden
+        
+    context = {}
+    context['status'] = "null"
+    
+    rid = request.POST['rid']
+    uid = request.POST['uid']
+    current = request.POST['s']
+    
+    nk_user = UserProfile.objects.get(id = uid)
+    nk_recipe = Recipe.objects.get(id = rid)
+    
+    if nk_user.favorites.filter(id=rid):
+        context['status'] = "removed"
+        nk_user.favorites.remove(nk_recipe)
+    else:
+        context['status'] = "added"
+        nk_user.favorites.add(nk_recipe)
+    
+    json = simplejson.dumps(context)
+    
+    return HttpResponse(
+        json,
+        content_type = 'application/javascript; charset=utf8'
+    )
 
 def main_page(request):
 

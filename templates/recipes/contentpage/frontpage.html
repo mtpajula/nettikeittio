@@ -38,7 +38,7 @@
             	<span class="detailMissingText">Ei kuvaa</span>
             {% endif %}
             </div>
-            <p class="name"><a href="{% url user_page user_id=r.pk %}">{{r.name}}</a></p>
+            <p class="name"><a href="{% url user_page user_id=r.owner.user.id %}">{{r.name}}</a></p>
             <p class="description">{{ r.description }}</p>
         {% endif %}
         </div>
@@ -69,7 +69,7 @@
             		<span class="detailMissingText">Ei kuvaa</span>
             	{% endif %}
             </div>
-            <p class="name"><a href="{% url user_page user_id=r.pk %}">{{r.name}}</a></p>
+            <p class="name"><a href="{% url user_page user_id=r.user.id %}">{{r.name}}</a></p>
             <p class="description">{{ r.description }}</p>
         {% endif %}
         </div>

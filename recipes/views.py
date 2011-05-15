@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render_to_response, get_object_or_404
 from django.core.context_processors import csrf
+from django.core.urlresolvers import reverse
 from django.http import *
 from recipes.models import *
 import re
@@ -21,7 +22,7 @@ from django.core import serializers
 
 # Used for getting current time
 from time import strftime
-from recipes.forms import UserProfileRegistrationForm
+from recipes.forms import UserProfileRegistrationForm, UserProfileForm
 
 #Forms
 from recipes.forms import *
@@ -70,7 +71,7 @@ def favourite_ajax(request):
     uid = request.POST['uid']
     current = request.POST['s']
     
-    nk_user = UserProfile.objects.get(id = uid)
+    nk_user = UserProfile.objects.get(user = uid)
     nk_recipe = Recipe.objects.get(id = rid)
     
     if nk_user.favorites.filter(id=rid):
@@ -94,7 +95,7 @@ def comment_ajax(request):
     print request.POST
     if request.POST['text'] != "" and request.POST['title'] != "":
         
-        nk_user = UserProfile.objects.get(id = request.POST['user'])
+        nk_user = UserProfile.objects.get(user = request.POST['user'])
         nk_recipe = Recipe.objects.get(id = request.POST['recipe'])
         
         com = Comment()
@@ -152,7 +153,7 @@ def favourite_recipes(request):
     #if not request.user.is_authenticated():
         #return HttpResponseForbidden
     
-    nk_user = UserProfile.objects.get(user = request.user.get_profile())
+    nk_user = request.user.get_profile()
 
     favorites = nk_user.favorites.all()
     
@@ -292,19 +293,15 @@ def active(request, recipe_id):
 @login_required
 def edit_recipe(request, recipe_id):
 
-    #if not request.user.is_authenticated():
-    #    return HttpResponseForbidden
-    
-    recipe = get_object_or_404(Recipe, pk=recipe_id)
-    
-    if not request.user.get_profile() == recipe.owner:
-        # Unauthorized request
-        return HttpResponseForbidden()
-
     # Update recipe if post information is received
     if request.method == 'POST':
       return save_edit_recipe(request)
     
+    recipe = get_object_or_404(Recipe, pk=recipe_id)
+
+    if not request.user.get_profile() == recipe.owner:
+        # Unauthorized request
+        return HttpResponseForbidden()
     
     phases = Phase.objects.all().filter(recipe=recipe_id).order_by('ordering')
 
@@ -483,8 +480,12 @@ def save_edit_recipe(request):
     # Return redirect to avoid reposting information on page refreshh
     context = { 'recipe': rec }
     context.update(csrf(request))
+
     
-    return render_to_response('recipes/contentpage/edit_recipe.html', context, context_instance=RequestContext(request))
+    
+    #return render_to_response('recipes/contentpage/edit_recipe.html', context, context_instance=RequestContext(request))
+
+    return HttpResponseRedirect(reverse('edit_recipe', args=[rec.id]))
 
 
 def user_detail(request, user_id):
@@ -497,11 +498,26 @@ def new_user(request):
 @login_required
 def edit_user(request, user_id):
     userprofile = get_object_or_404(UserProfile, user=user_id)
+    
     if not request.user.get_profile() == userprofile:
         # Unauthorized request
         return HttpResponseForbidden()
     
-    return render_to_response('recipes/contentpage/user.html', { 'userprofile': userprofile }, context_instance=RequestContext(request))
+    if request.method == 'POST':
+        profile_form = UserProfileForm(request.POST, request.FILES, instance=userprofile)
+        
+        if profile_form.is_valid():
+            profile_form.save()
+
+            return HttpResponseRedirect(reverse('user_page', kwargs={ 'user_id': user_id }))
+            #return HttpResponseRedirect('/')
+        
+    else:
+        profile_form = UserProfileForm(instance=userprofile)
+    
+    return render_to_response('recipes/contentpage/edit_user.html', { 'userprofile': userprofile, 
+                                                                'profile_form': profile_form }, 
+                              context_instance=RequestContext(request))
 
 # This is currently not in use
 def nk_login(request):

@@ -18,8 +18,10 @@ class UserProfileRegistrationForm(ModelForm):
 class UserProfileForm(ModelForm):
     class Meta:
         model = models.UserProfile
+        fields = ('name', 'description', 'image')
         
 class CommentForm(ModelForm):
     class Meta:
         model = models.Comment
         fields = ('title', 'text')
+

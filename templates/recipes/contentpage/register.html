@@ -5,7 +5,7 @@
         <h1>Rekisteröidy</h1>
 
         {% if form.errors %}
-            <p>Jotain formissa oli pielessä.</p>
+            <p>Syötit tietoja virheellisesti!</p>
         {% endif %}
         
         <form action="/register/" method="post">
@@ -14,41 +14,36 @@
             	<tr>
                     <th>Käyttäjätunnus</td>
                     <td>{{ form.username }}</td>
-                    <td>{{ form.username.help_text }}</td>
+                    <td>
+                    	{{ form.username.help_text }}
+                    	{% if form.username.errors %}
+                    		<strong>{{ form.username.errors|escape }}</strong>
+                    	{% endif %}
+                    </td>
                 </tr>
                 <tr>
                     <th>Salasana</th>
                     <td>{{ form.password1 }}</td>
-                    <td>{{ form.password1.help_text }}</td>
+                    <td>
+                    	{{ form.password1.help_text }}
+                    	{% if form.password1.errors %}
+                    		<strong>{{ form.password1.errors|escape }}</strong>
+                    	{% endif %}
+                    </td>
                 </tr>
                 <tr>
                     <th>Salasanan vahvistus</th>
                     <td>{{ form.password2 }}</td>
-                    <td>{{ form.password2.help_text }}</td>
+                    <td>
+                    	{{ form.password2.help_text }}
+                    	{% if form.password2.errors %}
+                    		<strong>{{ form.password2.errors|escape }}</strong>
+                    	{% endif %}
+                    </td>
                 </tr>
             </table>
             <input type="submit" value="Rekisteröidy" />
         </form>
-        
-        
-        <!-- MODEL EXAMPLE FROM LOGIN
-        <form method="post" action="/login/">
-            {% csrf_token %}
-            <table>
-                <tr>
-                    <td>Käyttäjätunnus</td>
-                    <td>{{ form.username }}</td>
-                </tr>
-                <tr>
-                    <td>Salasana</td>
-                    <td>{{ form.password }}</td>
-                </tr>
-            </table>
-            <input type="submit" value="Kirjaudu sisään" />
-            <input type="hidden" name="next" value="{{ next }}" />
-        </form>
-        
-        EXAMPLE ENDS -->
         
     </div>
 {% endblock %}

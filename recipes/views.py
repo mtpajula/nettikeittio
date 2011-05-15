@@ -93,10 +93,11 @@ def main_page(request):
 def recipe_search(request):
     return render_to_response('recipes/contentpage/recipe_search_field.html', { }, context_instance=RequestContext(request))
 
+@login_required
 def own_recipes(request):
     context = {}
-    if not request.user.is_authenticated():
-        return HttpResponseForbidden
+    #if not request.user.is_authenticated():
+        #return HttpResponseForbidden
 
     recipes = Recipe.objects.filter(owner = request.user.get_profile())
     
@@ -105,11 +106,12 @@ def own_recipes(request):
     context['results'] = recipes
     
     return listing(request, context)
-    
+
+@login_required    
 def favourite_recipes(request):
     context = {}
-    if not request.user.is_authenticated():
-        return HttpResponseForbidden
+    #if not request.user.is_authenticated():
+        #return HttpResponseForbidden
     
     nk_user = UserProfile.objects.get(user = request.user.get_profile())
 
@@ -256,12 +258,18 @@ def edit_recipe(request, recipe_id):
 
     #if not request.user.is_authenticated():
     #    return HttpResponseForbidden
+    
+    recipe = get_object_or_404(Recipe, pk=recipe_id)
+    
+    if not request.user.get_profile() == recipe.owner:
+        # Unauthorized request
+        return HttpResponseForbidden()
 
     # Update recipe if post information is received
     if request.method == 'POST':
       return save_edit_recipe(request)
     
-    recipe = get_object_or_404(Recipe, pk=recipe_id)
+    
     phases = Phase.objects.all().filter(recipe=recipe_id).order_by('ordering')
 
     context = { 'recipe': recipe, 'phases': phases }
@@ -270,10 +278,11 @@ def edit_recipe(request, recipe_id):
     
     return render_to_response('recipes/contentpage/edit_recipe.html', context, context_instance=RequestContext(request))
 
+@login_required
 def new_recipe(request):
 
-    if not request.user.is_authenticated():
-        return HttpResponseForbidden()
+    #if not request.user.is_authenticated():
+        #return HttpResponseForbidden()
 
 
     if request.method == 'POST':
@@ -449,8 +458,13 @@ def user_detail(request, user_id):
 def new_user(request):
     return render_to_response('recipes/contentpage/user.html', { }, context_instance=RequestContext(request))
 
+@login_required
 def edit_user(request, user_id):
-    userprofile = get_object_or_404(UserProfile, pk=user_id)
+    userprofile = get_object_or_404(UserProfile, user=user_id)
+    if not request.user.get_profile() == userprofile:
+        # Unauthorized request
+        return HttpResponseForbidden()
+    
     return render_to_response('recipes/contentpage/user.html', { 'userprofile': userprofile }, context_instance=RequestContext(request))
 
 # This is currently not in use

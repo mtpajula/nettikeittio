@@ -98,7 +98,7 @@ $(document).ready(function() {
 					{% if recipe.image %}
 						<img src="{% url image_root path=recipe.image %}" alt="{{ recipe.name }}" />
 					{% else %}
-						<span class="detailMissingText">Ei kuvaa</span>
+						<span class="detailMissingImage">Ei kuvaa</span>
 					{% endif %}
 				</div>
             </div>

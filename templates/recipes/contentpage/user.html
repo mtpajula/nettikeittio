@@ -24,7 +24,7 @@
 					{% if userprofile.image %}
 						<img src="{% url image_root path=userprofile.image %}" alt="{{ userprofile.name }}" />
 					{% else %}
-						<span class="detailMissingText">Ei kuvaa</span>
+						<span class="detailMissingImage">Ei kuvaa</span>
 					{% endif %}
 				</div>
             </div>
@@ -38,25 +38,18 @@
         </div>
         <div class="right">
             <p>Käyttäjän omat reseptit:</p>
+            {% if recipes %}
             {% for r in recipes %}
-                {% if r.owner %}
                 <div class="recipe_phase recipeColor">
                     <p class="name"><a href="{% url recipe_page recipe_id=r.pk %}">{{r.name}}</a></p>
                     <p class="description">{{ r.description }}</p>
-                {% else %}
-                <div class="listresult ownColor">
-                    <div class="img_container">
-                        {% if r.image %}
-                            <img src="{% url image_root path=r.image %}"></img>
-                        {% else %}
-                            <span class="detailMissingText">Ei kuvaa</span>
-                        {% endif %}
-                    </div>
-                    <p class="name"><a href="{% url user_page user_id=r.user.id %}">{{r.name}}</a></p>
-                    <p class="description">{{ r.description }}</p>
-                {% endif %}
                 </div>
             {% endfor %}
+            {% else %}
+                <div class="recipe_phase recipeColor">
+                    <p>Käyttäjällä ei ole vielä tehnyt reseptejä</p>
+                </div>
+            {% endif %}
         </div>
     </div>
 

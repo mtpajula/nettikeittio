@@ -35,7 +35,7 @@
                 	{% if r.image %}
                 		<img src="{% url image_root path=r.image %}"></img>
                 	{% else %}
-                    	<span class="detailMissingText">Ei kuvaa</span>
+                    	<span class="detailMissingImage">Ei kuvaa</span>
                     {% endif %}
                 </div>
                 <p class="name"><a href="{% url user_page user_id=r.user.id %}">{{r.name}}</a></p>

@@ -4,9 +4,9 @@ from django.contrib.auth.models import User # Link UserProfiles to auth Users
 # Recipes user profile
 class UserProfile(models.Model):
     user = models.ForeignKey(User, unique=True)
-    name = models.CharField('User name', max_length=50)
-    description = models.TextField('User description', max_length=1000)
-    image = models.ImageField(upload_to='user_images')
+    name = models.CharField('User name', max_length=50, blank=True)
+    description = models.TextField('User description', max_length=1000, blank=True)
+    image = models.ImageField(upload_to='user_images', blank=True, null=True)
     favorites = models.ManyToManyField("Recipe", blank=True, null=True)
     
     def __unicode__(self):

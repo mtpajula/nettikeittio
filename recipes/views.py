@@ -443,7 +443,7 @@ def save_edit_recipe(request):
 
 
 def user_detail(request, user_id):
-    userprofile = get_object_or_404(UserProfile, pk=user_id)
+    userprofile = get_object_or_404(UserProfile, user=user_id)
     return render_to_response('recipes/contentpage/user.html', { 'userprofile': userprofile }, context_instance=RequestContext(request))
 
 def new_user(request):
@@ -465,8 +465,10 @@ def register(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             new_user = form.save()
-            profile = UserProfile(user=new_user)
-            profile.save()
+            
+            # Also create an empty user profile for the user
+            UserProfile.objects.create(user=new_user)
+            
             new_user = authenticate(username=request.POST['username'],
                                     password=request.POST['password1']) # POST has password data for both fields!
             login(request, new_user)

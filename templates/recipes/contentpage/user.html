@@ -10,7 +10,7 @@
         	{% if userprofile.name != '' %}
 				{{ userprofile.name }}
 			{% else %}
-				<span class='detailMissingText'>User has no name in profile</span>
+				<span class='detailMissingText'>Käyttäjällä ei ole nimeä profiilissa</span>
 			{% endif %}
         </div>
         <div class="right">
@@ -24,7 +24,7 @@
 					{% if userprofile.image %}
 						<img src="{% url image_root path=userprofile.image %}" alt="{{ userprofile.name }}" />
 					{% else %}
-						<span class="detailMissingText">No profile image</span>
+						<span class="detailMissingText">Ei kuvaa</span>
 					{% endif %}
 				</div>
             </div>
@@ -32,7 +32,7 @@
             	{% if userprofile.description != '' %}
 					{{ userprofile.description }}
 				{% else %}
-					<span class='detailMissingText'>User has no description</span>
+					<span class='detailMissingText'>Ei kuvausta</span>
 				{% endif %}
             </div>
         </div>

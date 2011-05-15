@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render_to_response, get_object_or_404
 from django.core.context_processors import csrf
+from django.core.urlresolvers import reverse
 from django.http import *
 from recipes.models import *
 import re
@@ -21,7 +22,7 @@ from django.core import serializers
 
 # Used for getting current time
 from time import strftime
-from recipes.forms import UserProfileRegistrationForm
+from recipes.forms import UserProfileRegistrationForm, UserProfileForm
 
 #Forms
 from recipes.forms import *
@@ -497,11 +498,26 @@ def new_user(request):
 @login_required
 def edit_user(request, user_id):
     userprofile = get_object_or_404(UserProfile, user=user_id)
+    
     if not request.user.get_profile() == userprofile:
         # Unauthorized request
         return HttpResponseForbidden()
     
-    return render_to_response('recipes/contentpage/user.html', { 'userprofile': userprofile }, context_instance=RequestContext(request))
+    if request.method == 'POST':
+        profile_form = UserProfileForm(request.POST, instance=userprofile)
+        
+        if profile_form.is_valid():
+            profile_form.save()
+
+            return HttpResponseRedirect(reverse('user_page', kwargs={ 'user_id': user_id }))
+            #return HttpResponseRedirect('/')
+        
+    else:
+        profile_form = UserProfileForm(instance=userprofile)
+    
+    return render_to_response('recipes/contentpage/edit_user.html', { 'userprofile': userprofile, 
+                                                                'profile_form': profile_form }, 
+                              context_instance=RequestContext(request))
 
 # This is currently not in use
 def nk_login(request):

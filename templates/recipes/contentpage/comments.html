@@ -14,7 +14,7 @@ $(document).ready(function() {
 <div id="detailComment" class="listDiv">
     {% if user.is_authenticated %}
 
-    <div class="commentBox ownColor" id="postNewComment">
+    <div class="commentBox ownColor listDiv" id="postNewComment">
         <div class="commentFormDiv">
             <form method="POST" action="{% url recipe_page recipe_id=recipe.id %}">
                 <input type="hidden" name="user" id="user"
@@ -37,20 +37,20 @@ $(document).ready(function() {
         <button class="toggle">Leivoitko reseptin mukaan? Kommentoi ihmeessä!</button>
     </div>
     {% else %}
-    <div class="commentBox ownColor">
+    <div class="commentBox ownColor listDiv">
         <p>Kirjaudu sisään kommentoidaksesi</p>
     </div>
     {% endif %}
 
     {% for comment in comments %}
-    <div class="comment ownColor">
+    <div class="comment ownColor listDiv">
         <input type="hidden" class="commentId" value="{{ comment.id }}" />
-        <div class="title">
-            <span class="user">{{ comment.user.name }}</span>
-            &mdash;
+        <div class="comment_title">
             <span class="title">{{ comment.title }}</span>
-            &mdash;
+            |
             <span class="added">{{ comment.added }}</span>
+            |
+            <span class="user">{{ comment.user.name }}</span>
         </div>
         <div class="commentText"><p>{{ comment.text }}</p></div>
     </div>

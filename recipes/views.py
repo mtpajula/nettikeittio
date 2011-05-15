@@ -47,7 +47,7 @@ def render_detail_recipe(request, recipe_id, recipe_template = 'recipes/contentp
     
     recipe = get_object_or_404(Recipe, pk=recipe_id)
     context['recipe'] = recipe
-    context['comments'] = Comment.objects.filter(recipe = recipe)
+    context['comments'] = Comment.objects.filter(recipe = recipe).order_by('-added')
     context['phase_list'] = Phase.objects.filter(recipe = recipe).order_by('ordering')
     context['ingredient_list'] = PhaseIngredient.objects.filter(phase__recipe = recipe)
     

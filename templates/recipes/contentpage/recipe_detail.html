@@ -5,6 +5,9 @@
 <script type="text/javascript">
 $(document).ready(function() {
     
+    $(".recipe_phase > .phase_ingredients").hide();
+    $(".detailIngredients").corner();
+    
     $("button.hideCR").click(function() {
         $("#comment_result").slideUp("fast");
     });
@@ -60,7 +63,7 @@ $(document).ready(function() {
     <div id="detailHeader" class="listDiv">
         <div class="left">
 			<div class="recipe_name">
-				{{ recipe.name }}
+				<h2>{{ recipe.name }}</h2>
 			</div>
 			<div class="recipe_description">
 				<p>{{ recipe.description }}</p>
@@ -113,16 +116,21 @@ $(document).ready(function() {
 		{% if phase_list %}
 			{% for phase in phase_list %}
 				<div class="recipe_phase" id="recipe_phase_{{ phase.ordering }}">
+                    <div class="phase_duration">
+						<span class="amount">{{ phase.duration_min }}</span>
+						<span class="unit">min</span>
+					</div>
 					<div class="phase_name">
 						<a href="#">{{ phase.name }}</a>
 					</div>
 					<div class="phase_atype">
-						<span class="atype">{{ phase.activity_type }}</span>
+                        {% if phase.activity_type == 0 %}
+                            <span class="atype a_passive">Passiivinen</span>
+                        {% else %}
+                            <span class="atype a_active">Aktiivinen</span>
+                        {% endif %}
 					</div>
-					<div class="phase_duration">
-						<span class="amount">{{ phase.duration_min }}</span>
-						<span class="unit">min</span>
-					</div>
+					
 					<div class="phase_dscr">
 						{{ phase.description }}
 					</div>

@@ -48,9 +48,16 @@ img {
 
 .phase, .phase_name, .phase_dscr, .phase_ingredients {
     padding:5px;
-    margin:1em;
-    margin-bottom:1em;
+    margin:0.5em;
+    margin-bottom:0.5em;
+}
+
+.phase, .phase_name, .phase_ingredients {
     border: 1px solid white;
+}
+
+.phase_dscr {
+    color: #785424;;
 }
 
 .active {
@@ -92,7 +99,7 @@ div.phase_duration.active, div.phase_atype.active {
 }
 
 .active.phase_dscr {
-    padding: 2em;
+    padding: 1em;
 }
 
 div#header {
@@ -109,4 +116,11 @@ div#header {
 * html #main { /*IE6 hack*/
     height: 100%; 
     width: 100%; 
+}
+
+div.active a{
+    color: #072c41;
+}
+div.active a:hover, div.active a:active, div.active a:visited {
+    color: #072c41;
 }

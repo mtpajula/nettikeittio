@@ -9,12 +9,14 @@
     <div class="recipe_creator">
         <p>{{ recipe.owner.name }}</p>
     </div>
-    <div class="recipe_image">
+    <div class="recipe_image listresult">
+        <div class="img_container">
         {% if recipe.image %}
             <img src="{% url image_root path=recipe.image %}" alt="{{ recipe.name }}" />
         {% else %}
             <span class="detailMissingText">Ei kuvaa</span>
         {% endif %}
+        </div>
     </div>
     <div class="recipe_description">
         <p>{{ recipe.description }}</p>
@@ -27,7 +29,11 @@
                 <a href="#">{{ phase.name }}</a>
             </div>
             <div class="phase_atype">
-                <span class="atype">{{ phase.activity_type }}</span>
+                {% if phase.activity_type == 0 %}
+                    <span class="atype a_passive">Passiivinen</span>
+                {% else %}
+                    <span class="atype a_active">Aktiivinen</span>
+                {% endif %}
             </div>
             <div class="phase_duration">
                 <span class="amount">{{ phase.duration_min }}</span>

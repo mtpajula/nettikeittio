@@ -48,22 +48,7 @@ div.ingredient {
     height:auto;
 }
 
-.listresult div.img_container img {
-    height: 7em;
-    -webkit-border-radius: 5px;
-}
-.listresult div.img_container {
-    width: 7em;
-    height: 7em;
-    overflow: hidden;
 
-    border-radius: 5px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border: solid rgba(0,0,0,0.2) 1px;
-
-    float: right;
-}
 
 div.listresult p.description {
     float: left;
@@ -174,14 +159,17 @@ div#nkName img {
     margin: 0.5em;
 }
 
+.detailIngredients {
+    padding: 0.5em;
+    margin-top: 1em;
+}
+
 #detailMain .left {
     width: 30%;
-    border: 3px solid grey;
 }
 
 #detailMain .right {
     width: 60%;
-    border: 3px solid grey;
 }
 
 /* Edit/create recipe */
@@ -263,4 +251,30 @@ a.remove_ingredient_button, a.remove_phase_button, a.remove_ingredient {
 }
 a.remove_ingredient_button:hover, a.remove_phase_button:hover {
     background-position: -64px -128px;
+}
+
+.listresult div.img_container {
+    float: right;
+}
+
+.comment_title span.title {
+    font-weight:bold;
+}
+
+.comment_title span.added {
+    color: #785424;
+}
+
+.phase_dscr {
+    padding: 0.5em;
+}
+
+.phase_duration {
+    float:right;
+}
+
+
+
+.comment_title span.user {
+    color: #785424;
 }

@@ -124,7 +124,29 @@ div.left {
     color:red;    
 }
 
-.noImage {
+.listresult div.img_container img {
+    height: 7em;
+    -webkit-border-radius: 5px;
+}
+.listresult div.img_container {
+    width: 7em;
+    height: 7em;
+    overflow: hidden;
+
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border: solid rgba(0,0,0,0.2) 1px;
+}
+
+.noImage img {
     width:100%;
-    height:100%;
+}
+
+.a_passive {
+    color: green;
+}
+
+.a_active {
+    color: red;
 }

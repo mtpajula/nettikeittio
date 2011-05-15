@@ -21,16 +21,24 @@
             {% if r.owner %}
             <div class="listresult recipeColor">
                 <div class="img_container">
-                    <img src="{% url image_root path=r.image %}"></img>
+                	{% if r.image %}
+                    	<img src="{% url image_root path=r.image %}"></img>
+                    {% else %}
+                    	<span class="detailMissingText">Ei kuvaa</span>
+                    {% endif %}
                 </div>
                 <p class="name"><a href="{% url recipe_page recipe_id=r.pk %}">{{r.name}}</a></p>
                 <p class="description">{{ r.description }}</p>
             {% else %}
             <div class="listresult ownColor">
                 <div class="img_container">
-                <img src="{% url image_root path=r.image %}"></img>
+                	{% if r.image %}
+                		<img src="{% url image_root path=r.image %}"></img>
+                	{% else %}
+                    	<span class="detailMissingText">Ei kuvaa</span>
+                    {% endif %}
                 </div>
-                <p class="name"><a href="{% url user_page user_id=r.pk %}">{{r.name}}</a></p>
+                <p class="name"><a href="{% url user_page user_id=r.user.id %}">{{r.name}}</a></p>
                 <p class="description">{{ r.description }}</p>
             {% endif %}
             </div>

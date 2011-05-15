@@ -21,6 +21,7 @@ from django.core import serializers
 
 # Used for getting current time
 from time import strftime
+from recipes.forms import UserProfileRegistrationForm
 
 #Forms
 from recipes.forms import *
@@ -52,7 +53,7 @@ def render_detail_recipe(request, recipe_id):
     
     #find, if recipe is in user's favourites list
     if request.user.is_authenticated():
-        nk_user = UserProfile.objects.get(user = request.user.get_profile())
+        nk_user = request.user.get_profile()
         if nk_user.favorites.filter(id=recipe.id):
             context['favourite'] = True
     
@@ -131,10 +132,11 @@ def main_page(request):
 def recipe_search(request):
     return render_to_response('recipes/contentpage/recipe_search_field.html', { }, context_instance=RequestContext(request))
 
+@login_required
 def own_recipes(request):
     context = {}
-    if not request.user.is_authenticated():
-        return HttpResponseForbidden
+    #if not request.user.is_authenticated():
+        #return HttpResponseForbidden
 
     recipes = Recipe.objects.filter(owner = request.user.get_profile())
     
@@ -143,11 +145,12 @@ def own_recipes(request):
     context['results'] = recipes
     
     return listing(request, context)
-    
+
+@login_required    
 def favourite_recipes(request):
     context = {}
-    if not request.user.is_authenticated():
-        return HttpResponseForbidden
+    #if not request.user.is_authenticated():
+        #return HttpResponseForbidden
     
     nk_user = UserProfile.objects.get(user = request.user.get_profile())
 
@@ -291,12 +294,18 @@ def edit_recipe(request, recipe_id):
 
     #if not request.user.is_authenticated():
     #    return HttpResponseForbidden
+    
+    recipe = get_object_or_404(Recipe, pk=recipe_id)
+    
+    if not request.user.get_profile() == recipe.owner:
+        # Unauthorized request
+        return HttpResponseForbidden()
 
     # Update recipe if post information is received
     if request.method == 'POST':
       return save_edit_recipe(request)
     
-    recipe = get_object_or_404(Recipe, pk=recipe_id)
+    
     phases = Phase.objects.all().filter(recipe=recipe_id).order_by('ordering')
 
     context = { 'recipe': recipe, 'phases': phases }
@@ -305,10 +314,11 @@ def edit_recipe(request, recipe_id):
     
     return render_to_response('recipes/contentpage/edit_recipe.html', context, context_instance=RequestContext(request))
 
+@login_required
 def new_recipe(request):
 
-    if not request.user.is_authenticated():
-        return HttpResponseForbidden()
+    #if not request.user.is_authenticated():
+        #return HttpResponseForbidden()
 
 
     if request.method == 'POST':
@@ -484,8 +494,13 @@ def user_detail(request, user_id):
 def new_user(request):
     return render_to_response('recipes/contentpage/user.html', { }, context_instance=RequestContext(request))
 
+@login_required
 def edit_user(request, user_id):
-    userprofile = get_object_or_404(UserProfile, pk=user_id)
+    userprofile = get_object_or_404(UserProfile, user=user_id)
+    if not request.user.get_profile() == userprofile:
+        # Unauthorized request
+        return HttpResponseForbidden()
+    
     return render_to_response('recipes/contentpage/user.html', { 'userprofile': userprofile }, context_instance=RequestContext(request))
 
 # This is currently not in use
@@ -497,12 +512,19 @@ def nk_logout(request):
 
 def register(request):
     if request.method == 'POST':
+        # Bound forms
         form = UserCreationForm(request.POST)
-        if form.is_valid():
+        profile_form = UserProfileRegistrationForm(request.POST)
+        
+        if form.is_valid() and profile_form.is_valid():
             new_user = form.save()
             
+            #profile_form.user = new_user
+            userprofile = profile_form.save(commit=False)
+            userprofile.user = new_user
+            userprofile.save()
             # Also create an empty user profile for the user
-            UserProfile.objects.create(user=new_user)
+            #UserProfile.objects.create(user=new_user)
             
             new_user = authenticate(username=request.POST['username'],
                                     password=request.POST['password1']) # POST has password data for both fields!
@@ -512,9 +534,11 @@ def register(request):
             # Show error page
             pass
     else:
+        # Unbound forms
         form = UserCreationForm()
+        profile_form = UserProfileRegistrationForm()
     return render_to_response("recipes/contentpage/register.html", {
-                            'form': form,
+                            'form': form, 'profile_form': profile_form
                             }, context_instance=RequestContext(request))
 
 def nk_help(request):

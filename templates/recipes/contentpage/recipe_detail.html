@@ -90,7 +90,11 @@ $(document).ready(function() {
         <div class="left">
             <div class="detailImage">
 				<div class="recipe_image img_container">
-					<img src="{% url image_root path=recipe.image %}" alt="{{ recipe.name }}" />
+					{% if recipe.image %}
+						<img src="{% url image_root path=recipe.image %}" alt="{{ recipe.name }}" />
+					{% else %}
+						<span class="detailMissingText">Ei kuvaa</span>
+					{% endif %}
 				</div>
             </div>
             <div class="detailIngredients mainColor">

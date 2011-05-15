@@ -62,7 +62,7 @@ $(document).ready(function() {
     <div id="detailHeader" class="listDiv">
         <div class="left">
             <div class="recipe_owner">
-                <a href="{% url user_page user_id=recipe.owner.id %}">{{ recipe.owner.name }}</a> tarjoaa:
+                <a href="{% url user_page user_id=recipe.owner.user.id %}">{{ recipe.owner.name }}</a> tarjoaa:
 			</div>
 			<div class="recipe_name">
 				<h2>{{ recipe.name }}</h2>

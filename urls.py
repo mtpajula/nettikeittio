@@ -39,6 +39,7 @@ urlpatterns = patterns('',
     url(r'^lookup/ingredient/$'            , ingredient_lookup, name='ingredient_lookup'),
     url(r'^lookup/unit/$'            , unit_lookup, name='unit_lookup'),
     url(r'^ajax/favourite/$'            , favourite_ajax, name='favourite_ajax'),
+    url(r'^ajax/comment/$'            , comment_ajax, name='comment_ajax'),
 
     # Example:
     # (r'^nettikeittio/', include('nettikeittio.foo.urls')),

@@ -32,9 +32,10 @@ def menu(request):
 def render_detail_recipe(request, recipe_id, recipe_template):
     
     recipe = get_object_or_404(Recipe, pk=recipe_id)
+    comments = Comment.objects.filter(recipe = recipe)
     phase_list = Phase.objects.filter(recipe = recipe).order_by('ordering')
     ingredient_list = PhaseIngredient.objects.filter(phase__recipe = recipe)
-    context = { 'recipe': recipe, 'phase_list': phase_list, 'ingredient_list': ingredient_list }
+    context = { 'recipe': recipe, 'phase_list': phase_list, 'ingredient_list': ingredient_list, 'comments': comments }
     
     #find, if recipe is in user's favourites list
     if request.user.is_authenticated():
@@ -71,6 +72,10 @@ def favourite_ajax(request):
         json,
         content_type = 'application/javascript; charset=utf8'
     )
+
+def comment_ajax(request):
+    if request.method != 'POST':
+        return HttpResponseForbidden
 
 def main_page(request):
 

@@ -22,7 +22,7 @@
             <div class="listresult recipeColor">
                 <div class="img_container">
                 	{% if r.image %}
-                    	<img src="{% url image_root path=r.image %}"></img>
+                    	<img  alt="Image" src="{% url image_root path=r.image %}"></img>
                     {% else %}
                     	<span class="detailMissingText">Ei kuvaa</span>
                     {% endif %}
@@ -33,7 +33,7 @@
             <div class="listresult ownColor">
                 <div class="img_container">
                 	{% if r.image %}
-                		<img src="{% url image_root path=r.image %}"></img>
+                		<img alt="Image"  src="{% url image_root path=r.image %}"></img>
                 	{% else %}
                     	<span class="detailMissingText">Ei kuvaa</span>
                     {% endif %}

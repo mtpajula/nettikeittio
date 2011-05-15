@@ -293,19 +293,15 @@ def active(request, recipe_id):
 @login_required
 def edit_recipe(request, recipe_id):
 
-    #if not request.user.is_authenticated():
-    #    return HttpResponseForbidden
-    
-    recipe = get_object_or_404(Recipe, pk=recipe_id)
-    
-    if not request.user.get_profile() == recipe.owner:
-        # Unauthorized request
-        return HttpResponseForbidden()
-
     # Update recipe if post information is received
     if request.method == 'POST':
       return save_edit_recipe(request)
     
+    recipe = get_object_or_404(Recipe, pk=recipe_id)
+
+    if not request.user.get_profile() == recipe.owner:
+        # Unauthorized request
+        return HttpResponseForbidden()
     
     phases = Phase.objects.all().filter(recipe=recipe_id).order_by('ordering')
 
@@ -484,8 +480,12 @@ def save_edit_recipe(request):
     # Return redirect to avoid reposting information on page refreshh
     context = { 'recipe': rec }
     context.update(csrf(request))
+
     
-    return render_to_response('recipes/contentpage/edit_recipe.html', context, context_instance=RequestContext(request))
+    
+    #return render_to_response('recipes/contentpage/edit_recipe.html', context, context_instance=RequestContext(request))
+
+    return HttpResponseRedirect(reverse('edit_recipe', args=[rec.id]))
 
 
 def user_detail(request, user_id):

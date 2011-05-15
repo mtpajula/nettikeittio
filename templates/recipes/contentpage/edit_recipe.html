@@ -6,8 +6,10 @@
 <script type="text/javascript">
 $(document).ready(function() {
 
+
+$("#add_phase_button")
 // Add event handler for Add phase -button
-$("#add_phase_button").click(function(event) {
+.click(function(event) {
 	event.preventDefault();
 
 	var phase_container = $("#recipe_phases");
@@ -163,7 +165,7 @@ $("input.phase_ingredient_unit").autocomplete({
 			
       <label
       for="phase_0_ingredient_0_name">
-      Ingredient</label>
+      Ainesosa</label>
 			<input type="text"
       id="phase_0_ingredient_0_name" 
       class="phase_ingredient_name"
@@ -172,7 +174,7 @@ $("input.phase_ingredient_unit").autocomplete({
 
 			<label
       for="phase_0_ingredient_0_amount">
-      Amount</label>
+      Määrä</label>
 			<input type="text"
       id="phase_0_ingredient_0_amount"
       class="phase_ingredient_amount"
@@ -180,52 +182,52 @@ $("input.phase_ingredient_unit").autocomplete({
       value=""></input>
 
 			<label for="phase_0_ingredient_0_unit">
-      Unit</label>
+      Yksikkö</label>
 			<input type="text"
       id="phase_0_ingredient_0_unit"      
       class="phase_ingredient_unit"
       name="phase_0_ingredient_0_unit" 
       value=""></input>
 
-      <a href="#" title="Remove ingredient" class="remove_ingredient_button">x</a>
+      <a href="#" title="Remove ingredient" class="remove_ingredient_button"></a>
 
 </div>
 
 <div id="phaseTemplate" class="recipe_phase recipeColor">
 
-  <a href="#" title="Remove phase" class="remove_phase_button">x</a>
+  <a href="#" title="Remove phase" class="remove_phase_button"></a>
 
     <div class="inputblock">
-	<label for="phase_{{phase.id}}_name">Name</label>
+	<label for="phase_{{phase.id}}_name">Vaiheen nimi</label>
 	<input type="text" id="phase_0_name" name="phase_0_name" value=""></input>
 	</div>
 
 	<div class="inputblock">
-	<label for="phase_0_ordering">Ordering</label>
+	<label for="phase_0_ordering">Järjestys</label>
 	<input type="text" name="phase_0_ordering" id="phase_0_ordering" value="0"></input>
 	</div>
 
 	<div class="inputblock">
-	<label for="phase_0_act_type">Activity type</label>
+	<label for="phase_0_act_type">Aktiivisuus</label>
 	<select id="phase_0_act_type" name="phase_0_act_type">
-		<option value="0">Passive</option>
-		<option value="1">Active</option>
+		<option value="0">Passiivinen</option>
+		<option value="1">Aktiivinen</option>
 	</select>
 	</div>
 
 	<div class="inputblock">
-	<label for="phase_0_duration">Duration</label>
+	<label for="phase_0_duration">Kesto (minuuttia)</label>
 	<input type="text" id="phase_0_duration" name="phase_0_duration" value=""></input>
 	</div>
 
 	<div class="inputblock">
-	<label for="phase_0_descr">Description</label>
+	<label for="phase_0_descr">Kuvaus</label>
 	<textarea id="phase_0_descr" name="phase_0_descr"></textarea>
 	</div>
 
 	
-	<h5>Ingredients</h5>
-	<a class="add_ingredient_button" title="Add new ingredient" href="#">Add ingredient</a>
+	<h5>Ainesosat</h5>
+	<a class="add_ingredient_button" title="Add new ingredient" href="#"></a>
 	<div class="phase_ingredients" id="phase_0_ingredients">
 	
 	</div>
@@ -235,44 +237,46 @@ $("input.phase_ingredient_unit").autocomplete({
 </div>
 <!-- End of templates -->
 
-
 <!-- Print out existing stuff -->
+
+<h3>Reseptimuokkain</h3>
+
 <form id="update_recipe" action="{% url edit_recipe recipe_id=recipe.pk %}" method="POST">
 {% csrf_token %}
 <input type="hidden" name="recipe_id" value="{{recipe.id}}"></input>
 
-<input type="submit" value="Save"></input>
+<input type="submit" value="Tallenna"></input>
 
 <div id="recipe_header" class="recipeColor">
 
 <div class="inputblock">
-	<label  for="recipe_name">Recipe name</label>
+	<label  for="recipe_name">Reseptin nimi</label>
 	<input type="text" name="recipe_name" id="recipe_name" value="{{recipe.name}}"></input>
 </div>
 
 <div class="inputblock">
-	<label  for="recipe_description">Recipe description</label>
+	<label  for="recipe_description">Kuvaus</label>
 	<textarea type="text" name="recipe_description" id="recipe_description">{{recipe.description}}</textarea>
 </div>
 
 <div class="inputblock">
-  <label for="recipe_editable">Editable</label>
+  <label for="recipe_editable">Vapaa muokkaus</label>
   <select name="recipe_editable" id="recipe_editable">
-    <option {% if recipe.editable = 0 %} selected="selected" {% endif %} value="0">Not editable</option>
-    <option {% if recipe.editable = 1 %} selected="selected" {% endif %} value="1">Editable</option>
+    <option {% if recipe.editable = 0 %} selected="selected" {% endif %} value="0">Ei vapaa</option>
+    <option {% if recipe.editable = 1 %} selected="selected" {% endif %} value="1">Vapaa</option>
   </select>
 
 </div>
 
 <div class="inputblock">
-  Tags would go here.
+    Tagit olisivat tässä.
 </div>
 
 </div>
 
-<h3>Phases</h3>
+<h3>Vaiheet</h3>
 
-<a id="add_phase_button" title="Add new phase" href="#">Add phase</a>
+<a id="add_phase_button" title="Add new phase" href="#"></a>
 <!-- Contains all recipe phases -->
 <div id="recipe_phases" >
 
@@ -281,45 +285,45 @@ $("input.phase_ingredient_unit").autocomplete({
   <a href="#" title="Remove phase" class="remove_phase_button">x</a>
 
     <div class="inputblock">
-	<label for="phase_{{phase.id}}_name">Name</label>
+	<label for="phase_{{phase.id}}_name">Nimi</label>
 	<input type="text" id="phase_{{phase.id}}_name" name="phase_{{phase.id}}_name" value="{{phase.name}}"></input>
 	</div>
 
 
 	<div class="inputblock">
-	<label for="phase_{{phase.id}}_ordering">Ordering</label>
+	<label for="phase_{{phase.id}}_ordering">Järjestys</label>
 	<input type="text" name="phase_{{phase.id}}_ordering" id="phase_{{phase.id}}_ordering" value="{{phase.ordering}}"></input>
 	</div>
 
 	<div class="inputblock">
-	<label for="phase_{{phase.id}}_act_type">Activity type</label>
+	<label for="phase_{{phase.id}}_act_type">Aktiivisuus</label>
 	<select id="phase_{{phase.id}}_act_type" name="phase_{{phase.id}}_act_type">
-		<option {% if phase.activity_type = 0 %} selected="selected" {% endif %} value="0">Passive</option>
-		<option value="1" {% if phase.activity_type = 1 %} selected="selected" {% endif %}>Active</option>
+		<option {% if phase.activity_type = 0 %} selected="selected" {% endif %} value="0">Passiivinen</option>
+		<option value="1" {% if phase.activity_type = 1 %} selected="selected" {% endif %}>Aktiivinen</option>
 	</select>
 	</div>
 
 	<div class="inputblock">
-	<label for="phase_{{phase.id}}_duration">Duration</label>
+	<label for="phase_{{phase.id}}_duration">Kesto (minuuttia)</label>
 	<input type="text" id="phase_{{phase.id}}_duration" name="phase_{{phase.id}}_duration" value="{{phase.duration_min}}"></input>
 	</div>
 
 	
 	<div class="inputblock">
-	<label for="phase_{{phase.id}}_descr">Description</label>
+	<label for="phase_{{phase.id}}_descr">Kuvaus</label>
 	<textarea id="phase_{{phase.id}}_descr" name="phase_{{phase.id}}_descr">{{phase.description}}</textarea>
 	</div>
 
 	
-	<h5>Ingredients</h5>
-	<a class="add_ingredient_button" title="Add new ingredient" href="#">Add ingredient</a>
+	<h5>Ainesosat</h5>
+	<a class="add_ingredient_button" title="Add new ingredient" href="#"></a>
 	<div class="phase_ingredients" id="phase_{{phase.id}}_ingredients">
 		{% for phasei in phase.phaseingredient_set.all %}
 		<div class="phase_ingredient">
 			
       <label
       for="phase_{{phase.id}}_ingredient_{{forloop.counter0}}_name">
-      Ingredient</label>
+      Ainesosa</label>
 			<input type="text"
       id="phase_{{phase.id}}_ingredient_{{forloop.counter0}}_name" 
       class="phase_ingredient_name"
@@ -328,7 +332,7 @@ $("input.phase_ingredient_unit").autocomplete({
 
 			<label
       for="phase_{{phase.id}}_ingredient_{{forloop.counter0}}_amount">
-      Amount</label>
+      Määrä</label>
 			<input type="text"
       id="phase_{{phase.id}}_ingredient_{{forloop.counter0}}_amount"
       class="phase_ingredient_amount"
@@ -336,7 +340,7 @@ $("input.phase_ingredient_unit").autocomplete({
       value="{{phasei.amount}}"></input>
 
 			<label for="phase_{{phase.id}}_ingredient_{{forloop.counter0}}_unit">
-      Unit</label>
+      Yksikkö</label>
 			<input type="text"
       id="phase_{{phase.id}}_ingredient_{{forloop.counter0}}_unit"      
       class="phase_ingredient_unit"
@@ -354,7 +358,7 @@ $("input.phase_ingredient_unit").autocomplete({
 
 </div>
 
-<input type="submit" value="Save"></input>
+<input type="submit" value="Tallenna"></input>
 
 </form>
 
